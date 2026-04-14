@@ -1,0 +1,56 @@
+name: Deploy Shopify Theme
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: shopify-theme-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Validate required secrets
+        env:
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+        run: |
+          test -n "$SHOPIFY_FLAG_STORE" || (echo "Missing secret: SHOPIFY_STORE" && exit 1)
+          test -n "$SHOPIFY_CLI_THEME_TOKEN" || (echo "Missing secret: SHOPIFY_CLI_THEME_TOKEN" && exit 1)
+          test -n "$SHOPIFY_THEME_ID" || (echo "Missing secret: SHOPIFY_THEME_ID" && exit 1)
+
+      - name: Push theme to Shopify
+        env:
+          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
+          SHOPIFY_ALLOW_LIVE: ${{ secrets.SHOPIFY_ALLOW_LIVE }}
+        run: |
+          LIVE_FLAG=""
+          if [ "$SHOPIFY_ALLOW_LIVE" = "true" ]; then
+            LIVE_FLAG="--allow-live"
+          fi
+
+          shopify theme push \
+            --theme "$SHOPIFY_THEME_ID" \
+            --path . \
+            --nodelete \
+            $LIVE_FLAG
