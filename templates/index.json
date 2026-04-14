@@ -9,38 +9,50 @@
  */
 {
   "sections": {
-    "hero-slideshow": {
-      "type": "slideshow",
+    "vela-hero": {
+      "type": "vela-product-hero",
       "blocks": {
-        "slide-0": {
-          "type": "slide",
+        "chip-gym": {
+          "type": "chip",
           "settings": {
-            "heading": "スマホも鍵も、身軽に持ち運べる。",
-            "heading_size": "h1",
-            "subheading": "ジム、ウォーキング、ランニングに使いやすいポケット付きアクティブウェア。",
-            "button_label": "商品を見る",
-            "link": "/products/pocket-fit-workout-shorts",
-            "button_style_secondary": false,
-            "box_align": "middle-left",
-            "show_text_box": false,
-            "text_alignment": "left",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "text_alignment_mobile": "center"
+            "label": "Gym"
+          }
+        },
+        "chip-walking": {
+          "type": "chip",
+          "settings": {
+            "label": "Walking"
+          }
+        },
+        "chip-running": {
+          "type": "chip",
+          "settings": {
+            "label": "Running"
+          }
+        },
+        "chip-daily": {
+          "type": "chip",
+          "settings": {
+            "label": "Daily activewear"
           }
         }
       },
       "block_order": [
-        "slide-0"
+        "chip-gym",
+        "chip-walking",
+        "chip-running",
+        "chip-daily"
       ],
       "settings": {
-        "layout": "full_bleed",
-        "slide_height": "small",
-        "slider_visual": "dots",
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "image_behavior": "none",
-        "show_text_below": true
+        "product": "pocket-fit-workout-shorts",
+        "eyebrow": "Pocket Fit Workout Shorts",
+        "heading": "スマホも鍵も、身軽に持ち運べる。",
+        "subheading": "ジム、ウォーキング、ランニングに使いやすいポケット付きアクティブウェア。",
+        "button_label": "商品を見る",
+        "button_link": "/products/pocket-fit-workout-shorts",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 36
       }
     },
     "featured-value": {
@@ -85,8 +97,8 @@
       ],
       "settings": {
         "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
+        "desktop_image_width": "large",
+        "layout": "image_second",
         "image_behavior": "none",
         "content_layout": "no-overlap",
         "desktop_content_position": "middle",
@@ -139,38 +151,106 @@
         "color_scheme": "scheme-1",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
-        "padding_top": 56,
-        "padding_bottom": 24
+        "padding_top": 40,
+        "padding_bottom": 16
       }
     },
     "use-cases": {
-      "type": "rich-text",
+      "type": "multicolumn",
       "blocks": {
-        "use-cases-heading": {
-          "type": "heading",
+        "use-case-gym": {
+          "type": "column",
           "settings": {
-            "heading": "For active days",
-            "heading_size": "h2"
+            "title": "Gym",
+            "text": "<p>トレーニング時の持ち物管理をシンプルに。</p>"
           }
         },
-        "use-cases-text": {
-          "type": "text",
+        "use-case-walking": {
+          "type": "column",
           "settings": {
-            "text": "<ul><li>Gym</li><li>Walking</li><li>Running</li><li>Daily activewear</li></ul>"
+            "title": "Walking",
+            "text": "<p>歩く日常に、必要なものだけを身軽に。</p>"
+          }
+        },
+        "use-case-running": {
+          "type": "column",
+          "settings": {
+            "title": "Running",
+            "text": "<p>軽いランでも揺れにくく動きやすい。</p>"
+          }
+        },
+        "use-case-daily": {
+          "type": "column",
+          "settings": {
+            "title": "Daily activewear",
+            "text": "<p>アクティブな日のデイリーウェアとして。</p>"
           }
         }
       },
       "block_order": [
-        "use-cases-heading",
-        "use-cases-text"
+        "use-case-gym",
+        "use-case-walking",
+        "use-case-running",
+        "use-case-daily"
       ],
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "left",
+        "title": "For active days",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
         "color_scheme": "scheme-1",
-        "full_width": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
         "padding_top": 24,
-        "padding_bottom": 56
+        "padding_bottom": 24
+      }
+    },
+    "reassurance": {
+      "type": "multicolumn",
+      "blocks": {
+        "reassurance-shipping": {
+          "type": "column",
+          "settings": {
+            "title": "配送目安 7日〜14日前後",
+            "text": "<p>地域や配送状況により前後する場合があります。</p>"
+          }
+        },
+        "reassurance-quality": {
+          "type": "column",
+          "settings": {
+            "title": "初期不良は7日以内対応",
+            "text": "<p>商品到着後7日以内にご連絡ください。</p>"
+          }
+        },
+        "reassurance-scenes": {
+          "type": "column",
+          "settings": {
+            "title": "日常のアクティブシーン対応",
+            "text": "<p>ジム、ウォーキング、ランニングに使いやすい設計です。</p>"
+          }
+        }
+      },
+      "block_order": [
+        "reassurance-shipping",
+        "reassurance-quality",
+        "reassurance-scenes"
+      ],
+      "settings": {
+        "title": "安心して選べる理由",
+        "heading_size": "h3",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 8,
+        "padding_bottom": 32
       }
     },
     "faq": {
@@ -258,16 +338,17 @@
         "content_alignment": "center",
         "color_scheme": "scheme-1",
         "full_width": false,
-        "padding_top": 20,
+        "padding_top": 24,
         "padding_bottom": 72
       }
     }
   },
   "order": [
-    "hero-slideshow",
+    "vela-hero",
     "featured-value",
     "benefits",
     "use-cases",
+    "reassurance",
     "faq",
     "final-cta"
   ]

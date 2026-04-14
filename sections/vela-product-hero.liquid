@@ -1,0 +1,283 @@
+{%- liquid
+  assign hero_product = section.settings.product
+  assign hero_image = blank
+  if hero_product != blank and hero_product.featured_media != blank
+    assign hero_image = hero_product.featured_media.preview_image
+  elsif section.settings.fallback_image != blank
+    assign hero_image = section.settings.fallback_image
+  endif
+
+  assign cta_url = section.settings.button_link
+  if cta_url == blank and hero_product != blank
+    assign cta_url = hero_product.url
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .vela-product-hero__wrap {
+    display: grid;
+    gap: 3.2rem;
+    align-items: center;
+  }
+
+  .vela-product-hero__eyebrow {
+    margin: 0 0 1.2rem;
+    color: rgba(var(--color-foreground), 0.72);
+    font-size: 1.2rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .vela-product-hero__heading {
+    margin: 0;
+    max-width: 24ch;
+    line-height: 1.18;
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    letter-spacing: -0.02em;
+  }
+
+  .vela-product-hero__lead {
+    margin: 2rem 0 0;
+    max-width: 48ch;
+    color: rgba(var(--color-foreground), 0.78);
+  }
+
+  .vela-product-hero__actions {
+    margin-top: 2.4rem;
+  }
+
+  .vela-product-hero__chips {
+    margin: 3.2rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .vela-product-hero__chip {
+    padding: 0.7rem 1.2rem;
+    border: 1px solid rgba(var(--color-foreground), 0.12);
+    border-radius: 999px;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .vela-product-hero__media {
+    border-radius: 2rem;
+    overflow: hidden;
+    border: 1px solid rgba(var(--color-foreground), 0.08);
+    background: rgba(var(--color-background), 0.92);
+  }
+
+  .vela-product-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .vela-product-hero__placeholder {
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .vela-product-hero__wrap {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 4.8rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="vela-product-hero color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding">
+    <div class="vela-product-hero__wrap">
+      <div class="vela-product-hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="vela-product-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        <h1 class="vela-product-hero__heading">
+          {{ section.settings.heading }}
+        </h1>
+
+        {%- if section.settings.subheading != blank -%}
+          <p class="vela-product-hero__lead">{{ section.settings.subheading | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank and cta_url != blank -%}
+          <div class="vela-product-hero__actions">
+            <a class="button" href="{{ cta_url }}">{{ section.settings.button_label | escape }}</a>
+          </div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="vela-product-hero__chips" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.label != blank -%}
+                <li class="vela-product-hero__chip" {{ block.shopify_attributes }}>
+                  {{ block.settings.label | escape }}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="vela-product-hero__media">
+        {%- if hero_image != blank -%}
+          {%- if cta_url != blank -%}
+            <a href="{{ cta_url }}">
+          {%- endif -%}
+          {{
+            hero_image
+            | image_url: width: 1800
+            | image_tag:
+              class: 'vela-product-hero__image',
+              loading: 'eager',
+              widths: '550, 750, 1100, 1500, 1800',
+              sizes: '(min-width: 990px) 52vw, 100vw'
+          }}
+          {%- if cta_url != blank -%}
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          <div class="vela-product-hero__placeholder">
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VELA Product Hero",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "商品"
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "代替画像（任意）"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "アイブロウ",
+      "default": "Pocket Fit Workout Shorts"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "見出し",
+      "default": "スマホも鍵も、身軽に持ち運べる。"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "補足テキスト",
+      "default": "ジム、ウォーキング、ランニングに使いやすいポケット付きアクティブウェア。"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "ボタンラベル",
+      "default": "商品を見る"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "ボタンリンク"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "カラースキーム",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "余白"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "上余白",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "下余白",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "ラベル",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "テキスト",
+          "default": "Gym"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VELA Product Hero",
+      "blocks": [
+        {
+          "type": "chip",
+          "settings": {
+            "label": "Gym"
+          }
+        },
+        {
+          "type": "chip",
+          "settings": {
+            "label": "Walking"
+          }
+        },
+        {
+          "type": "chip",
+          "settings": {
+            "label": "Running"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
