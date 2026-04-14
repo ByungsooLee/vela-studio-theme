@@ -60,6 +60,8 @@ jobs:
           SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID_STAGING }}
         run: |
           shopify theme push \
+            --store "$SHOPIFY_FLAG_STORE" \
+            --password "$SHOPIFY_CLI_THEME_TOKEN" \
             --theme "$SHOPIFY_THEME_ID" \
             --path . \
             --nodelete
@@ -112,6 +114,8 @@ jobs:
           fi
 
           shopify theme push \
+            --store "$SHOPIFY_FLAG_STORE" \
+            --password "$SHOPIFY_CLI_THEME_TOKEN" \
             --theme "$SHOPIFY_THEME_ID" \
             --path . \
             --nodelete \
