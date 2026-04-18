@@ -1,0 +1,88 @@
+{{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
+
+<section class="perfume-shell perfume-section perfume-story">
+  <div class="page-width">
+    <div class="perfume-story__inner">
+      <div class="perfume-story__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 2200
+            | image_tag:
+              widths: '600, 900, 1200, 1600, 2200',
+              sizes: '(min-width: 990px) 52vw, 100vw',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="perfume-story__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h2 class="perfume-heading perfume-story__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.body != blank -%}
+          <div class="perfume-copy rte">{{ section.settings.body }}</div>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+          <div class="perfume-button-group">
+            <a class="perfume-button perfume-button--secondary" href="{{ section.settings.link }}">
+              {{ section.settings.link_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perfume Story Split",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "画像"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "アイブロウ",
+      "default": "Brand Story"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "見出し",
+      "default": "日常に、香りの余韻を。"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "本文",
+      "default": "<p>素材選定から調香、ボトルデザインまで、静かな存在感と余韻を大切に設計しています。強く主張しすぎず、記憶に残る香りを目指したコレクションです。</p>"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "リンクラベル",
+      "default": "ブランドを見る"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "リンク"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perfume Story Split"
+    }
+  ]
+}
+{% endschema %}

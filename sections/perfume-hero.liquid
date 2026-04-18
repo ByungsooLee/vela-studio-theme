@@ -1,0 +1,153 @@
+{{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
+
+<section class="perfume-shell perfume-section perfume-hero">
+  <div class="page-width">
+    <div class="perfume-hero__inner">
+      <div class="perfume-hero__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 2600
+            | image_tag:
+              class: 'perfume-hero__image',
+              widths: '750, 1100, 1500, 1900, 2300, 2600',
+              sizes: '(min-width: 990px) 55vw, 100vw',
+              loading: 'eager'
+          }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'perfume-hero__image placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="perfume-hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        <h1 class="perfume-heading perfume-hero__heading">{{ section.settings.heading }}</h1>
+        {%- if section.settings.subheading != blank -%}
+          <p class="perfume-copy perfume-hero__lead">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        <div class="perfume-button-group">
+          {%- if section.settings.primary_label != blank and section.settings.primary_link != blank -%}
+            <a class="perfume-button" href="{{ section.settings.primary_link }}">
+              {{ section.settings.primary_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank and section.settings.secondary_link != blank -%}
+            <a class="perfume-button perfume-button--secondary" href="{{ section.settings.secondary_link }}">
+              {{ section.settings.secondary_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="perfume-hero__trust" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.text != blank -%}
+                <li class="perfume-hero__trust-item" {{ block.shopify_attributes }}>
+                  {{ block.settings.text | escape }}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perfume Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "ヒーロー画像"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "アイブロウ",
+      "default": "Fine Fragrance House"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "見出し",
+      "default": "纏うたび、印象が深まる。"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "サブコピー",
+      "default": "香りの系統や気分から、今のあなたに寄り添う一本を選べます。"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "第一CTAラベル",
+      "default": "人気の香りを見る"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "第一CTAリンク"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "第二CTAラベル",
+      "default": "香りから選ぶ"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "第二CTAリンク"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "信頼ラベル",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "ラベル",
+          "default": "全国配送 / ギフト対応"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Perfume Hero",
+      "blocks": [
+        {
+          "type": "trust",
+          "settings": {
+            "text": "全国配送 / ギフト対応"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "text": "レビュー高評価"
+          }
+        },
+        {
+          "type": "trust",
+          "settings": {
+            "text": "初めての方ガイド"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

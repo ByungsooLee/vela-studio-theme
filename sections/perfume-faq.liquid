@@ -1,0 +1,105 @@
+{{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
+
+<section class="perfume-shell perfume-section perfume-section--surface perfume-faq">
+  <div class="page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h2 class="perfume-heading">{{ section.settings.heading }}</h2>
+
+    <div class="perfume-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="perfume-faq__item" {% if forloop.first and section.settings.open_first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question | escape }}</summary>
+          <div class="perfume-faq__answer rte">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perfume FAQ",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "アイブロウ",
+      "default": "FAQ"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "見出し",
+      "default": "はじめての香水選びで、よくある質問。"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "最初の項目を開いて表示",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "質問",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "質問",
+          "default": "香りが自分に合うか不安です。"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "回答",
+          "default": "<p>人気の香調別コレクションやレビューから、近い印象の香りを選べます。迷う場合はチャット相談もご利用ください。</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perfume FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "香りが自分に合うか不安です。",
+            "answer": "<p>香調・気分・シーンのナビから選ぶと失敗しにくくなります。レビューの印象コメントも参考にしてください。</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "ギフト対応は可能ですか？",
+            "answer": "<p>ラッピングとメッセージカードに対応しています。商品ページでギフトオプションを選択してください。</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "配送の目安を教えてください。",
+            "answer": "<p>通常2〜5営業日で発送しています。繁忙期は前後する場合があります。</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "保管方法は？",
+            "answer": "<p>直射日光・高温多湿を避け、キャップを閉めて保管してください。香りの変化を抑えられます。</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
