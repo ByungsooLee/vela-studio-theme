@@ -96,6 +96,70 @@
   }
 {%- endstyle -%}
 
+{%- if request.page_type == 'index' -%}
+  <style>
+    .header-wrapper {
+      background: rgba(247, 244, 238, 0.9);
+      backdrop-filter: blur(10px);
+    }
+
+    .header {
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .header__inline-menu {
+      justify-self: start;
+    }
+
+    .header__heading {
+      justify-self: center;
+      margin: 0;
+    }
+
+    .header__icons {
+      justify-self: end;
+    }
+
+    .header__heading-link {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 1.25rem;
+    }
+
+    .list-menu--inline {
+      gap: 1.8rem;
+    }
+
+    .list-menu__item--link,
+    .header__icon {
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(41, 38, 35, 0.76);
+    }
+
+    .header__icon .svg-wrapper,
+    .header__menu-item .svg-wrapper {
+      transform: scale(0.92);
+    }
+
+    @media screen and (max-width: 989px) {
+      .header {
+        grid-template-columns: auto 1fr auto;
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      }
+
+      .header__heading-link {
+        letter-spacing: 0.14em;
+      }
+    }
+  </style>
+{%- endif -%}
+
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid

@@ -15,19 +15,19 @@
         "trust-1": {
           "type": "trust",
           "settings": {
-            "text": "全国配送 / 追跡対応"
+            "text": ""
           }
         },
         "trust-2": {
           "type": "trust",
           "settings": {
-            "text": "ギフトラッピング対応"
+            "text": ""
           }
         },
         "trust-3": {
           "type": "trust",
           "settings": {
-            "text": "初めての方ガイドあり"
+            "text": ""
           }
         }
       },
@@ -37,200 +37,14 @@
         "trust-3"
       ],
       "settings": {
-        "image": "",
-        "eyebrow": "Fine Fragrance House",
-        "heading": "静かに残る、あなたの香り。",
-        "subheading": "上品な余韻を纏うフレグランスを、香調や気分から選べます。初めての一本も、贈り物も迷わずに。",
-        "primary_label": "人気の香りを見る",
-        "primary_link": "/collections/best-sellers",
-        "secondary_label": "香りから選ぶ",
-        "secondary_link": "/collections/all"
-      }
-    },
-    "scent-entry": {
-      "type": "scent-entry-nav",
-      "blocks": {
-        "entry-1": {
-          "type": "entry",
-          "settings": {
-            "kicker": "By Notes",
-            "title": "香りの系統で選ぶ",
-            "desc": "Floral / Citrus / Woody / Musk から、好みに近い系統を選択。",
-            "link": "/collections/all"
-          }
-        },
-        "entry-2": {
-          "type": "entry",
-          "settings": {
-            "kicker": "By Mood",
-            "title": "気分で選ぶ",
-            "desc": "落ち着きたい、印象を残したい、清潔感を纏いたい。",
-            "link": "/collections/all"
-          }
-        },
-        "entry-3": {
-          "type": "entry",
-          "settings": {
-            "kicker": "By Scene",
-            "title": "シーンで選ぶ",
-            "desc": "仕事、休日、夜のお出かけ、ギフトの場面から選択。",
-            "link": "/collections/all"
-          }
-        },
-        "entry-4": {
-          "type": "entry",
-          "settings": {
-            "kicker": "For First Purchase",
-            "title": "初めての方へ",
-            "desc": "レビューが多い香りや失敗しにくい人気ラインから。",
-            "link": "/collections/best-sellers"
-          }
-        }
-      },
-      "block_order": [
-        "entry-1",
-        "entry-2",
-        "entry-3",
-        "entry-4"
-      ],
-      "settings": {
-        "eyebrow": "Scent Navigation",
-        "heading": "あなたの今に似合う香りへ。",
-        "lead": "香りの系統・気分・シーン・ギフト。入口から選べる導線で、迷いを減らします。"
-      }
-    },
-    "bestsellers": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "",
-        "products_to_show": 4,
-        "title": "Best Sellers",
-        "heading_size": "h1",
-        "description": "<p>まず選ぶなら、評価の高い人気の香りから。</p>",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 3,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "outline",
-        "color_scheme": "scheme-1",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": true,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 40,
-        "padding_bottom": 24
-      }
-    },
-    "brand-story": {
-      "type": "perfume-story-split",
-      "settings": {
-        "image": "",
-        "eyebrow": "Brand Story",
-        "heading": "日常に、香りの余韻を。",
-        "body": "<p>私たちは、強い主張よりも記憶に残る余韻を大切にしています。素材の透明感、調香の奥行き、纏った後の静かな存在感まで設計したフレグランスです。</p>",
-        "link_label": "ブランドの思想を見る",
-        "link": "/pages/about"
-      }
-    },
-    "scene-grid": {
-      "type": "perfume-scene-grid",
-      "blocks": {
-        "scene-1": {
-          "type": "scene",
-          "settings": {
-            "image": "",
-            "title": "仕事の日に",
-            "desc": "清潔感と落ち着きを両立する香り。",
-            "link": "/collections/work"
-          }
-        },
-        "scene-2": {
-          "type": "scene",
-          "settings": {
-            "image": "",
-            "title": "夜の外出に",
-            "desc": "深みのあるノートで印象を残す。",
-            "link": "/collections/night"
-          }
-        },
-        "scene-3": {
-          "type": "scene",
-          "settings": {
-            "image": "",
-            "title": "余裕をまといたい日に",
-            "desc": "穏やかで品のある余韻を纏う。",
-            "link": "/collections/relax"
-          }
-        },
-        "scene-4": {
-          "type": "scene",
-          "settings": {
-            "image": "",
-            "title": "贈り物として",
-            "desc": "ギフト人気の高い香りを中心に。",
-            "link": "/collections/gift"
-          }
-        }
-      },
-      "block_order": [
-        "scene-1",
-        "scene-2",
-        "scene-3",
-        "scene-4"
-      ],
-      "settings": {
-        "eyebrow": "By Scene",
-        "heading": "シーンで選ぶ香り。",
-        "lead": "使う場面から逆算して選ぶことで、失敗しにくくなります。"
-      }
-    },
-    "trust-notes": {
-      "type": "perfume-trust-notes",
-      "blocks": {
-        "review-1": {
-          "type": "review",
-          "settings": {
-            "quote": "纏った直後より、少し時間が経った時の香りに惹かれました。",
-            "meta": "40代 / 女性"
-          }
-        },
-        "review-2": {
-          "type": "review",
-          "settings": {
-            "quote": "甘すぎず重すぎず、仕事でも使いやすい香りでした。",
-            "meta": "30代 / 男性"
-          }
-        },
-        "assurance-1": {
-          "type": "assurance",
-          "settings": {
-            "title": "ギフト対応",
-            "body": "ラッピングとメッセージカードに対応しています。"
-          }
-        },
-        "assurance-2": {
-          "type": "assurance",
-          "settings": {
-            "title": "配送目安",
-            "body": "通常2〜5営業日で発送。追跡番号付きでお届けします。"
-          }
-        }
-      },
-      "block_order": [
-        "review-1",
-        "review-2",
-        "assurance-1",
-        "assurance-2"
-      ],
-      "settings": {
-        "eyebrow": "Review & Trust",
-        "heading": "香りの印象と、安心できる理由。"
+        "main_image": "",
+        "support_image_1": "",
+        "support_image_2": "",
+        "eyebrow": "",
+        "heading": "",
+        "subheading": "",
+        "primary_label": "",
+        "primary_link": "/collections/all"
       }
     },
     "perfume-faq": {
@@ -239,29 +53,29 @@
         "faq-1": {
           "type": "faq",
           "settings": {
-            "question": "香りが自分に合うか不安です。",
-            "answer": "<p>香調・気分・シーンから選べるナビを用意しています。迷う場合はレビューコメントを参考にしてください。</p>"
+            "question": "",
+            "answer": ""
           }
         },
         "faq-2": {
           "type": "faq",
           "settings": {
-            "question": "ギフト対応は可能ですか？",
-            "answer": "<p>ラッピングとメッセージカードに対応しています。商品ページから選択できます。</p>"
+            "question": "",
+            "answer": ""
           }
         },
         "faq-3": {
           "type": "faq",
           "settings": {
-            "question": "返品や交換は可能ですか？",
-            "answer": "<p>初期不良や誤配送は到着後7日以内にご連絡ください。内容確認後、交換対応します。</p>"
+            "question": "",
+            "answer": ""
           }
         },
         "faq-4": {
           "type": "faq",
           "settings": {
-            "question": "保管方法は？",
-            "answer": "<p>直射日光・高温多湿を避け、キャップを閉めて保管してください。</p>"
+            "question": "",
+            "answer": ""
           }
         }
       },
@@ -272,59 +86,13 @@
         "faq-4"
       ],
       "settings": {
-        "eyebrow": "FAQ",
-        "heading": "はじめての香水選びで、よくある質問。",
-        "open_first": false
-      }
-    },
-    "final-cta": {
-      "type": "perfume-final-cta",
-      "blocks": {
-        "final-cta-1": {
-          "type": "action",
-          "settings": {
-            "label": "人気の香りを見る",
-            "link": "/collections/best-sellers",
-            "style": "primary"
-          }
-        },
-        "final-cta-2": {
-          "type": "action",
-          "settings": {
-            "label": "自分に合う香りを探す",
-            "link": "/collections/all",
-            "style": "secondary"
-          }
-        },
-        "final-cta-3": {
-          "type": "action",
-          "settings": {
-            "label": "ギフトを探す",
-            "link": "/collections/gift",
-            "style": "secondary"
-          }
-        }
-      },
-      "block_order": [
-        "final-cta-1",
-        "final-cta-2",
-        "final-cta-3"
-      ],
-      "settings": {
-        "eyebrow": "Final Step",
-        "heading": "あなたの気分に寄り添う香りを。",
-        "subheading": "人気、香り、ギフト。目的に合わせて次の一歩を選べます。"
+        "eyebrow": "",
+        "heading": ""
       }
     }
   },
   "order": [
     "perfume-hero",
-    "scent-entry",
-    "bestsellers",
-    "brand-story",
-    "scene-grid",
-    "trust-notes",
-    "perfume-faq",
-    "final-cta"
+    "perfume-faq"
   ]
 }

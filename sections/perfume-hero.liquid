@@ -1,59 +1,81 @@
 {{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
 
-<section class="perfume-shell perfume-section perfume-hero">
+<section class="perfume-shell perfume-section perfume-hero-v2">
   <div class="page-width">
-    <div class="perfume-hero__inner">
-      <div class="perfume-hero__media">
-        {%- if section.settings.image != blank -%}
-          {{
-            section.settings.image
-            | image_url: width: 2600
-            | image_tag:
-              class: 'perfume-hero__image',
-              widths: '750, 1100, 1500, 1900, 2300, 2600',
-              sizes: '(min-width: 990px) 55vw, 100vw',
-              loading: 'eager'
-          }}
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'perfume-hero__image placeholder-svg' }}
-        {%- endif -%}
-      </div>
+    {%- assign hero_eyebrow = section.settings.eyebrow | strip -%}
+    {%- assign hero_heading = section.settings.heading | strip -%}
+    {%- assign hero_subheading = section.settings.subheading | strip -%}
+    {%- assign hero_label = section.settings.primary_label | strip -%}
+    {%- assign is_ja = request.locale.iso_code | slice: 0, 2 -%}
+    {%- assign hero_collection = section.settings.hero_collection -%}
+    {%- if hero_collection == blank -%}
+      {%- assign hero_collection = collections['all'] -%}
+    {%- endif -%}
 
-      <div class="perfume-hero__content">
-        {%- if section.settings.eyebrow != blank -%}
-          <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
-        {%- endif -%}
-        <h1 class="perfume-heading perfume-hero__heading">{{ section.settings.heading }}</h1>
-        {%- if section.settings.subheading != blank -%}
-          <p class="perfume-copy perfume-hero__lead">{{ section.settings.subheading }}</p>
-        {%- endif -%}
+    {%- if hero_eyebrow == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign hero_eyebrow = '一人暮らしの質を上げる日用品' -%}
+      {%- else -%}
+        {%- assign hero_eyebrow = 'Everyday upgrades for solo living' -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if hero_heading == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign hero_heading = '小さく選んで、部屋を整える。' -%}
+      {%- else -%}
+        {%- assign hero_heading = 'Choose small. Live better.' -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if hero_subheading == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign hero_subheading = '気になる商品をそのままタップして、すぐ詳細へ進めます。' -%}
+      {%- else -%}
+        {%- assign hero_subheading = 'Tap any block to jump straight into the product page.' -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if hero_label == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign hero_label = '商品を見る' -%}
+      {%- else -%}
+        {%- assign hero_label = 'Shop the collection' -%}
+      {%- endif -%}
+    {%- endif -%}
 
-        <div class="perfume-button-group">
-          {%- if section.settings.primary_label != blank and section.settings.primary_link != blank -%}
-            <a class="perfume-button" href="{{ section.settings.primary_link }}">
-              {{ section.settings.primary_label | escape }}
-            </a>
-          {%- endif -%}
-          {%- if section.settings.secondary_label != blank and section.settings.secondary_link != blank -%}
-            <a class="perfume-button perfume-button--secondary" href="{{ section.settings.secondary_link }}">
-              {{ section.settings.secondary_label | escape }}
-            </a>
-          {%- endif -%}
+    {%- if hero_collection != blank and hero_collection.products.size > 0 -%}
+      <div class="perfume-hero-v2__media-wrap">
+        <div class="perfume-hero-v2__mosaic" role="list">
+          {%- for product in hero_collection.products limit: 4 -%}
+            <article
+              class="perfume-hero-v2__tile perfume-hero-v2__tile--{{ forloop.index }}"
+              role="listitem"
+            >
+              <a class="perfume-hero-v2__tile-link" href="{{ product.url }}">
+                <div class="perfume-hero-v2__tile-media">
+                  {%- if product.featured_media != blank -%}
+                    {{
+                      product.featured_media
+                      | image_url: width: 1600
+                      | image_tag:
+                        class: 'perfume-hero-v2__tile-image',
+                        widths: '320, 480, 720, 960, 1280, 1600',
+                        sizes: '(min-width: 990px) 28vw, (min-width: 750px) 42vw, 50vw',
+                        loading: 'lazy',
+                        alt: product.title
+                    }}
+                  {%- endif -%}
+                </div>
+                <div class="perfume-hero-v2__tile-copy">
+                  <p class="perfume-hero-v2__tile-title">{{ product.title }}</p>
+                  <p class="perfume-hero-v2__tile-meta">
+                    {%- if is_ja == 'ja' -%}商品を見る{%- else -%}View product{%- endif -%}
+                  </p>
+                </div>
+              </a>
+            </article>
+          {%- endfor -%}
         </div>
-
-        {%- if section.blocks.size > 0 -%}
-          <ul class="perfume-hero__trust" role="list">
-            {%- for block in section.blocks -%}
-              {%- if block.settings.text != blank -%}
-                <li class="perfume-hero__trust-item" {{ block.shopify_attributes }}>
-                  {{ block.settings.text | escape }}
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
       </div>
-    </div>
+    {%- endif -%}
   </div>
 </section>
 
@@ -64,49 +86,53 @@
   "class": "section",
   "settings": [
     {
+      "type": "collection",
+      "id": "hero_collection",
+      "label": "表示するコレクション"
+    },
+    {
       "type": "image_picker",
-      "id": "image",
-      "label": "ヒーロー画像"
+      "id": "main_image",
+      "label": "メイン画像"
+    },
+    {
+      "type": "image_picker",
+      "id": "support_image_1",
+      "label": "補助画像 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "support_image_2",
+      "label": "補助画像 2"
     },
     {
       "type": "text",
       "id": "eyebrow",
       "label": "アイブロウ",
-      "default": "Fine Fragrance House"
+      "default": "Everyday upgrades"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "見出し",
-      "default": "纏うたび、印象が深まる。"
+      "default": "Small ideas. Better days."
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "サブコピー",
-      "default": "香りの系統や気分から、今のあなたに寄り添う一本を選べます。"
+      "default": "Curated essentials for solo living."
     },
     {
       "type": "text",
       "id": "primary_label",
-      "label": "第一CTAラベル",
-      "default": "人気の香りを見る"
+      "label": "CTAラベル",
+      "default": "Shop now"
     },
     {
       "type": "url",
       "id": "primary_link",
-      "label": "第一CTAリンク"
-    },
-    {
-      "type": "text",
-      "id": "secondary_label",
-      "label": "第二CTAラベル",
-      "default": "香りから選ぶ"
-    },
-    {
-      "type": "url",
-      "id": "secondary_link",
-      "label": "第二CTAリンク"
+      "label": "CTAリンク"
     }
   ],
   "blocks": [
@@ -118,12 +144,12 @@
           "type": "text",
           "id": "text",
           "label": "ラベル",
-          "default": "全国配送 / ギフト対応"
+          "default": "Fast shipping"
         }
       ]
     }
   ],
-  "max_blocks": 4,
+  "max_blocks": 5,
   "presets": [
     {
       "name": "Perfume Hero",
@@ -131,19 +157,19 @@
         {
           "type": "trust",
           "settings": {
-            "text": "全国配送 / ギフト対応"
+            "text": "Fast shipping"
           }
         },
         {
           "type": "trust",
           "settings": {
-            "text": "レビュー高評価"
+            "text": "30-day support"
           }
         },
         {
           "type": "trust",
           "settings": {
-            "text": "初めての方ガイド"
+            "text": "Compact-space ready"
           }
         }
       ]

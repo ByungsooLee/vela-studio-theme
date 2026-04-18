@@ -1,0 +1,323 @@
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+{{ 'component-review-lightbox.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'review-lightbox.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign imported_review_refs_metafield = product.metafields.custom.imported_review_refs
+  assign imported_review_refs = blank
+  if imported_review_refs_metafield != blank
+    assign imported_review_refs = imported_review_refs_metafield.value
+  endif
+
+  assign imported_reviews_json_metafield = product.metafields.custom.imported_reviews_json
+  assign imported_reviews_json = blank
+  if imported_reviews_json_metafield != blank
+    assign imported_reviews_json = imported_reviews_json_metafield.value
+  endif
+
+  assign imported_reviews = blank
+  if imported_review_refs != blank
+    assign imported_reviews = imported_review_refs
+  elsif imported_reviews_json != blank
+    if imported_reviews_json.reviews != blank
+      assign imported_reviews = imported_reviews_json.reviews
+    else
+      assign imported_reviews = imported_reviews_json
+    endif
+  endif
+
+  assign imported_reviews_count = 0
+  if imported_reviews != blank
+    for review in imported_reviews
+      assign imported_reviews_count = imported_reviews_count | plus: 1
+    endfor
+  endif
+
+  assign summary_rating = blank
+  assign summary_rating_scale_max = 5
+  if product.metafields.reviews.rating.value != blank
+    assign summary_rating = product.metafields.reviews.rating.value.rating
+    assign summary_rating_scale_max = product.metafields.reviews.rating.value.scale_max | default: 5
+  endif
+  if summary_rating == blank
+    assign summary_rating = product.metafields.custom.source_review_average.value | default: product.metafields.custom.source_review_average
+  endif
+
+  assign summary_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  if summary_count == blank
+    assign summary_count = product.metafields.custom.source_review_count.value | default: product.metafields.custom.source_review_count
+  endif
+  if summary_count == blank
+    assign summary_count = imported_reviews_count
+  endif
+
+  assign summary_rating_number = summary_rating | plus: 0
+  assign summary_count_number = summary_count | plus: 0
+
+  assign summary_rating_decimal = 0
+  assign summary_decimal = summary_rating_number | modulo: 1
+  if summary_decimal >= 0.3 and summary_decimal <= 0.7
+    assign summary_rating_decimal = 0.5
+  elsif summary_decimal > 0.7
+    assign summary_rating_decimal = 1
+  endif
+-%}
+
+{%- if imported_reviews_count > 0 or section.settings.show_empty_state -%}
+  <section class="section section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient" data-review-lightbox-root data-review-app-selectors="{{ section.settings.review_app_selectors | escape }}">
+    {%- style -%}
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      }
+
+      .imported-reviews {
+        display: block;
+      }
+
+      .imported-reviews__summary {
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.8rem 1.2rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+      }
+
+      .imported-reviews__summary-score {
+        margin: 0;
+      }
+
+      .imported-reviews__summary-count {
+        margin: 0;
+        color: rgba(var(--color-foreground), 0.75);
+      }
+
+      .imported-reviews__list {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .imported-reviews__item {
+        height: 100%;
+        border: 1px solid rgba(var(--color-foreground), 0.06);
+        border-radius: 1.2rem;
+        background: rgba(var(--color-foreground), 0.015);
+      }
+
+      .imported-reviews__item .card__content,
+      .imported-reviews__item .card__information {
+        padding: 1.6rem;
+      }
+
+      .imported-reviews__item-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .imported-reviews__item-title,
+      .imported-reviews__item-body {
+        margin: 0.8rem 0 0;
+      }
+
+      .imported-reviews__item-body {
+        color: rgba(var(--color-foreground), 0.85);
+        line-height: 1.75;
+      }
+
+      .imported-reviews__item-meta {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+      }
+
+      .imported-reviews__item-meta .caption {
+        margin: 0;
+      }
+
+      .imported-reviews__images {
+        margin-top: 1.2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .imported-reviews__image-link {
+        display: inline-flex;
+        border-radius: 0.6rem;
+        overflow: hidden;
+        border: 1px solid rgba(var(--color-foreground), 0.14);
+        cursor: zoom-in;
+        padding: 0;
+        background: transparent;
+        appearance: none;
+      }
+
+      .imported-reviews__image {
+        width: 9.6rem;
+        height: 9.6rem;
+        object-fit: cover;
+        display: block;
+      }
+
+      .imported-reviews__empty {
+        margin: 0;
+        color: rgba(var(--color-foreground), 0.75);
+      }
+
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+
+        .imported-reviews__list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    {%- endstyle -%}
+
+    <div class="page-width imported-reviews">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if imported_reviews_count > 0 -%}
+        <div class="imported-reviews__summary">
+          {%- if summary_rating != blank -%}
+            <p class="h3 imported-reviews__summary-score">{{ summary_rating_number | round: 1 }}</p>
+            <div
+              class="rating"
+              role="img"
+              aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: summary_rating_number, rating_max: summary_rating_scale_max }}"
+            >
+              <span
+                aria-hidden="true"
+                class="rating-star"
+                style="--rating: {{ summary_rating_number | floor }}; --rating-max: {{ summary_rating_scale_max }}; --rating-decimal: {{ summary_rating_decimal }};"
+              ></span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="imported-reviews__list" role="list">
+          {%- for review in imported_reviews limit: section.settings.max_reviews -%}
+            <div role="listitem">
+              {% render 'imported-review-item', review: review %}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <modal-dialog id="ReviewLightbox-{{ section.id }}" class="review-lightbox-modal" data-review-lightbox-modal>
+          <div
+            role="dialog"
+            aria-label="{{ 'accessibility.gallery' | t | default: 'レビュー画像を拡大表示' }}"
+            aria-modal="true"
+            class="review-lightbox-modal__content"
+            tabindex="-1"
+          >
+            <button
+              id="ModalClose-ReviewLightbox-{{ section.id }}"
+              type="button"
+              class="review-lightbox-modal__close"
+              aria-label="{{ 'accessibility.close' | t }}"
+            >
+              {{- 'icon-close.svg' | inline_asset_content -}}
+            </button>
+
+            <button type="button" class="review-lightbox-modal__nav review-lightbox-modal__nav--prev" data-review-lightbox-prev aria-label="前の画像">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </button>
+            <div class="review-lightbox-modal__image-wrap">
+              <img src="" alt="" class="review-lightbox-modal__image" data-review-lightbox-image loading="lazy" width="1200" height="1200">
+              <p class="review-lightbox-modal__counter" data-review-lightbox-counter></p>
+            </div>
+            <button type="button" class="review-lightbox-modal__nav review-lightbox-modal__nav--next" data-review-lightbox-next aria-label="次の画像">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </button>
+          </div>
+        </modal-dialog>
+      {%- elsif section.settings.empty_text != blank -%}
+        <p class="imported-reviews__empty">{{ section.settings.empty_text | escape }}</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Imported Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer reviews"
+    },
+    {
+      "type": "range",
+      "id": "max_reviews",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "default": 12,
+      "label": "Maximum reviews to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_empty_state",
+      "label": "Show empty state when no reviews",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty state text",
+      "default": "レビューはまだありません。"
+    },
+    {
+      "type": "text",
+      "id": "review_app_selectors",
+      "label": "Review app image selectors",
+      "default": ".jdgm-rev__pic-link, .spr-review-gallery-link, .ryviu-review-image a, .stamped-review-image a, .loox-review img"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imported Reviews"
+    }
+  ]
+}
+{% endschema %}

@@ -36,6 +36,100 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {%- if section.id == 'catalog' -%}
+    #collection-{{ section.id }} {
+      padding-top: max(0px, {{ section.settings.padding_top | times: 0.75 | round: 0 }}px);
+    }
+
+    #collection-{{ section.id }} .collection__title {
+      max-width: 62rem;
+      margin: 0 auto 2.4rem;
+      text-align: center;
+      justify-content: center;
+      gap: 0.9rem;
+    }
+
+    #collection-{{ section.id }} .title {
+      margin: 0;
+      letter-spacing: -0.05em;
+      font-size: clamp(2.8rem, 5vw, 4.8rem);
+      line-height: 0.95;
+    }
+
+    #collection-{{ section.id }} .collection__description {
+      margin: 0;
+      color: rgba(41, 38, 35, 0.72);
+      line-height: 1.55;
+    }
+
+    #collection-{{ section.id }} .product-grid {
+      column-gap: 1.2rem;
+      row-gap: 2.4rem;
+    }
+
+    #collection-{{ section.id }} .card-wrapper {
+      height: 100%;
+    }
+
+    #collection-{{ section.id }} .card {
+      background: transparent;
+      border: 0;
+    }
+
+    #collection-{{ section.id }} .card__inner {
+      overflow: hidden;
+      border-radius: 1.8rem;
+      background: #ece7dd;
+    }
+
+    #collection-{{ section.id }} .card__media .media img {
+      transform: scale(1.001);
+    }
+
+    #collection-{{ section.id }} .card__content {
+      padding-top: 1.2rem;
+    }
+
+    #collection-{{ section.id }} .card__heading {
+      letter-spacing: -0.02em;
+      font-size: 1.55rem;
+    }
+
+    #collection-{{ section.id }} .card-information > .price {
+      color: rgba(41, 38, 35, 0.78);
+      margin-top: 0.5rem;
+    }
+
+    #collection-{{ section.id }} .price__regular .price-item--regular {
+      font-size: 1.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    #collection-{{ section.id }} .card__badge,
+    #collection-{{ section.id }} .rating,
+    #collection-{{ section.id }} .rating-text,
+    #collection-{{ section.id }} .rating-count {
+      display: none;
+    }
+
+    #collection-{{ section.id }} .collection__view-all {
+      margin-top: 2.8rem;
+    }
+
+    #collection-{{ section.id }} .button--secondary {
+      border-color: rgba(41, 38, 35, 0.18);
+      color: #292623;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    @media screen and (min-width: 990px) {
+      #collection-{{ section.id }} .product-grid {
+        column-gap: 1.6rem;
+      }
+    }
+  {%- endif -%}
+
 {%- endstyle -%}
 
 {%- liquid
@@ -68,25 +162,43 @@
   class="color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
-    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
+    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}{% if section.id == 'catalog' %} collection--vela-curated{% endif %}"
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
+    {%- assign resolved_title = section.settings.title -%}
+    {%- assign resolved_description = section.settings.description -%}
+    {%- if section.id == 'catalog' -%}
+      {%- assign is_ja = request.locale.iso_code | slice: 0, 2 -%}
+      {%- if resolved_title == blank -%}
+        {%- assign resolved_title = 'Featured Products' -%}
+      {%- endif -%}
+      {%- if resolved_description == blank -%}
+        {%- if is_ja == 'ja' -%}
+          {%- assign resolved_description = '<p>ただ並べるのではなく、今の暮らしに必要な商品だけを選びました。</p>' -%}
+        {%- else -%}
+          {%- assign resolved_description = '<p>Chosen pieces for better routines, not a noisy product wall.</p>' -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
-      {%- if section.settings.title != blank -%}
+      {%- if resolved_title != blank -%}
         <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
+          {{ resolved_title }}
         </h2>
       {%- endif -%}
-      {%- if section.settings.description != blank
+      {%- if resolved_description != blank
         or section.settings.show_description
         and section.settings.collection.description != empty
       -%}
         <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {%- if section.settings.show_description -%}
+          {%- if section.id == 'catalog' and resolved_description != blank -%}
+            {{ resolved_description -}}
+          {%- elsif section.settings.show_description -%}
             {{ section.settings.collection.description }}
           {%- else -%}
-            {{ section.settings.description -}}
+            {{ resolved_description -}}
           {%- endif %}
         </div>
       {%- endif -%}

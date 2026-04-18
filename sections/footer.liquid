@@ -27,6 +27,54 @@
   }
 {%- endstyle -%}
 
+{%- if request.page_type == 'index' -%}
+  <style>
+    .footer {
+      border-top: 1px solid rgba(41, 38, 35, 0.12);
+      background: #f7f4ee;
+    }
+
+    .footer__content-top {
+      max-width: 112rem;
+      padding-top: 0.8rem;
+    }
+
+    .footer__blocks-wrapper {
+      column-gap: 2.4rem;
+      row-gap: 2rem;
+    }
+
+    .footer-block__heading {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(41, 38, 35, 0.6);
+    }
+
+    .footer-block__details-content .list-menu__item--link {
+      padding: 0.4rem 0;
+      color: rgba(41, 38, 35, 0.78);
+    }
+
+    .footer__content-bottom {
+      margin-top: 2rem;
+      border-top: 1px solid rgba(41, 38, 35, 0.1);
+    }
+
+    .footer__content-bottom-wrapper {
+      max-width: 112rem;
+      padding-top: 1.4rem;
+    }
+
+    @media screen and (max-width: 749px) {
+      .footer__content-top {
+        padding-top: 0;
+      }
+    }
+  </style>
+{%- endif -%}
+
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   {%- liquid
     assign has_social_icons = true

@@ -1,0 +1,137 @@
+{% liquid
+  assign review_rating = review.rating.value | default: review.rating | plus: 0
+  assign rating_scale_max = review.rating.scale_max | default: 5 | plus: 0
+  if rating_scale_max <= 0
+    assign rating_scale_max = 5
+  endif
+
+  assign rating_decimal = 0
+  assign decimal = review_rating | modulo: 1
+  if decimal >= 0.3 and decimal <= 0.7
+    assign rating_decimal = 0.5
+  elsif decimal > 0.7
+    assign rating_decimal = 1
+  endif
+
+  assign review_title = review.title.value | default: review.title
+  assign review_body = review.body.value | default: review.body
+  assign review_author_name = review.author_name.value | default: review.author_name
+  assign review_submitted_at = review.submitted_at.value | default: review.submitted_at
+  assign review_variant_label = review.variant_label.value | default: review.variant_label
+  assign review_helpful_count = review.helpful_count.value | default: review.helpful_count | plus: 0
+  assign review_source_platform = review.source_platform.value | default: review.source_platform
+  assign review_image_urls = review.image_urls.value | default: review.image_urls
+  assign review_group_key = review.id.value | default: review.id | default: review_submitted_at | append: '-' | append: review_author_name | handle
+%}
+
+<article class="imported-reviews__item card">
+  <div class="card__content">
+    <div class="card__information">
+      <div class="imported-reviews__item-header">
+        <div
+          class="rating"
+          role="img"
+          aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: review_rating, rating_max: rating_scale_max }}"
+        >
+          <span
+            aria-hidden="true"
+            class="rating-star"
+            style="--rating: {{ review_rating | floor }}; --rating-max: {{ rating_scale_max }}; --rating-decimal: {{ rating_decimal }};"
+          ></span>
+        </div>
+        {%- if review_submitted_at != blank -%}
+          <time class="caption-with-letter-spacing imported-reviews__item-date" datetime="{{ review_submitted_at | date: '%Y-%m-%d' }}">
+            {{ review_submitted_at | date: '%Y.%m.%d' }}
+          </time>
+        {%- endif -%}
+      </div>
+
+      {%- if review_title != blank -%}
+        <h3 class="h4 imported-reviews__item-title">{{ review_title | escape }}</h3>
+      {%- endif -%}
+
+      {%- if review_body != blank -%}
+        <p class="imported-reviews__item-body">{{ review_body | escape | newline_to_br }}</p>
+      {%- endif -%}
+
+      <div class="imported-reviews__item-meta">
+        {%- if review_author_name != blank -%}
+          <p class="caption">{{ review_author_name | escape }}</p>
+        {%- endif -%}
+        {%- if review_variant_label != blank -%}
+          <p class="caption imported-reviews__item-variant">{{ review_variant_label | escape }}</p>
+        {%- endif -%}
+        {%- if review_source_platform != blank -%}
+          <p class="caption imported-reviews__item-source">{{ review_source_platform | escape }}</p>
+        {%- endif -%}
+        {%- if review_helpful_count > 0 -%}
+          <p class="caption imported-reviews__item-helpful">
+            Helpful {{ review_helpful_count }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- if review_image_urls != blank -%}
+        <div class="imported-reviews__images" role="list">
+          {%- assign rendered_images_count = 0 -%}
+          {%- assign rendered_image_index = 0 -%}
+          {%- for image_url in review_image_urls -%}
+            {%- assign image_url_text = image_url | strip -%}
+            {%- if image_url_text contains '://' -%}
+              {%- assign rendered_images_count = rendered_images_count | plus: 1 -%}
+              <button
+                type="button"
+                class="imported-reviews__image-link"
+                role="listitem"
+                data-review-lightbox-trigger
+                data-review-lightbox-group="{{ review_group_key | escape }}"
+                data-review-lightbox-src="{{ image_url_text | escape }}"
+                data-review-lightbox-alt="{{ review_title | default: review_author_name | default: 'Review image' | escape }}"
+                data-review-lightbox-index="{{ rendered_image_index }}"
+              >
+                <img
+                  class="imported-reviews__image"
+                  src="{{ image_url_text | escape }}"
+                  alt="{{ review_title | default: review_author_name | default: 'Review image' | escape }}"
+                  loading="lazy"
+                  width="96"
+                  height="96"
+                >
+              </button>
+              {%- assign rendered_image_index = rendered_image_index | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if rendered_images_count == 0 and review_image_urls contains '[' -%}
+            {%- assign image_urls_text = review_image_urls | remove: '[' | remove: ']' | remove: '"' -%}
+            {%- assign image_urls_fallback = image_urls_text | split: ',' -%}
+            {%- for image_url in image_urls_fallback -%}
+              {%- assign image_url_text = image_url | strip -%}
+              {%- if image_url_text contains '://' -%}
+                <button
+                  type="button"
+                  class="imported-reviews__image-link"
+                  role="listitem"
+                  data-review-lightbox-trigger
+                  data-review-lightbox-group="{{ review_group_key | escape }}"
+                  data-review-lightbox-src="{{ image_url_text | escape }}"
+                  data-review-lightbox-alt="{{ review_title | default: review_author_name | default: 'Review image' | append: ' ' | append: forloop.index | escape }}"
+                  data-review-lightbox-index="{{ forloop.index0 }}"
+                >
+                  <img
+                    class="imported-reviews__image"
+                    src="{{ image_url_text | escape }}"
+                    alt="{{ review_title | default: review_author_name | default: 'Review image' | escape }}"
+                    loading="lazy"
+                    width="96"
+                    height="96"
+                  >
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</article>

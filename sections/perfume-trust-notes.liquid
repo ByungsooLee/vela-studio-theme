@@ -1,23 +1,83 @@
 {{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
 
-<section class="perfume-shell perfume-section perfume-trust">
+<section class="perfume-shell perfume-section perfume-trust-v2">
   <div class="page-width">
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- assign trust_eyebrow = section.settings.eyebrow | strip -%}
+    {%- assign trust_heading = section.settings.heading | strip -%}
+    {%- assign trust_lead = section.settings.lead | strip -%}
+    {%- assign is_ja = request.locale.iso_code | slice: 0, 2 -%}
+    {%- if trust_eyebrow == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign trust_eyebrow = 'Brand Promise' -%}
+      {%- else -%}
+        {%- assign trust_eyebrow = 'Brand Promise' -%}
+      {%- endif -%}
     {%- endif -%}
-    <h2 class="perfume-heading">{{ section.settings.heading }}</h2>
+    {%- if trust_heading == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign trust_heading = '日常に残る使いやすさを基準に。' -%}
+      {%- else -%}
+        {%- assign trust_heading = 'Designed to stay with your routine.' -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- if trust_lead == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign trust_lead = '選定基準は、次の3つを軸にしています。' -%}
+      {%- else -%}
+        {%- assign trust_lead = 'Three priorities shape every item we select.' -%}
+      {%- endif -%}
+    {%- endif -%}
 
-    <div class="perfume-trust__grid" role="list">
+    <header class="perfume-trust-v2__head">
+      <p class="perfume-eyebrow">{{ trust_eyebrow | escape }}</p>
+      <h2 class="perfume-heading perfume-trust-v2__heading">{{ trust_heading }}</h2>
+      <p class="perfume-copy perfume-trust-v2__lead">{{ trust_lead }}</p>
+    </header>
+
+    <div class="perfume-trust-v2__grid" role="list">
       {%- for block in section.blocks -%}
-        <article class="perfume-trust__item" role="listitem" {{ block.shopify_attributes }}>
-          {%- if block.type == 'review' -%}
-            <p class="perfume-trust__quote">“{{ block.settings.quote | escape }}”</p>
-            {%- if block.settings.meta != blank -%}
-              <p class="perfume-trust__meta">{{ block.settings.meta | escape }}</p>
-            {%- endif -%}
-          {%- else -%}
-            <p class="perfume-trust__meta">{{ block.settings.title | escape }}</p>
-            <p class="perfume-copy">{{ block.settings.body | escape }}</p>
+        {%- assign point_title = block.settings.title | strip -%}
+        {%- assign point_body = block.settings.body | strip -%}
+        {%- if point_title == blank -%}
+          {%- case forloop.index -%}
+            {%- when 1 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign point_title = '省スペース前提' -%}
+                {%- assign point_body = 'ワンルームでも置きやすいサイズと設計。' -%}
+              {%- else -%}
+                {%- assign point_title = 'Compact by default' -%}
+                {%- assign point_body = 'Sized for single-room layouts and smaller storage.' -%}
+              {%- endif -%}
+            {%- when 2 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign point_title = '静かなデザイン' -%}
+                {%- assign point_body = '空間に自然に馴染む、過度な主張のない佇まい。' -%}
+              {%- else -%}
+                {%- assign point_title = 'Quiet visual tone' -%}
+                {%- assign point_body = 'Clean forms that sit naturally in modern spaces.' -%}
+              {%- endif -%}
+            {%- when 3 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign point_title = '機能は必要十分' -%}
+                {%- assign point_body = '使わない機能を削ぎ、実用性を優先。' -%}
+              {%- else -%}
+                {%- assign point_title = 'Function before noise' -%}
+                {%- assign point_body = 'Only useful features, without excess gimmicks.' -%}
+              {%- endif -%}
+            {%- when 4 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign point_title = '続けられる価格' -%}
+                {%- assign point_body = '貯金計画を崩しにくい価格帯で品質を確保。' -%}
+              {%- else -%}
+                {%- assign point_title = 'Budget-aware quality' -%}
+                {%- assign point_body = 'Built to feel premium without premium-only pricing.' -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endif -%}
+        <article class="perfume-trust-v2__item" role="listitem" {{ block.shopify_attributes }}>
+          <p class="perfume-trust-v2__title">{{ point_title | escape }}</p>
+          {%- if point_body != blank -%}
+            <p class="perfume-copy perfume-trust-v2__body">{{ point_body | escape }}</p>
           {%- endif -%}
         </article>
       {%- endfor -%}
@@ -30,55 +90,43 @@
   "name": "Perfume Trust Notes",
   "tag": "section",
   "class": "section",
-  "max_blocks": 8,
+  "max_blocks": 6,
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
       "label": "アイブロウ",
-      "default": "Review & Trust"
+      "default": "Brand Promise"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "見出し",
-      "default": "香りの印象と、安心できる理由。"
+      "default": "Designed to stay with your routine."
+    },
+    {
+      "type": "textarea",
+      "id": "lead",
+      "label": "リード文",
+      "default": "Three priorities shape each selection."
     }
   ],
   "blocks": [
     {
-      "type": "review",
-      "name": "レビュー",
-      "settings": [
-        {
-          "type": "textarea",
-          "id": "quote",
-          "label": "レビュー文",
-          "default": "甘さが重すぎず、最後にウッディが残る感じが心地よいです。"
-        },
-        {
-          "type": "text",
-          "id": "meta",
-          "label": "補足",
-          "default": "30代 / 会社員"
-        }
-      ]
-    },
-    {
-      "type": "assurance",
-      "name": "安心要素",
+      "type": "point",
+      "name": "信頼項目",
       "settings": [
         {
           "type": "text",
           "id": "title",
           "label": "タイトル",
-          "default": "ギフト対応"
+          "default": "Compact by default"
         },
         {
           "type": "textarea",
           "id": "body",
           "label": "本文",
-          "default": "ラッピングとメッセージカードに対応しています。"
+          "default": "Everyday comfort."
         }
       ]
     }
@@ -88,31 +136,31 @@
       "name": "Perfume Trust Notes",
       "blocks": [
         {
-          "type": "review",
+          "type": "point",
           "settings": {
-            "quote": "纏った瞬間より、少し時間が経った時の香りが特に好きです。",
-            "meta": "40代 / 女性"
+            "title": "Compact by default",
+            "body": "Everyday comfort."
           }
         },
         {
-          "type": "review",
+          "type": "point",
           "settings": {
-            "quote": "初めてでも選びやすく、香りの説明がわかりやすかったです。",
-            "meta": "20代 / 男性"
+            "title": "Quiet visual tone",
+            "body": "Everyday comfort."
           }
         },
         {
-          "type": "assurance",
+          "type": "point",
           "settings": {
-            "title": "配送目安",
-            "body": "通常2〜5営業日で発送。追跡番号付きでお届け。"
+            "title": "Function before noise",
+            "body": "Everyday comfort."
           }
         },
         {
-          "type": "assurance",
+          "type": "point",
           "settings": {
-            "title": "サポート",
-            "body": "香り選びのご相談をチャットで受け付けています。"
+            "title": "Budget-aware quality",
+            "body": "Everyday comfort."
           }
         }
       ]

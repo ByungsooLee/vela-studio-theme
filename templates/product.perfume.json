@@ -1,0 +1,139 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product-perfume",
+      "settings": {
+        "eyebrow": "Fragrance",
+        "fragrance_family_label": "香調",
+        "impression_label": "印象",
+        "scene_label": "おすすめシーン",
+        "season_label": "おすすめの季節",
+        "variant_label": "サイズ",
+        "add_to_cart_label": "カートに入れる",
+        "sold_out_label": "現在在庫がありません",
+        "in_stock_message": "ご購入いただけます",
+        "sold_out_message": "再入荷のお知らせをご利用ください",
+        "return_period_label": "返品期間",
+        "return_period_text": "商品到着後7日以内にご連絡ください。",
+        "restock_label": "再入荷通知を受け取る",
+        "alt_collection_label": "似た香りを見る",
+        "benefits_heading": "この香りがもたらす印象",
+        "benefit_fallback_1": "甘すぎず、やわらかく印象に残る。",
+        "benefit_fallback_2": "近づいたときに、ふわっと感じる上品さ。",
+        "benefit_fallback_3": "日常にも特別な日にもなじむ使いやすさ。",
+        "notes_heading": "香りのノート",
+        "top_label": "Top",
+        "middle_label": "Middle",
+        "last_label": "Last",
+        "related_heading": "香りを選ぶ",
+        "final_cta_heading": "纏うたび、やさしく印象に残る。",
+        "final_cta_copy_available": "花々のやわらかさに、ムスクの余韻を重ねた香りです。",
+        "final_cta_copy_soldout": "現在欠品中です。再入荷通知から次回入荷をご確認ください。",
+        "final_cta_button_available": "購入へ進む",
+        "final_cta_button_soldout": "再入荷通知を見る",
+        "sticky_button_available": "カートに入れる",
+        "sticky_button_soldout": "在庫状況を見る",
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "media_position": "left",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "show",
+        "hide_variants": true,
+        "constrain_to_viewport": false,
+        "media_fit": "contain",
+        "enable_video_looping": false,
+        "padding_top": 24,
+        "padding_bottom": 36
+      }
+    },
+    "imported-reviews": {
+      "type": "product-imported-reviews",
+      "settings": {
+        "heading": "お客様レビュー",
+        "max_reviews": 12,
+        "show_empty_state": true,
+        "empty_text": "レビューはまだありません。",
+        "review_app_selectors": ".jdgm-rev__pic-link, .spr-review-gallery-link, .ryviu-review-image a, .stamped-review-image a, .loox-review img",
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "collapsible-content": {
+      "type": "collapsible-content",
+      "blocks": {
+        "faq-1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "香りはどのくらい持続しますか？",
+            "icon": "question_mark",
+            "row_content": "<p>肌質や環境で変わりますが、目安として4〜6時間ほど香りの変化をお楽しみいただけます。</p>",
+            "page": ""
+          }
+        },
+        "faq-2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "普段使いしやすい香りですか？",
+            "icon": "question_mark",
+            "row_content": "<p>軽やかさと上品さのバランスを意識した調香のため、日常使いにも取り入れやすい香りです。</p>",
+            "page": ""
+          }
+        },
+        "faq-3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "どんな方におすすめですか？",
+            "icon": "question_mark",
+            "row_content": "<p>甘さだけで終わらない上品なフローラルを探している方、毎日使える香りをお探しの方におすすめです。</p>",
+            "page": ""
+          }
+        },
+        "faq-4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "保管方法と返品について",
+            "icon": "question_mark",
+            "row_content": "<p>直射日光を避けて保管してください。返品・交換条件はショップポリシーをご確認ください。</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4"
+      ],
+      "settings": {
+        "caption": "",
+        "heading": "よくあるご質問",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "layout": "none",
+        "color_scheme": "scheme-1",
+        "container_color_scheme": "scheme-1",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "imported-reviews",
+    "collapsible-content"
+  ]
+}

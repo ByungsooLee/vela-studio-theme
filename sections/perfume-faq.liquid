@@ -1,20 +1,72 @@
 {{ 'section-perfume-home.css' | asset_url | stylesheet_tag }}
 
-<section class="perfume-shell perfume-section perfume-section--surface perfume-faq">
+<section class="perfume-shell perfume-section perfume-faq-v2">
   <div class="page-width">
-    {%- if section.settings.eyebrow != blank -%}
-      <p class="perfume-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- assign faq_eyebrow = section.settings.eyebrow | strip -%}
+    {%- assign faq_heading = section.settings.heading | strip -%}
+    {%- assign is_ja = request.locale.iso_code | slice: 0, 2 -%}
+    {%- if faq_eyebrow == blank -%}
+      {%- assign faq_eyebrow = 'FAQ' -%}
     {%- endif -%}
-    <h2 class="perfume-heading">{{ section.settings.heading }}</h2>
+    {%- if faq_heading == blank -%}
+      {%- if is_ja == 'ja' -%}
+        {%- assign faq_heading = 'よくある質問' -%}
+      {%- else -%}
+        {%- assign faq_heading = 'Questions, answered simply.' -%}
+      {%- endif -%}
+    {%- endif -%}
 
-    <div class="perfume-faq__list">
+    <header class="perfume-faq-v2__head">
+      <p class="perfume-eyebrow">{{ faq_eyebrow | escape }}</p>
+      <h2 class="perfume-heading perfume-faq-v2__heading">{{ faq_heading }}</h2>
+    </header>
+
+    <div class="perfume-faq-v2__list">
       {%- for block in section.blocks -%}
-        <details class="perfume-faq__item" {% if forloop.first and section.settings.open_first %}open{% endif %} {{ block.shopify_attributes }}>
-          <summary>{{ block.settings.question | escape }}</summary>
-          <div class="perfume-faq__answer rte">
-            {{ block.settings.answer }}
+        {%- assign faq_question = block.settings.question | strip -%}
+        {%- assign faq_answer = block.settings.answer -%}
+        {%- if faq_question == blank -%}
+          {%- case forloop.index -%}
+            {%- when 1 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign faq_question = '一人暮らし向けの商品ですか？' -%}
+                {%- assign faq_answer = '<p>はい。限られた空間と日常動線を前提に選定しています。</p>' -%}
+              {%- else -%}
+                {%- assign faq_question = 'Are these products suitable for solo living?' -%}
+                {%- assign faq_answer = '<p>Yes. Every item is selected for limited space and daily ease.</p>' -%}
+              {%- endif -%}
+            {%- when 2 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign faq_question = '貯金中でも購入しやすいですか？' -%}
+                {%- assign faq_answer = '<p>はい。生活改善に効く価格帯を中心に構成しています。</p>' -%}
+              {%- else -%}
+                {%- assign faq_question = 'Can I shop while keeping a monthly budget?' -%}
+                {%- assign faq_answer = '<p>Yes. Pricing is curated to stay realistic for saving-focused plans.</p>' -%}
+              {%- endif -%}
+            {%- when 3 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign faq_question = '配送は早いですか？' -%}
+                {%- assign faq_answer = '<p>国内配送を中心に、追跡しやすい形でお届けします。</p>' -%}
+              {%- else -%}
+                {%- assign faq_question = 'Do you ship quickly?' -%}
+                {%- assign faq_answer = '<p>Domestic orders are processed quickly with clear tracking updates.</p>' -%}
+              {%- endif -%}
+            {%- when 4 -%}
+              {%- if is_ja == 'ja' -%}
+                {%- assign faq_question = 'どこから見ればいいですか？' -%}
+                {%- assign faq_answer = '<p>まずはFeatured Productsから見て、次に使用シーンをご確認ください。</p>' -%}
+              {%- else -%}
+                {%- assign faq_question = 'Where should I start?' -%}
+                {%- assign faq_answer = '<p>Start with the featured products, then explore lifestyle scenes for fit.</p>' -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endif -%}
+        <article class="perfume-faq-v2__item" {{ block.shopify_attributes }}>
+          <h3 class="perfume-faq-v2__question">{{ faq_question | escape }}</h3>
+          <div class="perfume-faq-v2__answer rte">
+            {{ faq_answer }}
           </div>
-        </details>
+        </article>
       {%- endfor -%}
     </div>
   </div>
@@ -37,13 +89,7 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "見出し",
-      "default": "はじめての香水選びで、よくある質問。"
-    },
-    {
-      "type": "checkbox",
-      "id": "open_first",
-      "label": "最初の項目を開いて表示",
-      "default": false
+      "default": "Questions, answered simply."
     }
   ],
   "blocks": [
@@ -55,13 +101,13 @@
           "type": "text",
           "id": "question",
           "label": "質問",
-          "default": "香りが自分に合うか不安です。"
+          "default": "Where should I start?"
         },
         {
           "type": "richtext",
           "id": "answer",
           "label": "回答",
-          "default": "<p>人気の香調別コレクションやレビューから、近い印象の香りを選べます。迷う場合はチャット相談もご利用ください。</p>"
+          "default": "<p>Start with featured products.</p>"
         }
       ]
     }
@@ -73,29 +119,29 @@
         {
           "type": "faq",
           "settings": {
-            "question": "香りが自分に合うか不安です。",
-            "answer": "<p>香調・気分・シーンのナビから選ぶと失敗しにくくなります。レビューの印象コメントも参考にしてください。</p>"
+            "question": "Where should I start?",
+            "answer": "<p>Start with featured products.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
-            "question": "ギフト対応は可能ですか？",
-            "answer": "<p>ラッピングとメッセージカードに対応しています。商品ページでギフトオプションを選択してください。</p>"
+            "question": "Can I keep budget control?",
+            "answer": "<p>Yes, practical pricing is prioritized.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
-            "question": "配送の目安を教えてください。",
-            "answer": "<p>通常2〜5営業日で発送しています。繁忙期は前後する場合があります。</p>"
+            "question": "Do you ship quickly?",
+            "answer": "<p>Domestic orders are processed quickly.</p>"
           }
         },
         {
           "type": "faq",
           "settings": {
-            "question": "保管方法は？",
-            "answer": "<p>直射日光・高温多湿を避け、キャップを閉めて保管してください。香りの変化を抑えられます。</p>"
+            "question": "Are these solo-living friendly?",
+            "answer": "<p>Yes, selected for compact spaces.</p>"
           }
         }
       ]
