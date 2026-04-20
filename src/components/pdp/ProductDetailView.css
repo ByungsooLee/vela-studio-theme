@@ -1,0 +1,19 @@
+.product-detail-view {
+  padding: var(--space-3) var(--space-2) var(--space-8);
+  background: var(--color-warm-white);
+}
+
+.product-detail-view__layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 991px) {
+  .product-detail-view__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}

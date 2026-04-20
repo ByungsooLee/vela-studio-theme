@@ -1,0 +1,51 @@
+.sticky-mobile-atc {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 65;
+  background: var(--color-warm-white);
+  border-top: 1px solid var(--color-sand);
+  padding: var(--space-1) var(--space-2);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.sticky-mobile-atc__meta {
+  display: grid;
+  gap: 2px;
+}
+
+.sticky-mobile-atc__variant {
+  color: var(--color-charcoal-mid);
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+
+.sticky-mobile-atc__price {
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.sticky-mobile-atc__button {
+  min-width: 132px;
+  min-height: 44px;
+  border: 1px solid var(--color-charcoal);
+  background: var(--color-charcoal);
+  color: var(--color-warm-white);
+  font-family: var(--font-body);
+}
+
+.sticky-mobile-atc__button:focus-visible {
+  outline: 2px solid var(--color-walnut);
+  outline-offset: 2px;
+}
+
+@media (min-width: 769px) {
+  .sticky-mobile-atc {
+    display: none;
+  }
+}

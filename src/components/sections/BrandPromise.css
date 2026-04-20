@@ -1,0 +1,38 @@
+.brand-promise {
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+}
+
+.brand-promise__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-2);
+  text-align: center;
+}
+
+.brand-promise__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.2;
+}
+
+.brand-promise__body {
+  margin: var(--space-2) auto 0;
+  max-width: 720px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--color-charcoal-mid);
+}
+
+@media (max-width: 767px) {
+  .brand-promise__inner {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .brand-promise__body {
+    font-size: 16px;
+  }
+}
