@@ -8,6 +8,7 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- capture localized_link_title -%}{% render 'localized-nav-label', label: link.title %}{%- endcapture -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -21,7 +22,7 @@
                     class="header__active-menu-item"
                   {% endif %}
                 >
-                  {{- link.title | escape -}}
+                  {{- localized_link_title | escape -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
@@ -35,6 +36,7 @@
                   role="list"
                 >
                   {%- for childlink in link.links -%}
+                    {%- capture localized_childlink_title -%}{% render 'localized-nav-label', label: childlink.title %}{%- endcapture -%}
                     <li>
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
@@ -44,11 +46,12 @@
                           aria-current="page"
                         {% endif %}
                       >
-                        {{ childlink.title | escape }}
+                        {{ localized_childlink_title | escape }}
                       </a>
                       {%- if childlink.links != blank -%}
                         <ul class="list-unstyled" role="list">
                           {%- for grandchildlink in childlink.links -%}
+                            {%- capture localized_grandchildlink_title -%}{% render 'localized-nav-label', label: grandchildlink.title %}{%- endcapture -%}
                             <li>
                               <a
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
@@ -58,7 +61,7 @@
                                   aria-current="page"
                                 {% endif %}
                               >
-                                {{ grandchildlink.title | escape }}
+                                {{ localized_grandchildlink_title | escape }}
                               </a>
                             </li>
                           {%- endfor -%}
@@ -84,7 +87,7 @@
                 class="header__active-menu-item"
               {% endif %}
             >
-              {{- link.title | escape -}}
+              {{- localized_link_title | escape -}}
             </span>
           </a>
         {%- endif -%}

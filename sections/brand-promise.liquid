@@ -1,0 +1,62 @@
+{{ 'brand-promise.css' | asset_url | stylesheet_tag }}
+
+<div class="brand-promise">
+  <div class="brand-promise__left">
+    <p class="brand-promise__overline">MADE WITH INTENTION</p>
+    <h2 class="brand-promise__headline">We don't carry everything.<br>Just the things worth keeping.</h2>
+    <div class="brand-promise__body">
+      <p>Every product at VELA STUDIO is chosen the way a good host chooses what's on the table — quietly, carefully, and with the person on the other side in mind.</p>
+      <p>We are drawn to objects made with restraint. Things that do one job beautifully, last longer than expected, and make daily life feel more considered. That sensibility guides every decision we make.</p>
+    </div>
+  </div>
+  <div class="brand-promise__right">
+    <div class="brand-promise__pillars">
+      <div class="brand-promise__pillar">
+        <div class="brand-promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="brand-promise__pillar-text">
+          <p class="brand-promise__pillar-label">Considered selection</p>
+          <p class="brand-promise__pillar-sub">We source slowly. Every item earns its place.</p>
+        </div>
+      </div>
+
+      <div class="brand-promise__pillar">
+        <div class="brand-promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12l4 6-10 13L2 9z"/>
+            <path d="M2 9h20"/>
+          </svg>
+        </div>
+        <div class="brand-promise__pillar-text">
+          <p class="brand-promise__pillar-label">Built to last</p>
+          <p class="brand-promise__pillar-sub">Designed with care. Not for the algorithm.</p>
+        </div>
+      </div>
+
+      <div class="brand-promise__pillar">
+        <div class="brand-promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
+        <div class="brand-promise__pillar-text">
+          <p class="brand-promise__pillar-label">Less, but better</p>
+          <p class="brand-promise__pillar-sub">We believe the best upgrade is often the quietest one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Promise",
+  "settings": [],
+  "presets": [{ "name": "Brand Promise" }]
+}
+{% endschema %}

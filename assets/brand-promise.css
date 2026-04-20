@@ -1,0 +1,122 @@
+.brand-promise {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  border-top: 0.5px solid #d5cfc6;
+}
+
+.brand-promise__left {
+  background: #2a2520;
+  padding: 72px 64px;
+}
+
+.brand-promise__right {
+  background: #f2ede4;
+  padding: 72px 48px;
+  display: flex;
+  align-items: center;
+}
+
+.brand-promise__overline {
+  margin: 0 0 24px;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(253, 250, 245, 0.6);
+}
+
+.brand-promise__headline {
+  margin: 0 0 28px;
+  font-family: var(--font-heading-family, Georgia, serif);
+  font-size: 38px;
+  font-weight: 400;
+  font-style: var(--font-heading-style);
+  line-height: 1.2;
+  color: #fdfaf5;
+}
+
+.brand-promise__body {
+  max-width: 420px;
+}
+
+.brand-promise__body p {
+  margin: 0 0 16px;
+  font-family: var(--font-body-family, Arial, sans-serif);
+  font-size: 15px;
+  font-weight: 300;
+  font-style: var(--font-body-style);
+  line-height: 1.75;
+  color: #fdfaf5;
+}
+
+.brand-promise__body p:last-child {
+  margin-bottom: 0;
+}
+
+.brand-promise__pillars {
+  width: 100%;
+}
+
+.brand-promise__pillar {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.brand-promise__pillar:not(:last-child) {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 0.5px solid #d5cfc6;
+}
+
+.brand-promise__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-promise__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.brand-promise__pillar-label {
+  margin: 0 0 5px;
+  font-family: var(--font-body-family, Arial, sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  font-style: var(--font-body-style);
+  line-height: 1.4;
+  color: #2a2520;
+}
+
+.brand-promise__pillar-sub {
+  margin: 0;
+  font-family: var(--font-body-family, Arial, sans-serif);
+  font-size: 13px;
+  font-weight: 300;
+  font-style: var(--font-body-style);
+  line-height: 1.55;
+  color: #8c8680;
+}
+
+@media (max-width: 768px) {
+  .brand-promise {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-promise__left {
+    padding: 48px 32px;
+  }
+
+  .brand-promise__right {
+    padding: 48px 32px;
+  }
+
+  .brand-promise__headline {
+    font-size: 26px;
+  }
+}

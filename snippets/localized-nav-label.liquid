@@ -1,0 +1,33 @@
+{%- liquid
+  assign source_label = label | default: ''
+  assign normalized_label = source_label | strip | downcase
+
+  case normalized_label
+    when 'home'
+      echo 'Home'
+    when 'ホーム'
+      echo 'Home'
+    when 'catalog'
+      echo 'Catalog'
+    when 'カタログ'
+      echo 'Catalog'
+    when 'contact'
+      echo 'Contact'
+    when 'contact us'
+      echo 'Contact'
+    when 'お問い合わせ'
+      echo 'Contact'
+    when 'shop'
+      echo 'Shop'
+    when 'ショップ'
+      echo 'Shop'
+    when 'shop now'
+      echo 'Shop'
+    when 'all products'
+      echo 'All Products'
+    when 'すべての商品'
+      echo 'All Products'
+    else
+      echo source_label
+  endcase
+-%}

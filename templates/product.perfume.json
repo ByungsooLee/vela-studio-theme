@@ -13,35 +13,35 @@
       "type": "main-product-perfume",
       "settings": {
         "eyebrow": "Fragrance",
-        "fragrance_family_label": "香調",
-        "impression_label": "印象",
-        "scene_label": "おすすめシーン",
-        "season_label": "おすすめの季節",
-        "variant_label": "サイズ",
-        "add_to_cart_label": "カートに入れる",
-        "sold_out_label": "現在在庫がありません",
-        "in_stock_message": "ご購入いただけます",
-        "sold_out_message": "再入荷のお知らせをご利用ください",
-        "return_period_label": "返品期間",
-        "return_period_text": "商品到着後7日以内にご連絡ください。",
-        "restock_label": "再入荷通知を受け取る",
-        "alt_collection_label": "似た香りを見る",
-        "benefits_heading": "この香りがもたらす印象",
-        "benefit_fallback_1": "甘すぎず、やわらかく印象に残る。",
-        "benefit_fallback_2": "近づいたときに、ふわっと感じる上品さ。",
-        "benefit_fallback_3": "日常にも特別な日にもなじむ使いやすさ。",
-        "notes_heading": "香りのノート",
+        "fragrance_family_label": "Fragrance family",
+        "impression_label": "Impression",
+        "scene_label": "Recommended scenes",
+        "season_label": "Recommended seasons",
+        "variant_label": "Size",
+        "add_to_cart_label": "Add to cart",
+        "sold_out_label": "Currently out of stock",
+        "in_stock_message": "Available for purchase",
+        "sold_out_message": "Use the restock notification",
+        "return_period_label": "Return period",
+        "return_period_text": "Please contact us within 7 days after delivery.",
+        "restock_label": "Get restock alerts",
+        "alt_collection_label": "View similar scents",
+        "benefits_heading": "What this scent leaves behind",
+        "benefit_fallback_1": "Soft and memorable without being too sweet.",
+        "benefit_fallback_2": "Elegant and airy when someone gets close.",
+        "benefit_fallback_3": "Easy to wear for both daily and special occasions.",
+        "notes_heading": "Fragrance notes",
         "top_label": "Top",
         "middle_label": "Middle",
         "last_label": "Last",
-        "related_heading": "香りを選ぶ",
-        "final_cta_heading": "纏うたび、やさしく印象に残る。",
-        "final_cta_copy_available": "花々のやわらかさに、ムスクの余韻を重ねた香りです。",
-        "final_cta_copy_soldout": "現在欠品中です。再入荷通知から次回入荷をご確認ください。",
-        "final_cta_button_available": "購入へ進む",
-        "final_cta_button_soldout": "再入荷通知を見る",
-        "sticky_button_available": "カートに入れる",
-        "sticky_button_soldout": "在庫状況を見る",
+        "related_heading": "Choose your scent",
+        "final_cta_heading": "A gentle impression that lingers.",
+        "final_cta_copy_available": "A soft floral profile layered with a musky trail.",
+        "final_cta_copy_soldout": "Currently sold out. Please use restock notifications for the next drop.",
+        "final_cta_button_available": "Proceed to purchase",
+        "final_cta_button_soldout": "View restock notice",
+        "sticky_button_available": "Add to cart",
+        "sticky_button_soldout": "View stock status",
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
         "media_size": "large",
@@ -59,10 +59,10 @@
     "imported-reviews": {
       "type": "product-imported-reviews",
       "settings": {
-        "heading": "お客様レビュー",
+        "heading": "Customer Reviews",
         "max_reviews": 12,
         "show_empty_state": true,
-        "empty_text": "レビューはまだありません。",
+        "empty_text": "No reviews yet.",
         "review_app_selectors": ".jdgm-rev__pic-link, .spr-review-gallery-link, .ryviu-review-image a, .stamped-review-image a, .loox-review img",
         "color_scheme": "scheme-1",
         "padding_top": 40,
@@ -75,36 +75,36 @@
         "faq-1": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "香りはどのくらい持続しますか？",
+            "heading": "How long does the scent last?",
             "icon": "question_mark",
-            "row_content": "<p>肌質や環境で変わりますが、目安として4〜6時間ほど香りの変化をお楽しみいただけます。</p>",
+            "row_content": "<p>It varies by skin and environment, but the scent profile typically evolves over 4-6 hours.</p>",
             "page": ""
           }
         },
         "faq-2": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "普段使いしやすい香りですか？",
+            "heading": "Is it easy to wear daily?",
             "icon": "question_mark",
-            "row_content": "<p>軽やかさと上品さのバランスを意識した調香のため、日常使いにも取り入れやすい香りです。</p>",
+            "row_content": "<p>Yes. It is blended with a balance of lightness and elegance for everyday wear.</p>",
             "page": ""
           }
         },
         "faq-3": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "どんな方におすすめですか？",
+            "heading": "Who is this fragrance for?",
             "icon": "question_mark",
-            "row_content": "<p>甘さだけで終わらない上品なフローラルを探している方、毎日使える香りをお探しの方におすすめです。</p>",
+            "row_content": "<p>Recommended for anyone looking for an elegant floral scent with depth that works every day.</p>",
             "page": ""
           }
         },
         "faq-4": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "保管方法と返品について",
+            "heading": "Storage and returns",
             "icon": "question_mark",
-            "row_content": "<p>直射日光を避けて保管してください。返品・交換条件はショップポリシーをご確認ください。</p>",
+            "row_content": "<p>Store away from direct sunlight. Please review our store policy for return and exchange conditions.</p>",
             "page": ""
           }
         }
@@ -117,7 +117,7 @@
       ],
       "settings": {
         "caption": "",
-        "heading": "よくあるご質問",
+        "heading": "Frequently Asked Questions",
         "heading_size": "h2",
         "heading_alignment": "left",
         "layout": "none",

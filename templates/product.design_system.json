@@ -19,36 +19,36 @@
         "faq-1": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Q: ポケットには何が入りますか？",
+            "heading": "Q: What can this pocket hold?",
             "icon": "question_mark",
-            "row_content": "<p>A: スマートフォン、車の鍵、カード類などの小物を収納しやすい仕様です。</p>",
+            "row_content": "<p>A: It is designed to hold everyday small items such as a smartphone, keys, and cards.</p>",
             "page": ""
           }
         },
         "faq-2": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Q: どんなシーンで使えますか？",
+            "heading": "Q: When should I use it?",
             "icon": "question_mark",
-            "row_content": "<p>A: ジム、ウォーキング、ランニング、軽いトレーニングなど、日常のアクティブなシーンで使いやすい1枚です。</p>",
+            "row_content": "<p>A: It works well for gym sessions, walking, running, and other everyday active moments.</p>",
             "page": ""
           }
         },
         "faq-3": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Q: どのくらいで届きますか？",
+            "heading": "Q: How long does delivery take?",
             "icon": "question_mark",
-            "row_content": "<p>A: 通常7日〜14日前後を目安としております。地域や配送状況により前後する場合があります。</p>",
+            "row_content": "<p>A: Delivery usually takes around 7-14 days depending on your region and shipping conditions.</p>",
             "page": ""
           }
         },
         "faq-4": {
           "type": "collapsible_row",
           "settings": {
-            "heading": "Q: 返品はできますか？",
+            "heading": "Q: Can I return this item?",
             "icon": "question_mark",
-            "row_content": "<p>A: 初期不良や誤配送があった場合は、商品到着後7日以内にご連絡ください。</p>",
+            "row_content": "<p>A: If you receive a defective or incorrect item, please contact us within 7 days after delivery.</p>",
             "page": ""
           }
         }
@@ -61,7 +61,7 @@
       ],
       "settings": {
         "caption": "",
-        "heading": "よくある質問",
+        "heading": "Frequently Asked Questions",
         "heading_size": "h2",
         "heading_alignment": "left",
         "layout": "none",

@@ -1,0 +1,36 @@
+{%- if article and article != blank -%}
+  <article class="blog-card{% if is_large %} blog-card--large{% endif %}" data-index="{{ index }}">
+    {%- if article.image -%}
+      <a href="{{ article.url }}" class="blog-card__media-link" tabindex="-1" aria-hidden="true">
+        <div class="blog-card__img-wrap">
+          <img
+            src="{{ article.image | image_url: width: 800 }}"
+            alt="{{ article.image.alt | escape }}"
+            loading="lazy"
+            width="800"
+            height="600"
+          >
+        </div>
+      </a>
+    {%- endif -%}
+
+    <div class="blog-card__body">
+      <div class="blog-card__meta">
+        {%- if article.tags.size > 0 -%}
+          <span class="article-tag">{{ article.tags.first }}</span>
+        {%- endif -%}
+        <span class="article-date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+      </div>
+
+      <h3 class="blog-card__title">
+        <a href="{{ article.url }}">{{ article.title }}</a>
+      </h3>
+
+      {%- if is_large and article.excerpt != blank -%}
+        <p class="blog-card__excerpt">{{ article.excerpt | strip_html | truncate: 120 }}</p>
+      {%- endif -%}
+
+      <a href="{{ article.url }}" class="blog-card__read">Read →</a>
+    </div>
+  </article>
+{%- endif -%}

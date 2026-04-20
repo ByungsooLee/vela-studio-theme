@@ -79,13 +79,18 @@
         "primary_cta_label": "Shop now",
         "primary_cta_link": "/collections/all",
         "secondary_cta_label": "View collections",
-        "secondary_cta_link": "/collections/all",
+        "secondary_cta_link": "/blogs/%E3%83%8B%E3%83%A5%E3%83%BC%E3%82%B9",
         "promise_headline": "Designed for calmer, better everyday rituals.",
         "promise_body": "We curate products that feel elevated and practical at once. Every item is selected to improve comfort, flow, and long-term satisfaction in real homes."
       }
+    },
+    "brand_promise": {
+      "type": "brand-promise",
+      "settings": {}
     }
   },
   "order": [
-    "ds-home"
+    "ds-home",
+    "brand_promise"
   ]
 }

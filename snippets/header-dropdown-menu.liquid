@@ -8,6 +8,7 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- capture localized_link_title -%}{% render 'localized-nav-label', label: link.title %}{%- endcapture -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -21,7 +22,7 @@
                     class="header__active-menu-item"
                   {% endif %}
                 >
-                  {{- link.title | escape -}}
+                  {{- localized_link_title | escape -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
@@ -32,6 +33,7 @@
                 tabindex="-1"
               >
                 {%- for childlink in link.links -%}
+                  {%- capture localized_childlink_title -%}{% render 'localized-nav-label', label: childlink.title %}{%- endcapture -%}
                   <li>
                     {%- if childlink.links == blank -%}
                       <a
@@ -42,7 +44,7 @@
                           aria-current="page"
                         {% endif %}
                       >
-                        {{ childlink.title | escape }}
+                        {{ localized_childlink_title | escape }}
                       </a>
                     {%- else -%}
                       <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
@@ -50,7 +52,7 @@
                           id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                           class="header__menu-item link link--text list-menu__item focus-inset caption-large"
                         >
-                          <span>{{ childlink.title | escape }}</span>
+                          <span>{{ localized_childlink_title | escape }}</span>
                           {{- 'icon-caret.svg' | inline_asset_content -}}
                         </summary>
                         <ul
@@ -58,6 +60,7 @@
                           class="header__submenu list-menu motion-reduce"
                         >
                           {%- for grandchildlink in childlink.links -%}
+                            {%- capture localized_grandchildlink_title -%}{% render 'localized-nav-label', label: grandchildlink.title %}{%- endcapture -%}
                             <li>
                               <a
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
@@ -67,7 +70,7 @@
                                   aria-current="page"
                                 {% endif %}
                               >
-                                {{ grandchildlink.title | escape }}
+                                {{ localized_grandchildlink_title | escape }}
                               </a>
                             </li>
                           {%- endfor -%}
@@ -93,7 +96,7 @@
                 class="header__active-menu-item"
               {% endif %}
             >
-              {{- link.title | escape -}}
+              {{- localized_link_title | escape -}}
             </span>
           </a>
         {%- endif -%}

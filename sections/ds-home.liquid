@@ -18,9 +18,12 @@
           alt: section.settings.hero_headline
       }}
     {%- else -%}
-      <div class="ds-home__hero-placeholder" role="img" aria-label="Hero image placeholder">
-        Hero image is not set. Select an image in the section settings.
-      </div>
+      <img
+        src="{{ 'hero-home-sale.png' | asset_url }}"
+        alt="{{ section.settings.hero_headline | escape }}"
+        loading="eager"
+        class="ds-home__hero-image"
+      >
     {%- endif -%}
   </div>
 
@@ -32,12 +35,18 @@
     {%- if section.settings.hero_support_copy != blank -%}
       <p class="ds-home__copy">{{ section.settings.hero_support_copy | escape }}</p>
     {%- endif -%}
+    {%- liquid
+      assign secondary_cta_href = section.settings.secondary_cta_link
+      if section.settings.secondary_cta_blog != blank
+        assign secondary_cta_href = section.settings.secondary_cta_blog.url
+      endif
+    -%}
     <div class="ds-home__hero-actions">
       <a class="ds-home__cta ds-home__cta--primary" href="{{ section.settings.primary_cta_link | default: routes.all_products_collection_url }}">
         {{ section.settings.primary_cta_label | escape }}
       </a>
-      {%- if section.settings.secondary_cta_label != blank and section.settings.secondary_cta_link != blank -%}
-        <a class="ds-home__cta ds-home__cta--secondary" href="{{ section.settings.secondary_cta_link }}">
+      {%- if section.settings.secondary_cta_label != blank and secondary_cta_href != blank -%}
+        <a class="ds-home__cta ds-home__cta--secondary" href="{{ secondary_cta_href }}">
           {{ section.settings.secondary_cta_label | escape }}
         </a>
       {%- endif -%}
@@ -109,6 +118,7 @@
     { "type": "text", "id": "primary_cta_label", "label": "Primary CTA label", "default": "Shop now" },
     { "type": "url", "id": "primary_cta_link", "label": "Primary CTA link" },
     { "type": "text", "id": "secondary_cta_label", "label": "Secondary CTA label", "default": "View collections" },
+    { "type": "blog", "id": "secondary_cta_blog", "label": "Secondary CTA blog" },
     { "type": "url", "id": "secondary_cta_link", "label": "Secondary CTA link" },
     { "type": "inline_richtext", "id": "promise_headline", "label": "Brand promise headline", "default": "Designed for calmer, better everyday rituals." },
     { "type": "textarea", "id": "promise_body", "label": "Brand promise body", "default": "We curate products that feel elevated and practical at once. Every item is selected to improve comfort, flow, and long-term satisfaction in real homes." }

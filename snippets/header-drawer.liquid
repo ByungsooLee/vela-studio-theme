@@ -23,13 +23,14 @@
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
                 <li>
+                  {%- capture localized_link_title -%}{% render 'localized-nav-label', label: link.title %}{%- endcapture -%}
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
                       <summary
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
-                        {{ link.title | escape }}
+                        {{ localized_link_title | escape }}
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                         </span>
@@ -47,11 +48,12 @@
                             <span class="svg-wrapper">
                               {{- 'icon-arrow.svg' | inline_asset_content -}}
                             </span>
-                            {{ link.title | escape }}
+                            {{ localized_link_title | escape }}
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                             {%- for childlink in link.links -%}
                               <li>
+                                {%- capture localized_childlink_title -%}{% render 'localized-nav-label', label: childlink.title %}{%- endcapture -%}
                                 {%- if childlink.links == blank -%}
                                   <a
                                     id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
@@ -61,7 +63,7 @@
                                       aria-current="page"
                                     {% endif %}
                                   >
-                                    {{ childlink.title | escape }}
+                                    {{ localized_childlink_title | escape }}
                                   </a>
                                 {%- else -%}
                                   <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
@@ -69,7 +71,7 @@
                                       id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
                                       class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                                     >
-                                      {{ childlink.title | escape }}
+                                      {{ localized_childlink_title | escape }}
                                       <span class="svg-wrapper">
                                         {{- 'icon-arrow.svg' | inline_asset_content -}}
                                       </span>
@@ -97,6 +99,7 @@
                                       >
                                         {%- for grandchildlink in childlink.links -%}
                                           <li>
+                                            {%- capture localized_grandchildlink_title -%}{% render 'localized-nav-label', label: grandchildlink.title %}{%- endcapture -%}
                                             <a
                                               id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
                                               href="{{ grandchildlink.url }}"
@@ -105,7 +108,7 @@
                                                 aria-current="page"
                                               {% endif %}
                                             >
-                                              {{ grandchildlink.title | escape }}
+                                              {{ localized_grandchildlink_title | escape }}
                                             </a>
                                           </li>
                                         {%- endfor -%}
@@ -128,7 +131,7 @@
                         aria-current="page"
                       {% endif %}
                     >
-                      {{ link.title | escape }}
+                      {{ localized_link_title | escape }}
                     </a>
                   {%- endif -%}
                 </li>
@@ -159,9 +162,9 @@
                 {%- endif -%}
                 {%- liquid
                   if customer
-                    echo 'customer.account_fallback' | t
+                    echo 'Account'
                   else
-                    echo 'customer.log_in' | t
+                    echo 'Log in'
                   endif
                 -%}
               </a>
