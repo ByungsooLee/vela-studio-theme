@@ -37,10 +37,29 @@
 
   var variantInput = document.querySelector("[data-ds-selected-variant]");
   var variantButtons = document.querySelectorAll("[data-ds-variant-option]");
+  var mainImage = document.querySelector("[data-ds-main-image]");
+  var thumbButtons = document.querySelectorAll("[data-ds-thumb]");
   var priceNode = document.querySelector("[data-ds-price]");
   var compareNode = document.querySelector("[data-ds-compare]");
   var stickyTitle = document.querySelector("[data-ds-sticky-title]");
   var stickyPrice = document.querySelector("[data-ds-sticky-price]");
+
+  if (mainImage && thumbButtons.length) {
+    thumbButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var imageUrl = button.getAttribute("data-image-url");
+        var imageAlt = button.getAttribute("data-image-alt") || "";
+        if (!imageUrl) return;
+        mainImage.setAttribute("src", imageUrl);
+        mainImage.setAttribute("alt", imageAlt);
+        thumbButtons.forEach(function (thumb) {
+          thumb.classList.remove("is-active");
+        });
+        button.classList.add("is-active");
+      });
+    });
+  }
+
   if (variantInput && variantButtons.length) {
     variantButtons.forEach(function (button) {
       button.addEventListener("click", function () {
@@ -66,6 +85,18 @@
           } else {
             compareNode.hidden = true;
           }
+        }
+
+        var variantImage = button.getAttribute("data-variant-image");
+        if (mainImage && variantImage) {
+          mainImage.setAttribute("src", variantImage);
+          thumbButtons.forEach(function (thumb) {
+            if (thumb.getAttribute("data-image-url") === variantImage) {
+              thumb.classList.add("is-active");
+            } else {
+              thumb.classList.remove("is-active");
+            }
+          });
         }
       });
     });

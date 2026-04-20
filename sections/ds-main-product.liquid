@@ -1,5 +1,4 @@
 {%- assign selected_variant = product.selected_or_first_available_variant -%}
-{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' -%}
 {%- assign short_value_prop = product.metafields.product_details.short_value_prop.value -%}
 {%- assign key_benefits = product.metafields.product_details.key_benefits.value -%}
 {%- assign benefit_details = product.metafields.product_details.benefit_details.value -%}
@@ -16,15 +15,51 @@
 
 <section class="ds-main-product" data-section-id="{{ section.id }}">
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
-  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
-  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+  {%- assign gallery_primary = selected_variant.featured_image | default: product.featured_image | default: product.images.first -%}
 
   <div class="ds-main-product__layout">
-    <div>
-      {% render 'product-media-gallery', variant_images: variant_images %}
+    <div class="ds-main-product__gallery" data-ds-gallery>
+      <div class="ds-main-product__gallery-main">
+        {%- if gallery_primary != blank -%}
+          {{
+            gallery_primary
+            | image_url: width: 1800
+            | image_tag:
+              class: 'ds-main-product__gallery-image',
+              widths: '540, 720, 960, 1200, 1600, 1800',
+              sizes: '(min-width: 990px) 52vw, 100vw',
+              loading: 'eager',
+              alt: gallery_primary.alt | default: product.title,
+              data-ds-main-image: 'true'
+          }}
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="ds-main-product__gallery-thumbs">
+          {%- for image in product.images -%}
+            <button
+              type="button"
+              class="ds-main-product__thumb{% if image.id == gallery_primary.id %} is-active{% endif %}"
+              data-ds-thumb
+              data-image-url="{{ image | image_url: width: 1800 }}"
+              data-image-alt="{{ image.alt | default: product.title | escape }}"
+              aria-label="View image {{ forloop.index }}"
+            >
+              {{
+                image
+                | image_url: width: 400
+                | image_tag:
+                  class: 'ds-main-product__thumb-image',
+                  widths: '120, 180, 240, 320, 400',
+                  sizes: '88px',
+                  loading: 'lazy',
+                  alt: image.alt | default: product.title
+              }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
 
     <div>
@@ -72,6 +107,7 @@
                   data-variant-price="{{ variant.price | money | escape }}"
                   data-variant-title="{{ variant.title | escape }}"
                   data-variant-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
+                  data-variant-image="{% if variant.featured_image != blank %}{{ variant.featured_image | image_url: width: 1800 }}{% endif %}"
                   {% unless variant.available %}disabled{% endunless %}
                 >
                   {{ variant.title | escape }}
