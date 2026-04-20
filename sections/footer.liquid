@@ -355,9 +355,21 @@
           <ul class="policies list-unstyled">
             {%- for policy in shop.policies -%}
               {%- if policy != blank -%}
+                {%- assign policy_label = policy.title -%}
+                {%- if policy.url contains '/privacy-policy' -%}
+                  {%- assign policy_label = 'Privacy Policy' -%}
+                {%- elsif policy.url contains '/terms-of-service' -%}
+                  {%- assign policy_label = 'Terms of Service' -%}
+                {%- elsif policy.url contains '/refund-policy' -%}
+                  {%- assign policy_label = 'Refund Policy' -%}
+                {%- elsif policy.url contains '/shipping-policy' -%}
+                  {%- assign policy_label = 'Shipping Policy' -%}
+                {%- elsif policy.url contains '/contact-information' -%}
+                  {%- assign policy_label = 'Contact Information' -%}
+                {%- endif -%}
                 <li>
                   <small class="copyright__content"
-                    ><a href="{{ policy.url }}">{{ policy.title | escape }}</a></small
+                    ><a href="{{ policy.url }}">{{ policy_label | escape }}</a></small
                   >
                 </li>
               {%- endif -%}

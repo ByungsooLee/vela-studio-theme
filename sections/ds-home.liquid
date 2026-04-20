@@ -17,17 +17,10 @@
           loading: 'eager',
           alt: section.settings.hero_headline
       }}
-    {%- elsif category_collection.products.size > 0 and category_collection.products.first.featured_image != blank -%}
-      {{
-        category_collection.products.first.featured_image
-        | image_url: width: 2400
-        | image_tag:
-          class: 'ds-home__hero-image',
-          widths: '640, 960, 1280, 1680, 2048, 2400',
-          sizes: '100vw',
-          loading: 'eager',
-          alt: section.settings.hero_headline
-      }}
+    {%- else -%}
+      <div class="ds-home__hero-placeholder" role="img" aria-label="Hero image placeholder">
+        Hero image is not set. Select an image in the section settings.
+      </div>
     {%- endif -%}
   </div>
 
@@ -60,41 +53,30 @@
 
   <section class="ds-home__categories">
     <div class="ds-home__category-track">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'category' -%}
-          {%- assign card_image = block.settings.image -%}
-          {%- assign card_collection = block.settings.collection -%}
-          {%- assign card_label = block.settings.label | default: card_collection.title -%}
-          <a class="ds-home__category-card" href="{{ card_collection.url | default: routes.collections_url }}" {{ block.shopify_attributes }}>
+      {%- if category_collection != blank and category_collection.products_count > 0 -%}
+        {%- for item in category_collection.products limit: 12 -%}
+          <a class="ds-home__category-card ds-home__product-card" href="{{ item.url }}">
             <div class="ds-home__category-image-wrap">
-              {%- if card_image != blank -%}
+              {%- if item.featured_image != blank -%}
                 {{
-                  card_image
+                  item.featured_image
                   | image_url: width: 900
                   | image_tag:
                     class: 'ds-home__category-image',
-                    widths: '360, 540, 720, 900',
-                    sizes: '(min-width: 990px) 30vw, 70vw',
+                    widths: '240, 360, 540, 720, 900',
+                    sizes: '(min-width: 990px) 220px, 56vw',
                     loading: 'lazy',
-                    alt: card_label
-                }}
-              {%- elsif card_collection.image != blank -%}
-                {{
-                  card_collection.image
-                  | image_url: width: 900
-                  | image_tag:
-                    class: 'ds-home__category-image',
-                    widths: '360, 540, 720, 900',
-                    sizes: '(min-width: 990px) 30vw, 70vw',
-                    loading: 'lazy',
-                    alt: card_label
+                    alt: item.title
                 }}
               {%- endif -%}
             </div>
-            <span class="ds-home__category-label">{{ card_label | escape }}</span>
+            <span class="ds-home__category-label">{{ item.title | escape }}</span>
+            <span class="ds-home__product-price">{{ item.price | money }}</span>
           </a>
-        {%- endif -%}
-      {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        <p class="ds-home__empty">No products found in selected collection.</p>
+      {%- endif -%}
     </div>
   </section>
 
