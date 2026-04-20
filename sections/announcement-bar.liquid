@@ -27,9 +27,10 @@
     {%- endif -%}
     {%- if section.blocks.size == 1 -%}
       <div
-        class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
+        class="announcement-bar ds-announcement{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
         role="region"
         aria-label="{{ 'sections.header.announcement' | t }}"
+        data-ds-announcement
         {{ section.blocks.first.shopify_attributes }}
       >
         {%- if section.blocks.first.settings.text != blank -%}
@@ -49,6 +50,7 @@
             </a>
           {%- endif -%}
         {%- endif -%}
+        <button type="button" class="ds-announcement__dismiss" data-ds-announcement-dismiss aria-label="Dismiss announcement">X</button>
       </div>
     {%- elsif section.blocks.size > 1 -%}
       <slideshow-component

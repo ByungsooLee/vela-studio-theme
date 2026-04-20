@@ -9,42 +9,79 @@
  */
 {
   "sections": {
-    "perfume-hero": {
-      "type": "perfume-hero",
+    "ds-home": {
+      "type": "ds-home",
       "blocks": {
+        "category-1": {
+          "type": "category",
+          "settings": {
+            "label": "Living",
+            "collection": "all"
+          }
+        },
+        "category-2": {
+          "type": "category",
+          "settings": {
+            "label": "Kitchen",
+            "collection": "all"
+          }
+        },
+        "category-3": {
+          "type": "category",
+          "settings": {
+            "label": "Bath",
+            "collection": "all"
+          }
+        },
         "trust-1": {
           "type": "trust",
           "settings": {
-            "text": ""
+            "headline": "Curated quality",
+            "subtext": "Selected for real daily routines"
           }
         },
         "trust-2": {
           "type": "trust",
           "settings": {
-            "text": ""
+            "headline": "Fast shipping",
+            "subtext": "Quick domestic dispatch"
           }
         },
         "trust-3": {
           "type": "trust",
           "settings": {
-            "text": ""
+            "headline": "Secure checkout",
+            "subtext": "Trusted payment methods only"
+          }
+        },
+        "trust-4": {
+          "type": "trust",
+          "settings": {
+            "headline": "Aftercare support",
+            "subtext": "We help after purchase"
           }
         }
       },
       "block_order": [
+        "category-1",
+        "category-2",
+        "category-3",
         "trust-1",
         "trust-2",
-        "trust-3"
+        "trust-3",
+        "trust-4"
       ],
       "settings": {
-        "main_image": "",
-        "support_image_1": "",
-        "support_image_2": "",
-        "eyebrow": "",
-        "heading": "",
-        "subheading": "",
-        "primary_label": "",
-        "primary_link": "/collections/all"
+        "category_collection": "all",
+        "hero_eyebrow": "Lifestyle essentials",
+        "hero_headline": "Choose small. Live better.",
+        "hero_support_copy": "Curated home upgrades with thoughtful design and practical comfort.",
+        "primary_cta_label": "Shop now",
+        "primary_cta_link": "/collections/all",
+        "secondary_cta_label": "View collections",
+        "secondary_cta_link": "/collections/all",
+        "promise_headline": "Designed for calmer, better everyday rituals.",
+        "promise_body": "We curate products that feel elevated and practical at once. Every item is selected to improve comfort, flow, and long-term satisfaction in real homes."
       }
     },
     "perfume-faq": {
@@ -92,7 +129,7 @@
     }
   },
   "order": [
-    "perfume-hero",
+    "ds-home",
     "perfume-faq"
   ]
 }

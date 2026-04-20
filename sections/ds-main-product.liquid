@@ -1,0 +1,194 @@
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+{%- assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' -%}
+{%- assign short_value_prop = product.metafields.product_details.short_value_prop.value -%}
+{%- assign key_benefits = product.metafields.product_details.key_benefits.value -%}
+{%- assign benefit_details = product.metafields.product_details.benefit_details.value -%}
+{%- assign materials = product.metafields.product_details.materials.value -%}
+{%- assign dimensions = product.metafields.product_details.dimensions.value -%}
+{%- assign care_instructions = product.metafields.product_details.care_instructions.value -%}
+{%- assign scent_notes = product.metafields.product_details.scent_notes.value -%}
+{%- assign certifications = product.metafields.product_details.certifications.value -%}
+{%- assign faq_items = product.metafields.product_details.faq_items.value -%}
+{%- assign has_specs = false -%}
+{%- if materials != blank or dimensions != blank or care_instructions != blank or scent_notes != blank or certifications != blank -%}
+  {%- assign has_specs = true -%}
+{%- endif -%}
+
+<section class="ds-main-product" data-section-id="{{ section.id }}">
+  {{ 'component-price.css' | asset_url | stylesheet_tag }}
+  {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+  {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+
+  <div class="ds-main-product__layout">
+    <div>
+      {% render 'product-media-gallery', variant_images: variant_images %}
+    </div>
+
+    <div>
+      <p class="ds-main-product__breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+        {%- if collection -%}
+          / <a href="{{ collection.url }}">{{ collection.title }}</a>
+        {%- endif -%}
+        / <span>{{ product.title }}</span>
+      </p>
+
+      <h1 class="ds-main-product__title">{{ product.title }}</h1>
+
+      <a href="#reviews" class="ds-main-product__reviews">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m12 3.5 2.7 5.48 6.04.88-4.37 4.26 1.03 6.01L12 17.3l-5.4 2.84 1.03-6.01-4.37-4.26 6.04-.88L12 3.5Z"/></svg>
+        <span>5.0</span>
+        <span>(0 reviews)</span>
+      </a>
+
+      <div class="ds-main-product__price-row" id="ds-price-{{ section.id }}">
+        <span class="ds-main-product__price" data-ds-price>{{ selected_variant.price | money }}</span>
+        {%- if selected_variant.compare_at_price > selected_variant.price -%}
+          <span class="ds-main-product__compare" data-ds-compare>{{ selected_variant.compare_at_price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if short_value_prop != blank -%}
+        <p class="ds-main-product__value-prop">{{ short_value_prop | escape }}</p>
+      {%- endif -%}
+
+      {%- assign product_form_id = 'ds-product-form-' | append: section.id -%}
+      {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input type="hidden" name="id" value="{{ selected_variant.id }}" data-ds-selected-variant>
+
+        {%- unless product.has_only_default_variant -%}
+          <div class="ds-main-product__variant-group">
+            <span class="ds-main-product__label">Variant</span>
+            <div class="ds-main-product__variant-options">
+              {%- for variant in product.variants -%}
+                <button
+                  type="button"
+                  class="ds-main-product__variant-option{% if variant.id == selected_variant.id %} is-active{% endif %}"
+                  data-ds-variant-option
+                  data-variant-id="{{ variant.id }}"
+                  data-variant-price="{{ variant.price | money | escape }}"
+                  data-variant-title="{{ variant.title | escape }}"
+                  data-variant-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | escape }}{% endif %}"
+                  {% unless variant.available %}disabled{% endunless %}
+                >
+                  {{ variant.title | escape }}
+                </button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endunless -%}
+
+        <div class="ds-main-product__qty-group">
+          <label class="ds-main-product__label" for="ds-qty-{{ section.id }}">Quantity</label>
+          <input id="ds-qty-{{ section.id }}" class="ds-main-product__qty-input" type="number" name="quantity" min="1" value="1">
+        </div>
+
+        <button type="submit" class="ds-main-product__cta ds-main-product__cta--atc" data-ds-main-atc>
+          Add to Cart
+        </button>
+        <button type="submit" name="checkout" class="ds-main-product__cta ds-main-product__cta--buy">
+          Buy Now
+        </button>
+        <div class="ds-main-product__accelerated">
+          {{ form | payment_button }}
+        </div>
+      {%- endform -%}
+
+      <div class="ds-main-product__trust">
+        <div class="ds-main-product__trust-list">
+          <span class="ds-main-product__trust-item"><span aria-hidden="true">✓</span> Fast shipping</span>
+          <span class="ds-main-product__trust-item"><span aria-hidden="true">✓</span> Secure payments</span>
+          <span class="ds-main-product__trust-item"><span aria-hidden="true">✓</span> Easy returns</span>
+        </div>
+        <div class="ds-main-product__payment-icons">
+          {%- for type in shop.enabled_payment_types -%}
+            <span class="icon">{{ type | payment_type_svg_tag }}</span>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- if has_specs -%}
+        <dl class="ds-main-product__spec-grid">
+          {%- if materials != blank -%}
+            <div class="ds-main-product__spec-row">
+              <dt class="ds-main-product__spec-label">Materials</dt>
+              <dd>{{ materials }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if dimensions != blank -%}
+            <div class="ds-main-product__spec-row">
+              <dt class="ds-main-product__spec-label">Dimensions</dt>
+              <dd>{{ dimensions }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if care_instructions != blank -%}
+            <div class="ds-main-product__spec-row">
+              <dt class="ds-main-product__spec-label">Care instructions</dt>
+              <dd>{{ care_instructions }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if scent_notes != blank -%}
+            <div class="ds-main-product__spec-row">
+              <dt class="ds-main-product__spec-label">Scent notes</dt>
+              <dd>{{ scent_notes }}</dd>
+            </div>
+          {%- endif -%}
+          {%- if certifications != blank -%}
+            <div class="ds-main-product__spec-row">
+              <dt class="ds-main-product__spec-label">Certifications</dt>
+              <dd>{{ certifications }}</dd>
+            </div>
+          {%- endif -%}
+        </dl>
+      {%- endif -%}
+
+      {%- if key_benefits != blank or benefit_details != blank -%}
+        <ul class="ds-main-product__benefits">
+          {%- if key_benefits != blank -%}
+            <li class="ds-main-product__benefit-item">{{ key_benefits }}</li>
+          {%- endif -%}
+          {%- if benefit_details != blank -%}
+            <li class="ds-main-product__benefit-item">{{ benefit_details }}</li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if faq_items != blank -%}
+        <section class="ds-main-product__faq" aria-label="FAQs">
+          {%- for item in faq_items -%}
+            <article data-ds-faq-item>
+              <button type="button" class="ds-main-product__faq-trigger" data-ds-faq-trigger>
+                <span>{{ item.question | default: item.title | escape }}</span>
+                <span aria-hidden="true">+</span>
+              </button>
+              <div class="ds-main-product__faq-panel" hidden>
+                {{ item.answer | default: item.content }}
+              </div>
+            </article>
+          {%- endfor -%}
+        </section>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="ds-sticky-atc" data-ds-sticky-atc>
+    <div>
+      <p class="ds-main-product__label" data-ds-sticky-title>{{ selected_variant.title }}</p>
+      <p class="ds-main-product__price" data-ds-sticky-price>{{ selected_variant.price | money }}</p>
+    </div>
+    <button type="button" class="ds-sticky-atc__button" data-ds-sticky-atc-button>Add to Cart</button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "DS Main Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [{ "name": "DS Main Product" }]
+}
+{% endschema %}
