@@ -1,8 +1,14 @@
 {% if section.settings.show_announcement %}
+{% liquid
+  assign announcement_text = section.settings.text | strip
+  if announcement_text == blank
+    assign announcement_text = "✈️ Free Worldwide Shipping · 🔄 30-Day Returns · ⭐ 4.9/5 · 2,000+ Happy Pets"
+  endif
+%}
 <div class="announcement-bar color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     <p class="announcement-bar__message">
-      {{ section.settings.text | default: "✈️ Free Worldwide Shipping · 🔄 30-Day Returns · ⭐ 4.9/5 · 2,000+ Happy Pets" }}
+      {{ announcement_text }}
     </p>
   </div>
 </div>

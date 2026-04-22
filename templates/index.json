@@ -9,48 +9,12 @@
  */
 {
   "sections": {
-    "pawly_trust_bar": {
-      "type": "pawly-trust-bar",
-      "blocks": {
-        "pawly_trust_item_1": {
-          "type": "item",
-          "settings": {
-            "text": "✦ 365日間保証"
-          }
-        },
-        "pawly_trust_item_2": {
-          "type": "item",
-          "settings": {
-            "text": "✦ ¥5,000以上送料無料"
-          }
-        },
-        "pawly_trust_item_3": {
-          "type": "item",
-          "settings": {
-            "text": "✦ 日本語カスタマーサポート"
-          }
-        },
-        "pawly_trust_item_4": {
-          "type": "item",
-          "settings": {
-            "text": "✦ 累計3,000件以上のレビュー"
-          }
-        },
-        "pawly_trust_item_5": {
-          "type": "item",
-          "settings": {
-            "text": "✦ 全国最短翌日〜3日でお届け"
-          }
-        }
-      },
-      "block_order": [
-        "pawly_trust_item_1",
-        "pawly_trust_item_2",
-        "pawly_trust_item_3",
-        "pawly_trust_item_4",
-        "pawly_trust_item_5"
-      ],
-      "settings": {}
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_announcement": true,
+        "text": "✈️ Free Worldwide Shipping · 🔄 30-Day Returns · ⭐ 4.9/5 · 2,000+ Happy Pets"
+      }
     },
     "main_homepage": {
       "type": "main-homepage",
@@ -65,11 +29,47 @@
     "homepage_blocks": {
       "type": "homepage-blocks",
       "settings": {}
+    },
+    "video-feature-1": {
+      "type": "video-feature",
+      "settings": {
+        "eyebrow": "Bestseller",
+        "title": "The backpack they'll love.",
+        "body": "360° bubble window. Ventilated mesh. Ergonomic design. Your cat sees everything — in total comfort.",
+        "cta_text": "Shop Now",
+        "cta_url": "/collections/all",
+        "reverse": false,
+        "bg_color": "#F2F0EB"
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "show_description": true,
+        "title": "Our Collection",
+        "description": "<p>Handpicked for pets who live life to the fullest.</p>"
+      }
+    },
+    "video-feature-2": {
+      "type": "video-feature",
+      "settings": {
+        "eyebrow": "Personalized",
+        "title": "Their name. Their collar.",
+        "body": "Custom engraved with your pet's name. Because every pet deserves to be known.",
+        "cta_text": "Customize Now",
+        "cta_url": "/collections/all",
+        "reverse": true,
+        "bg_color": "#FAFAF8"
+      }
     }
   },
   "order": [
-    "pawly_trust_bar",
+    "announcement-bar",
     "main_homepage",
-    "homepage_blocks"
+    "homepage_blocks",
+    "video-feature-1",
+    "featured-products",
+    "video-feature-2"
   ]
 }

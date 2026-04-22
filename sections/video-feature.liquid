@@ -7,6 +7,7 @@
           autoplay: true,
           loop: true,
           muted: true,
+          controls: false,
           playsinline: true,
           class: 'video-feature__video'
       }}
@@ -19,6 +20,8 @@
         width="{{ section.settings.fallback_image.width }}"
         height="{{ section.settings.fallback_image.height }}"
       >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'video-feature__fallback video-feature__fallback--placeholder' }}
     {%- endif -%}
   </div>
 

@@ -10,7 +10,8 @@
           controls: false,
           playsinline: true,
           image_size: '2000x',
-          class: 'hero-full__video'
+          class: 'hero-full__video',
+          alt: ''
       }}
     {% elsif section.settings.hero_image != blank %}
       {{
@@ -18,7 +19,7 @@
         | image_url: width: 2000
         | image_tag:
           class: 'hero-full__image',
-          alt: section.settings.hero_image.alt | default: 'hero',
+          alt: section.settings.hero_image.alt | default: 'Hero image',
           loading: 'eager',
           widths: '750, 1100, 1500, 2000',
           sizes: '100vw'
@@ -31,17 +32,25 @@
   </div>
 
   <div class="hero-full__content">
-    <p class="hero-full__eyebrow">{{ section.settings.eyebrow }}</p>
-    <h1 class="hero-full__title">
-      {{ section.settings.title_line_1 }}<br>
-      <em>{{ section.settings.title_emphasis }}</em>
-    </h1>
-    <a
-      href="{% if section.settings.cta_url != blank %}{{ section.settings.cta_url }}{% else %}/collections/all{% endif %}"
-      class="hero-full__cta"
-    >
-      {{ section.settings.cta_label }}
-    </a>
+    {% if section.settings.eyebrow != blank %}
+      <p class="hero-full__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    {% if section.settings.title_line_1 != blank or section.settings.title_emphasis != blank %}
+      <h1 class="hero-full__title">
+        {{ section.settings.title_line_1 }}
+        {% if section.settings.title_emphasis != blank %}
+          <br><em>{{ section.settings.title_emphasis }}</em>
+        {% endif %}
+      </h1>
+    {% endif %}
+    {% if section.settings.cta_label != blank %}
+      <a
+        href="{% if section.settings.cta_url != blank %}{{ section.settings.cta_url }}{% else %}/collections/all{% endif %}"
+        class="hero-full__cta"
+      >
+        {{ section.settings.cta_label }}
+      </a>
+    {% endif %}
   </div>
 </section>
 

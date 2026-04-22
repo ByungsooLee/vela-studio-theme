@@ -2,38 +2,7 @@
    PAWLUX — Global Design System
    ============================================ */
 
-/* ─── CSS Variables ─── */
-:root {
-  --color-bg: #fafaf8;
-  --color-bg-secondary: #f2f0eb;
-  --color-surface: #ffffff;
-  --color-ink: #1a1814;
-  --color-ink-muted: #6b6560;
-  --color-ink-subtle: #b8b3ae;
-  --color-accent: #c8956c;
-  --color-accent-light: #e8c9b0;
-  --color-accent-dark: #a0714a;
-
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
-  --font-mono: "DM Mono", monospace;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
-
-  --shadow-sm: 0 1px 3px rgba(26, 24, 20, 0.08);
-  --shadow-md: 0 4px 16px rgba(26, 24, 20, 0.10);
-  --shadow-lg: 0 12px 40px rgba(26, 24, 20, 0.12);
-  --shadow-xl: 0 24px 64px rgba(26, 24, 20, 0.14);
-
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 150ms;
-  --transition-base: 300ms;
-  --transition-slow: 600ms;
-}
+/* Shared design tokens are defined in pawlux-tokens.css */
 
 /* ─── Reset & Base ─── */
 *,
