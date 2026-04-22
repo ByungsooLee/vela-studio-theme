@@ -673,6 +673,7 @@ body.gradient {
 }
 
 .brand-values__media img,
+.brand-values__video,
 .brand-values figure img,
 .brand-values__item img {
   width: 100% !important;
@@ -680,6 +681,7 @@ body.gradient {
   object-fit: cover !important;
   object-position: center !important;
   transition: transform 0.8s cubic-bezier(0.16,1,0.3,1) !important;
+  display: block;
 }
 
 .brand-values__item:hover img {
