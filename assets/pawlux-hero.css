@@ -1,0 +1,224 @@
+.hero-full {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-full__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-full__video,
+.hero-full__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-full__video ~ .hero-full__image {
+  display: none;
+}
+
+.hero-full__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.hero-full__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 clamp(24px, 6vw, 80px) clamp(48px, 8vw, 96px);
+  max-width: 700px;
+}
+
+.hero-full__eyebrow {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.hero-full__title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.hero-full__title em {
+  font-style: italic;
+  color: #e8c9b0;
+}
+
+.hero-full__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: #fff;
+  color: #1a1814;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+.hero-full__cta:hover {
+  background: #c8956c;
+  color: #fff;
+  gap: 16px;
+}
+
+.hero-full__cta::after {
+  content: "→";
+  transition: transform 0.3s;
+}
+
+.hero-full__cta:hover::after {
+  transform: translateX(4px);
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 749px) {
+  .hero-full__title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .hero-full__content {
+    padding: 0 20px 48px;
+  }
+}
+
+.video-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+}
+
+.video-feature--reverse {
+  direction: rtl;
+}
+
+.video-feature--reverse > * {
+  direction: ltr;
+}
+
+.video-feature__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.video-feature__video,
+.video-feature__fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-feature__content {
+  background: var(--section-bg, #F2F0EB);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(40px, 6vw, 96px);
+}
+
+.video-feature__eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C8956C;
+  margin-bottom: 20px;
+}
+
+.video-feature__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #1A1814;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+.video-feature__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #6B6560;
+  margin-bottom: 36px;
+  max-width: 420px;
+}
+
+.video-feature__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1A1814;
+  text-decoration: none;
+  border-bottom: 1px solid #1A1814;
+  padding-bottom: 4px;
+  width: fit-content;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-feature__cta:hover {
+  color: #C8956C;
+  border-color: #C8956C;
+  gap: 16px;
+}
+
+@media (max-width: 749px) {
+  .video-feature,
+  .video-feature--reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+
+  .video-feature__media {
+    min-height: 300px;
+    aspect-ratio: 16 / 9;
+  }
+}

@@ -1,0 +1,336 @@
+<section id="homepage-blocks-{{ section.id }}" class="homepage-blocks">
+  <section class="brand-values">
+    <div class="brand-values__inner page-width">
+      {% for i in (1..3) %}
+        {% liquid
+          assign image_key = 'value_img_' | append: i
+          assign title_key = 'value_title_' | append: i
+          assign text_key = 'value_text_' | append: i
+          assign block_image = section.settings[image_key]
+          assign block_title = section.settings[title_key]
+          assign block_text = section.settings[text_key]
+        %}
+        <div class="brand-values__item">
+          <div class="brand-values__media">
+            {% if block_image != blank %}
+              {{
+                block_image
+                | image_url: width: 1200
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '400, 700, 900, 1200',
+                  sizes: '(min-width: 990px) 30vw, 100vw',
+                  alt: block_title
+              }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <h3>{{ block_title }}</h3>
+          <p>{{ block_text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="link-banners">
+    {% for i in (1..3) %}
+      {% liquid
+        assign image_key = 'banner_img_' | append: i
+        assign label_key = 'banner_label_' | append: i
+        assign link_key = 'banner_link_' | append: i
+        assign banner_image = section.settings[image_key]
+        assign banner_label = section.settings[label_key]
+        assign banner_link = section.settings[link_key]
+
+        if banner_link == blank
+          case i
+            when 1
+              assign banner_link = '/pages/about'
+            when 2
+              assign banner_link = '/collections/all'
+            when 3
+              assign banner_link = '/pages/faq'
+          endcase
+        endif
+      %}
+      <a href="{{ banner_link }}" class="link-banner">
+        <div class="link-banner__media">
+          {% if banner_image != blank %}
+            {{
+              banner_image
+              | image_url: width: 1400
+              | image_tag:
+                loading: 'lazy',
+                widths: '500, 900, 1200, 1400',
+                sizes: '(min-width: 750px) 33vw, 100vw',
+                alt: banner_label
+            }}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          <div class="link-banner__overlay"></div>
+        </div>
+        <span class="link-banner__label">{{ banner_label }}</span>
+      </a>
+    {% endfor %}
+  </section>
+
+  <section class="featured-products page-width">
+    <div class="featured-products__header">
+      <h2 class="featured-products__title">{{ section.settings.products_heading }}</h2>
+    </div>
+    <div class="featured-products__grid">
+      {% for i in (1..3) %}
+        {% liquid
+          assign product_key = 'featured_product_' | append: i
+          assign card_product = section.settings[product_key]
+        %}
+        {% if card_product != blank %}
+          <article class="card-wrapper">
+            <a href="{{ card_product.url }}" class="card">
+              <div class="card__media">
+                {% if card_product.featured_image != blank %}
+                  {{
+                    card_product.featured_image
+                    | image_url: width: 1200
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 600, 900, 1200',
+                      sizes: '(min-width: 990px) 22vw, 45vw',
+                      alt: card_product.title
+                  }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            </a>
+            <h3 class="card__heading">
+              <a href="{{ card_product.url }}">{{ card_product.title }}</a>
+            </h3>
+            <p class="price__regular">{{ card_product.price | money }}</p>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="insta-feed page-width">
+    <p class="insta-feed__handle">{{ section.settings.insta_handle }}</p>
+    <div class="insta-feed__grid">
+      {% for i in (1..6) %}
+        {% liquid
+          assign insta_key = 'insta_img_' | append: i
+          assign insta_image = section.settings[insta_key]
+        %}
+        <div class="insta-feed__item">
+          {% if insta_image != blank %}
+            {{
+              insta_image
+              | image_url: width: 800
+              | image_tag:
+                loading: 'lazy',
+                widths: '200, 400, 600, 800',
+                sizes: '(min-width: 750px) 16vw, 33vw',
+                alt: section.settings.insta_handle
+            }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          <div class="insta-feed__hover" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M12 21s-6.7-4.35-9.34-8.26C.83 10.01 1.56 6.3 4.55 4.5c2.02-1.22 4.66-.8 6.45 1.02 1.79-1.82 4.43-2.24 6.45-1.02 2.99 1.8 3.72 5.51 1.89 8.24C18.7 16.65 12 21 12 21z"></path>
+            </svg>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Blocks",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand Values"
+    },
+    {
+      "type": "image_picker",
+      "id": "value_img_1",
+      "label": "Value image 1"
+    },
+    {
+      "type": "text",
+      "id": "value_title_1",
+      "label": "Value title 1",
+      "default": "Adventure Ready"
+    },
+    {
+      "type": "textarea",
+      "id": "value_text_1",
+      "label": "Value text 1",
+      "default": "Gear built for pets who explore - from city streets to mountain trails."
+    },
+    {
+      "type": "image_picker",
+      "id": "value_img_2",
+      "label": "Value image 2"
+    },
+    {
+      "type": "text",
+      "id": "value_title_2",
+      "label": "Value title 2",
+      "default": "Designed with Love"
+    },
+    {
+      "type": "textarea",
+      "id": "value_text_2",
+      "label": "Value text 2",
+      "default": "Every product crafted with your pet's comfort and your style in mind."
+    },
+    {
+      "type": "image_picker",
+      "id": "value_img_3",
+      "label": "Value image 3"
+    },
+    {
+      "type": "text",
+      "id": "value_title_3",
+      "label": "Value title 3",
+      "default": "Built to Last"
+    },
+    {
+      "type": "textarea",
+      "id": "value_text_3",
+      "label": "Value text 3",
+      "default": "Premium materials. Trusted by 2,000+ pet owners worldwide."
+    },
+    {
+      "type": "header",
+      "content": "Link Banners"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img_1",
+      "label": "Banner image 1"
+    },
+    {
+      "type": "text",
+      "id": "banner_label_1",
+      "label": "Banner label 1",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "banner_link_1",
+      "label": "Banner link 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img_2",
+      "label": "Banner image 2"
+    },
+    {
+      "type": "text",
+      "id": "banner_label_2",
+      "label": "Banner label 2",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "banner_link_2",
+      "label": "Banner link 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img_3",
+      "label": "Banner image 3"
+    },
+    {
+      "type": "text",
+      "id": "banner_label_3",
+      "label": "Banner label 3",
+      "default": "Support"
+    },
+    {
+      "type": "url",
+      "id": "banner_link_3",
+      "label": "Banner link 3"
+    },
+    {
+      "type": "header",
+      "content": "Featured products"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "featured_product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "header",
+      "content": "Instagram Feed"
+    },
+    {
+      "type": "text",
+      "id": "insta_handle",
+      "label": "Instagram handle",
+      "default": "@pawlux"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_1",
+      "label": "Instagram image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_2",
+      "label": "Instagram image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_3",
+      "label": "Instagram image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_4",
+      "label": "Instagram image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_5",
+      "label": "Instagram image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img_6",
+      "label": "Instagram image 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Blocks"
+    }
+  ]
+}
+{% endschema %}

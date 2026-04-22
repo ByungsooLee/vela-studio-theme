@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const revealObserver = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry, i) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const delay = parseFloat(entry.target.dataset.delay || 0);
           setTimeout(() => entry.target.classList.add('is-visible'), delay * 1000);
@@ -16,43 +16,67 @@ document.addEventListener('DOMContentLoaded', () => {
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
-  document.querySelectorAll('.reveal').forEach((el, i) => {
+  document.querySelectorAll('.reveal:not(.card-wrapper)').forEach((el, i) => {
     el.dataset.delay = el.dataset.delay || (i % 4) * 0.08;
     revealObserver.observe(el);
   });
 
-  const gridObserver = new IntersectionObserver(
+  const cardRevealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const cards = entry.target.querySelectorAll('.card-wrapper');
-          cards.forEach((card, i) => {
-            card.style.transitionDelay = `${i * 60}ms`;
-            card.classList.add('is-visible');
-          });
-          gridObserver.unobserve(entry.target);
+          const revealIndex = Number(entry.target.dataset.revealIndex || 0);
+          entry.target.style.transitionDelay = `${revealIndex * 80}ms`;
+          entry.target.classList.add('is-visible');
+          cardRevealObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.05 }
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
 
-  document.querySelectorAll('.product-grid, .grid--4-col-desktop').forEach((grid) => {
-    grid.querySelectorAll('.card-wrapper').forEach((card) => {
-      card.classList.add('reveal');
+  const initCardReveal = (root = document) => {
+    const grids = [];
+
+    if (root.matches?.('.product-grid')) {
+      grids.push(root);
+    }
+
+    grids.push(...root.querySelectorAll('.product-grid'));
+
+    grids.forEach((grid) => {
+      grid.querySelectorAll('.card-wrapper').forEach((card, index) => {
+        card.classList.add('reveal');
+        card.classList.remove('is-visible');
+        card.style.transitionDelay = '0ms';
+        card.dataset.revealIndex = index;
+        cardRevealObserver.observe(card);
+      });
     });
-    gridObserver.observe(grid);
-  });
+  };
+
+  initCardReveal();
+
+  const productGridContainer = document.getElementById('ProductGridContainer');
+  if (productGridContainer) {
+    const productGridObserver = new MutationObserver((mutations) => {
+      const hasNewNodes = mutations.some((mutation) => mutation.addedNodes.length > 0);
+      if (hasNewNodes) {
+        initCardReveal(productGridContainer);
+      }
+    });
+
+    productGridObserver.observe(productGridContainer, { childList: true, subtree: true });
+  }
 
   const header = document.querySelector('.header');
   if (header) {
-    window.addEventListener(
-      'scroll',
-      () => {
-        header.classList.toggle('header--scrolled', window.scrollY > 60);
-      },
-      { passive: true }
-    );
+    const updateHeaderScrolled = () => {
+      header.classList.toggle('header--scrolled', window.scrollY > 8);
+    };
+
+    updateHeaderScrolled();
+    window.addEventListener('scroll', updateHeaderScrolled, { passive: true });
   }
 
   const cartBubble = document.querySelector('.cart-count-bubble');
@@ -84,6 +108,5 @@ style.textContent = `
     100% { transform: scale(1); }
   }
   .bump { animation: cartBump 0.4s cubic-bezier(0.16,1,0.3,1); }
-  .header--scrolled { box-shadow: 0 2px 20px rgba(26,24,20,0.08); }
 `;
 document.head.appendChild(style);

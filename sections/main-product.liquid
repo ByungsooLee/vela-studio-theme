@@ -588,7 +588,7 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
-                {% render 'trust-bar' %}
+                {% render 'trust-badges' %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">

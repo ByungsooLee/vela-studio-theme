@@ -42,9 +42,9 @@
 }
 
 .pawly-btn-primary:hover {
-  background: var(--pawly-primary-dark);
+  background: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: var(--pawly-shadow-md);
+  box-shadow: 0 12px 32px rgba(200, 149, 108, 0.4);
 }
 
 .pawly-btn-outline {
@@ -62,8 +62,9 @@
 }
 
 .pawly-btn-outline:hover {
-  background: var(--pawly-primary);
+  background: var(--color-accent, #0d6efd);
   color: white;
+  border-color: var(--color-accent, #0d6efd);
 }
 
 .pawly-fade-in {

@@ -15,7 +15,8 @@
       "type": "footer",
       "settings": {
         "color_scheme": "scheme-1",
-        "newsletter_enable": false,
+        "newsletter_enable": true,
+        "newsletter_heading": "Join the Pack — Get 10% off your first order",
         "enable_follow_on_shop": false,
         "show_social": false,
         "enable_country_selector": false,

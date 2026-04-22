@@ -52,25 +52,24 @@
       ],
       "settings": {}
     },
-    "pawly_hero": {
-      "type": "pawly-hero",
+    "main_homepage": {
+      "type": "main-homepage",
       "settings": {
-        "heading": "一緒に、どこへでも。",
-        "subheading": "PAWLYのキャリーバッグで、愛するペットとのお出かけをもっと快適に。",
-        "cta_label_1": "商品を見る",
-        "cta_url_1": "/collections/all",
-        "cta_label_2": "PAWLYについて",
-        "cta_url_2": "/pages/about"
+        "eyebrow": "Premium Pet Lifestyle",
+        "title_line_1": "Every adventure,",
+        "title_emphasis": "together.",
+        "cta_label": "Shop Collection",
+        "cta_url": "/collections/all"
       }
     },
-    "brand_promise": {
-      "type": "brand-promise",
+    "homepage_blocks": {
+      "type": "homepage-blocks",
       "settings": {}
     }
   },
   "order": [
     "pawly_trust_bar",
-    "pawly_hero",
-    "brand_promise"
+    "main_homepage",
+    "homepage_blocks"
   ]
 }
