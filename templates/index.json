@@ -9,6 +9,60 @@
  */
 {
   "sections": {
+    "pawly_trust_bar": {
+      "type": "pawly-trust-bar",
+      "blocks": {
+        "pawly_trust_item_1": {
+          "type": "item",
+          "settings": {
+            "text": "✦ 365日間保証"
+          }
+        },
+        "pawly_trust_item_2": {
+          "type": "item",
+          "settings": {
+            "text": "✦ ¥5,000以上送料無料"
+          }
+        },
+        "pawly_trust_item_3": {
+          "type": "item",
+          "settings": {
+            "text": "✦ 日本語カスタマーサポート"
+          }
+        },
+        "pawly_trust_item_4": {
+          "type": "item",
+          "settings": {
+            "text": "✦ 累計3,000件以上のレビュー"
+          }
+        },
+        "pawly_trust_item_5": {
+          "type": "item",
+          "settings": {
+            "text": "✦ 全国最短翌日〜3日でお届け"
+          }
+        }
+      },
+      "block_order": [
+        "pawly_trust_item_1",
+        "pawly_trust_item_2",
+        "pawly_trust_item_3",
+        "pawly_trust_item_4",
+        "pawly_trust_item_5"
+      ],
+      "settings": {}
+    },
+    "pawly_hero": {
+      "type": "pawly-hero",
+      "settings": {
+        "heading": "一緒に、どこへでも。",
+        "subheading": "PAWLYのキャリーバッグで、愛するペットとのお出かけをもっと快適に。",
+        "cta_label_1": "商品を見る",
+        "cta_url_1": "/collections/all",
+        "cta_label_2": "PAWLYについて",
+        "cta_url_2": "/pages/about"
+      }
+    },
     "ds-home": {
       "type": "ds-home",
       "blocks": {
@@ -90,6 +144,8 @@
     }
   },
   "order": [
+    "pawly_trust_bar",
+    "pawly_hero",
     "ds-home",
     "brand_promise"
   ]

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root {
+  --pawly-bg: #FFFAF7;
+  --pawly-bg-soft: #FFF0E8;
+  --pawly-primary: #FF6B6B;
+  --pawly-primary-dark: #E05555;
+  --pawly-secondary: #FFB347;
+  --pawly-accent: #A8E6CF;
+  --pawly-text: #2D2D2D;
+  --pawly-text-sub: #7A7A7A;
+  --pawly-border: #F0E0D6;
+  --pawly-font-display: 'Nunito', sans-serif;
+  --pawly-font-body: 'Noto Sans JP', sans-serif;
+  --pawly-radius-sm: 8px;
+  --pawly-radius-md: 16px;
+  --pawly-radius-lg: 24px;
+  --pawly-radius-pill: 999px;
+  --pawly-shadow-sm: 0 2px 8px rgba(255, 107, 107, 0.10);
+  --pawly-shadow-md: 0 8px 32px rgba(255, 107, 107, 0.15);
+  --pawly-shadow-lg: 0 16px 48px rgba(255, 107, 107, 0.20);
+}
+
+.pawly-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pawly-btn-primary {
+  background: var(--pawly-primary);
+  color: white;
+  padding: 14px 32px;
+  border-radius: var(--pawly-radius-pill);
+  font-family: var(--pawly-font-display);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.pawly-btn-primary:hover {
+  background: var(--pawly-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--pawly-shadow-md);
+}
+
+.pawly-btn-outline {
+  background: transparent;
+  color: var(--pawly-primary);
+  border: 2px solid var(--pawly-primary);
+  padding: 12px 32px;
+  border-radius: var(--pawly-radius-pill);
+  font-family: var(--pawly-font-display);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.pawly-btn-outline:hover {
+  background: var(--pawly-primary);
+  color: white;
+}
+
+.pawly-fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pawly-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

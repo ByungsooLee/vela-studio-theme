@@ -146,6 +146,9 @@
         </div>
       </div>
 
+      {% render 'pawly-product-features' %}
+      {% render 'pawly-size-guide' %}
+
       {%- if has_specs -%}
         <dl class="ds-main-product__spec-grid">
           {%- if materials != blank -%}

@@ -1,0 +1,118 @@
+<section id="pawly-trust-bar-{{ section.id }}" class="pawly-trust-bar">
+  <div class="pawly-trust-bar__track">
+    <ul class="pawly-trust-bar__list" role="list">
+      {% for block in section.blocks %}
+        <li class="pawly-trust-bar__item" {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+        </li>
+      {% endfor %}
+    </ul>
+    <ul class="pawly-trust-bar__list" role="list" aria-hidden="true">
+      {% for block in section.blocks %}
+        <li class="pawly-trust-bar__item">
+          {{ block.settings.text }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<style>
+  #pawly-trust-bar-{{ section.id }} {
+    background: var(--pawly-primary);
+    height: 44px;
+    overflow: hidden;
+  }
+
+  #pawly-trust-bar-{{ section.id }} .pawly-trust-bar__track {
+    display: flex;
+    width: max-content;
+    min-width: 100%;
+    height: 100%;
+    animation: pawlyMarquee 20s linear infinite;
+  }
+
+  #pawly-trust-bar-{{ section.id }} .pawly-trust-bar__list {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #pawly-trust-bar-{{ section.id }} .pawly-trust-bar__item {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    padding: 0 28px;
+  }
+
+  @keyframes pawlyMarquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PAWLY Trust Bar",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "アイテム",
+      "settings": [
+        {
+          "id": "text",
+          "type": "text",
+          "label": "テキスト"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PAWLY Trust Bar",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "text": "✦ 365日間保証"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "✦ ¥5,000以上送料無料"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "✦ 日本語カスタマーサポート"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "✦ 累計3,000件以上のレビュー"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "✦ 全国最短翌日〜3日でお届け"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

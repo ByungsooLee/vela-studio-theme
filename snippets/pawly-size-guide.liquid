@@ -1,0 +1,110 @@
+<div class="pawly-size-guide" aria-label="サイズガイド">
+  <h3 class="pawly-size-guide__heading">うちの子に合うサイズは？</h3>
+
+  <div class="pawly-size-guide__table-wrap">
+    <table class="pawly-size-guide__table">
+      <thead>
+        <tr>
+          <th>サイズ</th>
+          <th>対応体重</th>
+          <th>内寸（幅×奥行×高さ）</th>
+          <th>おすすめ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>S</td>
+          <td>〜3kg</td>
+          <td>25×20×28cm</td>
+          <td>超小型犬・子猫</td>
+        </tr>
+        <tr>
+          <td>M</td>
+          <td>3〜6kg</td>
+          <td>30×25×33cm</td>
+          <td>小型犬・成猫</td>
+        </tr>
+        <tr>
+          <td>L</td>
+          <td>6〜10kg</td>
+          <td>36×28×38cm</td>
+          <td>中型犬・大型猫</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="pawly-size-guide__tip">
+    💡 サイズで迷った場合は大きめをおすすめします。ペットがリラックスできる空間が大切です。
+  </p>
+</div>
+
+<style>
+  .pawly-size-guide {
+    width: 100%;
+  }
+
+  .pawly-size-guide__heading {
+    margin: 0 0 14px;
+    font-family: var(--pawly-font-display);
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--pawly-text);
+  }
+
+  .pawly-size-guide__table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--pawly-radius-md);
+  }
+
+  .pawly-size-guide__table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: white;
+  }
+
+  .pawly-size-guide__table th,
+  .pawly-size-guide__table td {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid var(--pawly-border);
+  }
+
+  .pawly-size-guide__table thead th {
+    background: var(--pawly-primary);
+    color: white;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .pawly-size-guide__table tbody tr:nth-child(even) {
+    background: var(--pawly-bg-soft);
+  }
+
+  .pawly-size-guide__table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pawly-size-guide__tip {
+    margin: 14px 0 0;
+    padding: 12px 14px;
+    background: #FFF3CD;
+    border-left: 4px solid var(--pawly-secondary);
+    border-radius: var(--pawly-radius-sm);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--pawly-text);
+  }
+
+  @media screen and (max-width: 749px) {
+    .pawly-size-guide__table th,
+    .pawly-size-guide__table td {
+      font-size: 13px;
+      padding: 10px 12px;
+    }
+  }
+</style>
