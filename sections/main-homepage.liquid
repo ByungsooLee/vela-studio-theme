@@ -1,4 +1,12 @@
-<section id="main-homepage-{{ section.id }}" class="hero-full">
+<section
+  id="main-homepage-{{ section.id }}"
+  class="hero-full"
+  style="
+    --hero-focus-x-desktop: {{ section.settings.hero_focus_x_desktop }}%;
+    --hero-focus-x-tablet: {{ section.settings.hero_focus_x_tablet }}%;
+    --hero-focus-x-mobile: {{ section.settings.hero_focus_x_mobile }}%;
+  "
+>
   <div class="hero-full__media">
     {% if section.settings.hero_video != blank %}
       {{
@@ -69,6 +77,37 @@
       "type": "video",
       "id": "hero_video",
       "label": "Hero video (MP4)"
+    },
+    {
+      "type": "header",
+      "content": "Media focus position"
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x_desktop",
+      "label": "Desktop focus X (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x_tablet",
+      "label": "Tablet focus X (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 62
+    },
+    {
+      "type": "range",
+      "id": "hero_focus_x_mobile",
+      "label": "Mobile focus X (%)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 68
     },
     {
       "type": "text",
