@@ -305,6 +305,8 @@
     </script>
     {{ 'pawly-base.css' | asset_url | stylesheet_tag }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'pawlux-global.css' | asset_url | stylesheet_tag }}
+    {{ 'pawlux-components.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -382,5 +384,6 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     <script src="{{ 'design-system.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pawlux-main.js' | asset_url }}" defer></script>
   </body>
 </html>
