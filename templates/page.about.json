@@ -3,15 +3,66 @@
     "page-about": {
       "type": "page-about",
       "blocks": {
-        "pillar-1": { "type": "pillar", "settings": { "icon": "🔍", "title": "Carefully Curated", "text": "Every product is handpicked from trusted global suppliers. We test before we sell." } },
-        "pillar-2": { "type": "pillar", "settings": { "icon": "🛡️", "title": "Safe & Certified", "text": "All products meet international safety standards. Your pet's wellbeing is our top priority." } },
-        "pillar-3": { "type": "pillar", "settings": { "icon": "✈️", "title": "Free Worldwide Shipping", "text": "We ship to 50+ countries with full tracking. No hidden fees at checkout." } },
-        "pillar-4": { "type": "pillar", "settings": { "icon": "🔄", "title": "30-Day Returns", "text": "Not happy? Return it within 30 days, no questions asked." } },
-        "pillar-5": { "type": "pillar", "settings": { "icon": "⭐", "title": "2,000+ Happy Pets", "text": "Pet owners across the world trust PAWLUX for their daily adventures." } },
-        "pillar-6": { "type": "pillar", "settings": { "icon": "💬", "title": "Real Support", "text": "Our team responds within 24 hours, before, during, and after your purchase." } }
+        "pillar-1": {
+          "type": "pillar",
+          "settings": {
+            "icon": "🔍",
+            "title": "Carefully Curated",
+            "text": "Every product is handpicked from trusted global suppliers."
+          }
+        },
+        "pillar-2": {
+          "type": "pillar",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Safe & Certified",
+            "text": "All products meet international safety standards."
+          }
+        },
+        "pillar-3": {
+          "type": "pillar",
+          "settings": {
+            "icon": "✈️",
+            "title": "Free Worldwide Shipping",
+            "text": "We ship to 50+ countries with full tracking."
+          }
+        },
+        "pillar-4": {
+          "type": "pillar",
+          "settings": {
+            "icon": "🔄",
+            "title": "30-Day Returns",
+            "text": "Not happy? Return it within 30 days, no questions asked."
+          }
+        },
+        "pillar-5": {
+          "type": "pillar",
+          "settings": {
+            "icon": "⭐",
+            "title": "2,000+ Happy Pets",
+            "text": "Pet owners worldwide trust PAWLUX."
+          }
+        },
+        "pillar-6": {
+          "type": "pillar",
+          "settings": {
+            "icon": "💬",
+            "title": "Real Support",
+            "text": "Our team responds within 24 hours."
+          }
+        }
       },
-      "block_order": ["pillar-1","pillar-2","pillar-3","pillar-4","pillar-5","pillar-6"]
+      "block_order": [
+        "pillar-1",
+        "pillar-2",
+        "pillar-3",
+        "pillar-4",
+        "pillar-5",
+        "pillar-6"
+      ]
     }
   },
-  "order": ["page-about"]
+  "order": [
+    "page-about"
+  ]
 }

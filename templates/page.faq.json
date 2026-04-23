@@ -7,103 +7,21 @@
           "type": "faq_item",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": "Standard shipping takes 7-15 business days to most countries. Express shipping (3-7 days) is available at checkout. You'll receive a tracking number by email once your order ships.",
-            "category": "Shipping"
+            "answer": "Standard shipping takes 7–15 business days."
           }
         },
         "faq-2": {
           "type": "faq_item",
           "settings": {
             "question": "Do you offer free shipping?",
-            "answer": "Yes! We offer free standard shipping worldwide on all orders. No minimum order required.",
-            "category": "Shipping"
-          }
-        },
-        "faq-3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Where do you ship from?",
-            "answer": "Our products are shipped from supplier warehouses in Asia. This allows us to offer premium products at accessible prices with worldwide delivery.",
-            "category": "Shipping"
-          }
-        },
-        "faq-4": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Can I track my order?",
-            "answer": "Absolutely. Once your order is shipped, you'll receive a tracking number via email.",
-            "category": "Shipping"
-          }
-        },
-        "faq-5": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "We offer a 30-day return policy. If you're not completely satisfied, contact us within 30 days of receiving your order and we'll make it right.",
-            "category": "Returns"
-          }
-        },
-        "faq-6": {
-          "type": "faq_item",
-          "settings": {
-            "question": "My item arrived damaged. What do I do?",
-            "answer": "Email support@pawlux.com with your order number and a photo of the damage. We'll send a replacement or issue a full refund.",
-            "category": "Returns"
-          }
-        },
-        "faq-7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Are your products safe for pets?",
-            "answer": "Yes. Every product in our collection is carefully selected to meet international safety standards.",
-            "category": "Products"
-          }
-        },
-        "faq-8": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What size carrier should I get for my cat?",
-            "answer": "Our Space Capsule Backpack fits cats up to 6kg (13 lbs). For dogs, measure your pet's length and height while seated.",
-            "category": "Products"
-          }
-        },
-        "faq-9": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Is it safe to buy from PAWLUX?",
-            "answer": "Yes. Our store uses SSL encryption and is powered by Shopify. Your payment information is never stored.",
-            "category": "Payment"
-          }
-        },
-        "faq-10": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What payment methods do you accept?",
-            "answer": "We accept major credit cards (Visa, Mastercard, Amex), PayPal, Apple Pay, and Google Pay.",
-            "category": "Payment"
+            "answer": "Yes, free worldwide shipping on all orders."
           }
         }
       },
       "block_order": [
         "faq-1",
-        "faq-2",
-        "faq-3",
-        "faq-4",
-        "faq-5",
-        "faq-6",
-        "faq-7",
-        "faq-8",
-        "faq-9",
-        "faq-10"
-      ],
-      "settings": {
-        "hero_eyebrow": "Support",
-        "hero_title": "Frequently Asked Questions",
-        "hero_subtitle": "Everything you need to know before you buy.",
-        "contact_text": "Still have questions?",
-        "contact_cta": "Contact Us",
-        "contact_url": "/pages/contact"
-      }
+        "faq-2"
+      ]
     }
   },
   "order": [
