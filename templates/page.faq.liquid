@@ -1,0 +1,170 @@
+{% layout 'theme' %}
+
+<div class="faq-page">
+  <section class="faq-hero">
+    <p class="about-eyebrow">Support</p>
+    <h1 class="faq-title">Frequently Asked Questions</h1>
+    <p class="faq-subtitle">Everything you need to know before you buy.</p>
+  </section>
+
+  <section class="faq-body page-width">
+    <div class="faq-category">
+      <h2 class="faq-category__title">🚚 Shipping</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How long does shipping take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Standard shipping takes <strong>7–15 business days</strong> to most countries.
+          Express shipping (3–7 days) is available at checkout.
+          You'll receive a tracking number by email once your order ships.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Do you offer free shipping?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes! We offer <strong>free standard shipping worldwide</strong> on all orders.
+          No minimum order required.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Where do you ship from?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our products are shipped from our supplier warehouses in Asia.
+          This allows us to offer premium products at accessible prices
+          with worldwide delivery.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I track my order?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely. Once your order is shipped, you'll receive a tracking number
+          via email. You can track your package at any time using the link provided.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">🔄 Returns & Refunds</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What is your return policy?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>We offer a <strong>30-day return policy</strong>.
+          If you're not completely satisfied with your purchase,
+          contact us within 30 days of receiving your order
+          and we'll make it right — no questions asked.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          My item arrived damaged. What do I do?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>We're so sorry to hear that. Please email us at
+          <strong>support@pawlux.com</strong> with your order number
+          and a photo of the damage. We'll send a replacement or
+          issue a full refund immediately.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">📦 Products</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Are your products safe for pets?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Every product in our collection is carefully selected
+          to meet international safety standards.
+          We only sell products we would use for our own pets.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What size carrier should I get for my cat?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our Space Capsule Backpack fits cats up to <strong>6kg (13 lbs)</strong>.
+          For dogs, we recommend measuring your pet's length and height
+          while seated. Check the size guide on each product page for details.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">💳 Payment & Security</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is it safe to buy from PAWLUX?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>100%. Our store uses <strong>256-bit SSL encryption</strong>
+          and is powered by Shopify — the world's most trusted
+          e-commerce platform. Your payment information is never stored.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          What payment methods do you accept?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>We accept all major credit cards (Visa, Mastercard, Amex),
+          PayPal, Apple Pay, and Google Pay.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-contact">
+      <p class="faq-contact__text">Still have questions?</p>
+      <a href="/pages/contact" class="about-cta">Contact Us →</a>
+    </div>
+  </section>
+</div>
+
+<script>
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.faq-question').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+      b.nextElementSibling.style.maxHeight = null;
+      b.querySelector('.faq-icon').textContent = '+';
+    });
+    if (!expanded) {
+      btn.setAttribute('aria-expanded', 'true');
+      btn.nextElementSibling.style.maxHeight =
+        btn.nextElementSibling.scrollHeight + 'px';
+      btn.querySelector('.faq-icon').textContent = '×';
+    }
+  });
+});
+</script>
