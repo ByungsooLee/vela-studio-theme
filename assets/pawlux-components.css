@@ -657,6 +657,191 @@ body.gradient {
   }
 }
 
+/* ── About Page ── */
+.about-page { padding-top: 72px; }
+
+.about-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C8956C;
+  margin-bottom: 16px;
+}
+
+/* Hero */
+.about-hero {
+  background: #1A1814;
+  padding: clamp(80px, 12vw, 140px) clamp(24px, 6vw, 80px);
+  text-align: center;
+}
+
+.about-hero__inner { max-width: 720px; margin: 0 auto; }
+
+.about-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.about-subtitle {
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Mission */
+.about-mission {
+  padding: clamp(64px, 10vw, 120px) clamp(24px, 4vw, 48px);
+}
+
+.about-mission__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-mission__content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1A1814;
+  margin-bottom: 24px;
+}
+
+.about-mission__content p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #6B6560;
+  margin-bottom: 16px;
+}
+
+.about-mission__content em {
+  font-style: italic;
+  color: #1A1814;
+  font-weight: 500;
+}
+
+.about-mission__image {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #F2F0EB;
+}
+
+.about-mission__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Pillars */
+.about-pillars {
+  background: #F2F0EB;
+  padding: clamp(64px, 10vw, 120px) clamp(24px, 4vw, 48px);
+}
+
+.about-pillars h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #1A1814;
+}
+
+.about-pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.about-pillar {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.about-pillar__icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.about-pillar h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: #1A1814;
+  margin-bottom: 12px;
+}
+
+.about-pillar p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #6B6560;
+}
+
+/* Promise */
+.about-promise {
+  background: #1A1814;
+  padding: clamp(64px, 10vw, 120px) clamp(24px, 4vw, 48px);
+  text-align: center;
+}
+
+.about-promise__quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: white;
+  line-height: 1.3;
+  max-width: 800px;
+  margin: 0 auto 24px;
+  border: none;
+  padding: 0;
+}
+
+.about-promise__sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 40px;
+}
+
+.about-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 40px;
+  background: #C8956C;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+
+.about-cta:hover {
+  background: white;
+  color: #1A1814;
+  gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 749px) {
+  .about-mission__grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-pillars__grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
 /* Section spacing and image ratio adjustments for brand-values */
 .brand-values,
 .shopify-section:has(.brand-values) {

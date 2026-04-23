@@ -328,3 +328,8 @@ header.header,
   padding: 0 !important;
   max-width: 700px !important;
 }
+
+.video-feature__content {
+  justify-content: center !important;
+  align-items: flex-start !important;
+}
