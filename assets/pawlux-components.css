@@ -708,6 +708,14 @@ body.gradient {
   align-items: center;
 }
 
+.about-mission__grid--reverse {
+  direction: rtl;
+}
+
+.about-mission__grid--reverse > * {
+  direction: ltr;
+}
+
 .about-mission__content h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2rem, 4vw, 3rem);
@@ -730,14 +738,17 @@ body.gradient {
   font-weight: 500;
 }
 
-.about-mission__image {
+.about-mission__image,
+.about-mission__media {
   aspect-ratio: 4/3;
   overflow: hidden;
   border-radius: 16px;
   background: #F2F0EB;
 }
 
-.about-mission__image img {
+.about-mission__image img,
+.about-mission__media img,
+.about-mission__media video {
   width: 100%;
   height: 100%;
   object-fit: cover;

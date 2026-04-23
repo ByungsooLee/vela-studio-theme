@@ -1,0 +1,294 @@
+{% comment %} About Page Section {% endcomment %}
+
+<div class="about-page">
+
+  <!-- HERO -->
+  <section class="about-hero" style="background: {{ section.settings.hero_bg_color }};">
+    <div class="about-hero__inner">
+      <p class="about-eyebrow">{{ section.settings.hero_eyebrow }}</p>
+      <h1 class="about-title">{{ section.settings.hero_title }}</h1>
+      <p class="about-subtitle">{{ section.settings.hero_subtitle }}</p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="about-mission page-width">
+    <div class="about-mission__grid {% if section.settings.mission_reverse %}about-mission__grid--reverse{% endif %}">
+      <div class="about-mission__content">
+        <p class="about-eyebrow">{{ section.settings.mission_eyebrow }}</p>
+        <h2>{{ section.settings.mission_title }}</h2>
+        <div class="about-mission__body">{{ section.settings.mission_body }}</div>
+      </div>
+      <div class="about-mission__media">
+        {%- if section.settings.mission_video != blank -%}
+          {{
+            section.settings.mission_video
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              playsinline: true
+          }}
+        {%- elsif section.settings.mission_image != blank -%}
+          <img
+            src="{{ section.settings.mission_image | image_url: width: 1200 }}"
+            alt="{{ section.settings.mission_image.alt }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST PILLARS -->
+  <section class="about-pillars">
+    <div class="page-width">
+      <p class="about-eyebrow" style="text-align:center">
+        {{ section.settings.pillars_eyebrow }}
+      </p>
+      <h2 style="text-align:center;margin-bottom:56px">
+        {{ section.settings.pillars_title }}
+      </h2>
+      <div class="about-pillars__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'pillar' %}
+          <div class="about-pillar" {{ block.shopify_attributes }}>
+            <div class="about-pillar__icon">{{ block.settings.icon }}</div>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMISE -->
+  <section class="about-promise" style="background: {{ section.settings.promise_bg_color }};">
+    <div class="about-promise__inner page-width">
+      <p class="about-eyebrow">{{ section.settings.promise_eyebrow }}</p>
+      <blockquote class="about-promise__quote">
+        {{ section.settings.promise_quote }}
+      </blockquote>
+      <p class="about-promise__sub">{{ section.settings.promise_sub }}</p>
+      <a href="{{ section.settings.promise_cta_url }}" class="about-cta">
+        {{ section.settings.promise_cta_text }} →
+      </a>
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "About Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🎬 Hero セクション"
+    },
+    {
+      "type": "color",
+      "id": "hero_bg_color",
+      "label": "背景色",
+      "default": "#1A1814"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "小見出し",
+      "default": "Our Story"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_title",
+      "label": "メイン見出し",
+      "default": "We exist for the pets who are family."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "サブテキスト",
+      "default": "PAWLUX was born from one simple belief — your pet deserves the same quality of life you do."
+    },
+    {
+      "type": "header",
+      "content": "📸 Mission セクション"
+    },
+    {
+      "type": "text",
+      "id": "mission_eyebrow",
+      "label": "小見出し",
+      "default": "Our Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "mission_title",
+      "label": "見出し",
+      "default": "Premium gear. Happy pets."
+    },
+    {
+      "type": "richtext",
+      "id": "mission_body",
+      "label": "本文",
+      "default": "<p>We handpick every product with one question in mind: Would we use this for our own pet? If the answer isn't an immediate yes, it doesn't make the cut.</p>"
+    },
+    {
+      "type": "video",
+      "id": "mission_video",
+      "label": "動画（優先表示）",
+      "info": "動画をアップすると画像より優先されます"
+    },
+    {
+      "type": "image_picker",
+      "id": "mission_image",
+      "label": "画像（動画がない場合）"
+    },
+    {
+      "type": "checkbox",
+      "id": "mission_reverse",
+      "label": "画像を左側に表示",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "🏆 Trust Pillars セクション"
+    },
+    {
+      "type": "text",
+      "id": "pillars_eyebrow",
+      "label": "小見出し",
+      "default": "Why PAWLUX"
+    },
+    {
+      "type": "textarea",
+      "id": "pillars_title",
+      "label": "見出し",
+      "default": "The standard every pet owner deserves"
+    },
+    {
+      "type": "header",
+      "content": "💬 Promise セクション"
+    },
+    {
+      "type": "color",
+      "id": "promise_bg_color",
+      "label": "背景色",
+      "default": "#1A1814"
+    },
+    {
+      "type": "text",
+      "id": "promise_eyebrow",
+      "label": "小見出し",
+      "default": "Our Promise"
+    },
+    {
+      "type": "textarea",
+      "id": "promise_quote",
+      "label": "引用文",
+      "default": "Every product we sell, we'd buy for our own pet."
+    },
+    {
+      "type": "textarea",
+      "id": "promise_sub",
+      "label": "サブテキスト",
+      "default": "That's the PAWLUX standard. Nothing ships unless we believe in it completely."
+    },
+    {
+      "type": "text",
+      "id": "promise_cta_text",
+      "label": "ボタンテキスト",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "url",
+      "id": "promise_cta_url",
+      "label": "ボタンリンク",
+      "default": "/collections/all"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Trust Pillar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "アイコン（絵文字）",
+          "default": "🔍"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "タイトル",
+          "default": "Carefully Curated"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "説明文",
+          "default": "Every product is handpicked from trusted global suppliers."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Page",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "🔍",
+            "title": "Carefully Curated",
+            "text": "Every product is handpicked from trusted global suppliers. We test before we sell — no exceptions."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Safe & Certified",
+            "text": "All products meet international safety standards. Your pet's wellbeing is our top priority."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "✈️",
+            "title": "Free Worldwide Shipping",
+            "text": "We ship to 50+ countries with full tracking. No hidden fees at checkout."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "🔄",
+            "title": "30-Day Returns",
+            "text": "Not happy? Return it within 30 days, no questions asked."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "⭐",
+            "title": "2,000+ Happy Pets",
+            "text": "Pet owners across the world trust PAWLUX for their daily adventures."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "icon": "💬",
+            "title": "Real Support",
+            "text": "Our team responds within 24 hours. We're here before, during, and after your purchase."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

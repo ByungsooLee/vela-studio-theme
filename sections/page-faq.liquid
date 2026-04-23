@@ -1,0 +1,254 @@
+{% comment %} FAQ Page Section {% endcomment %}
+
+<div class="faq-page" id="faq-page-{{ section.id }}">
+  <section class="faq-hero">
+    <p class="about-eyebrow">{{ section.settings.hero_eyebrow }}</p>
+    <h1 class="faq-title">{{ section.settings.hero_title }}</h1>
+    <p class="faq-subtitle">{{ section.settings.hero_subtitle }}</p>
+  </section>
+
+  <section class="faq-body page-width">
+    <div class="faq-category">
+      <h2 class="faq-category__title">🚚 Shipping</h2>
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' and block.settings.category == 'Shipping' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" aria-expanded="false">
+              {{ block.settings.question }}
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{{ block.settings.answer | newline_to_br }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">🔄 Returns & Refunds</h2>
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' and block.settings.category == 'Returns' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" aria-expanded="false">
+              {{ block.settings.question }}
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{{ block.settings.answer | newline_to_br }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">📦 Products</h2>
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' and block.settings.category == 'Products' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" aria-expanded="false">
+              {{ block.settings.question }}
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{{ block.settings.answer | newline_to_br }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="faq-category">
+      <h2 class="faq-category__title">💳 Payment & Security</h2>
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' and block.settings.category == 'Payment' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <button class="faq-question" aria-expanded="false">
+              {{ block.settings.question }}
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>{{ block.settings.answer | newline_to_br }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="faq-contact">
+      <p class="faq-contact__text">{{ section.settings.contact_text }}</p>
+      <a href="{{ section.settings.contact_url }}" class="about-cta">{{ section.settings.contact_cta }} →</a>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const faqRoot = document.getElementById('faq-page-{{ section.id }}');
+  if (!faqRoot) return;
+
+  const questions = faqRoot.querySelectorAll('.faq-question');
+
+  questions.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+
+      questions.forEach((questionBtn) => {
+        questionBtn.setAttribute('aria-expanded', 'false');
+        questionBtn.nextElementSibling.style.maxHeight = null;
+        questionBtn.querySelector('.faq-icon').textContent = '+';
+      });
+
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.nextElementSibling.style.maxHeight = `${btn.nextElementSibling.scrollHeight}px`;
+        btn.querySelector('.faq-icon').textContent = '×';
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero 小見出し",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero タイトル",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Hero サブタイトル",
+      "default": "Everything you need to know before you buy."
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact テキスト",
+      "default": "Still have questions?"
+    },
+    {
+      "type": "text",
+      "id": "contact_cta",
+      "label": "Contact ボタンテキスト",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "contact_url",
+      "label": "Contact URL",
+      "default": "/pages/contact"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Standard shipping takes 7-15 business days to most countries."
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            {
+              "value": "Shipping",
+              "label": "Shipping"
+            },
+            {
+              "value": "Returns",
+              "label": "Returns"
+            },
+            {
+              "value": "Products",
+              "label": "Products"
+            },
+            {
+              "value": "Payment",
+              "label": "Payment"
+            }
+          ],
+          "default": "Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Page",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Standard shipping takes 7-15 business days to most countries. Express shipping (3-7 days) is available at checkout. You'll receive a tracking number by email once your order ships.",
+            "category": "Shipping"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer free shipping?",
+            "answer": "Yes! We offer free standard shipping worldwide on all orders. No minimum order required.",
+            "category": "Shipping"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "We offer a 30-day return policy. If you're not completely satisfied with your purchase, contact us within 30 days of receiving your order and we'll make it right.",
+            "category": "Returns"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "My item arrived damaged. What do I do?",
+            "answer": "Please email support@pawlux.com with your order number and a photo of the damage. We'll send a replacement or issue a full refund.",
+            "category": "Returns"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are your products safe for pets?",
+            "answer": "Yes. Every product in our collection is carefully selected to meet international safety standards.",
+            "category": "Products"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "We accept major credit cards, PayPal, Apple Pay, and Google Pay.",
+            "category": "Payment"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
