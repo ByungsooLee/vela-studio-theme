@@ -13,9 +13,9 @@
 
     <div class="blog-filters-wrap">
       <div class="page-width">
-        <nav class="blog-filters" aria-label="Filter by topic">
+        <nav class="blog-filters" aria-label="トピックで絞り込む">
           <a href="{{ blog.url }}" class="blog-filter-tab{% unless current_tags %} blog-filter-tab--active{% endunless %}">
-            All
+            すべて
           </a>
           {%- for tag in blog.all_tags -%}
             <a
@@ -56,7 +56,7 @@
                 class="article-read-time"
                 data-word-count="{{ featured.content | strip_html | split: ' ' | size }}"
               >
-                {{ featured.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 }} min read
+                {{ featured.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 }} 分で読めます
               </span>
             </div>
             <h2 class="blog-featured__title">
@@ -65,7 +65,7 @@
             {%- if featured.excerpt != blank -%}
               <p class="blog-featured__excerpt">{{ featured.excerpt | strip_html | truncate: 160 }}</p>
             {%- endif -%}
-            <a href="{{ featured.url }}" class="blog-featured__cta">Read the story →</a>
+            <a href="{{ featured.url }}" class="blog-featured__cta">記事を読む →</a>
           </div>
         </article>
       {%- endif -%}
@@ -94,8 +94,8 @@
         {%- endif -%}
         <div class="blog-load-more" data-blog-load-more-wrap>
           <a href="{{ paginate.next.url }}" class="btn-load-more js-blog-load-more" data-next-url="{{ paginate.next.url }}">
-            Load more articles
-            <span class="load-more__count">({{ remaining_count }} more)</span>
+            さらに記事を表示
+            <span class="load-more__count">（あと {{ remaining_count }} 件）</span>
           </a>
         </div>
       {%- endif -%}
@@ -104,9 +104,9 @@
     <section class="blog-newsletter">
       <div class="page-width">
         <div class="blog-newsletter__inner">
-          <p class="blog-newsletter__label">Stay in the loop</p>
-          <h2 class="blog-newsletter__title">Ideas for a better everyday life,<br>in your inbox.</h2>
-          <p class="blog-newsletter__sub">No spam. Just thoughtful picks and quiet upgrades.</p>
+          <p class="blog-newsletter__label">最新情報をお届け</p>
+          <h2 class="blog-newsletter__title">より心地よい毎日のヒントを、<br>メールでお届けします。</h2>
+          <p class="blog-newsletter__sub">スパムなし。厳選情報だけをお届けします。</p>
 
           {%- form 'customer', id: 'blog-newsletter-form' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">
@@ -121,13 +121,13 @@
                 autocorrect="off"
                 autocapitalize="off"
                 autocomplete="email"
-                aria-label="Email address"
+                aria-label="メールアドレス"
               >
-              <button type="submit" class="blog-newsletter__btn">Subscribe</button>
+              <button type="submit" class="blog-newsletter__btn">登録する</button>
             </div>
 
             {%- if form.posted_successfully? -%}
-              <p class="blog-newsletter__success">You're in. Welcome.</p>
+              <p class="blog-newsletter__success">登録が完了しました。ありがとうございます。</p>
             {%- endif -%}
 
             {%- if form.errors -%}
@@ -135,7 +135,7 @@
             {%- endif -%}
           {%- endform -%}
 
-          <p class="blog-newsletter__disclaimer">Unsubscribe anytime. We mean it.</p>
+          <p class="blog-newsletter__disclaimer">いつでも配信停止できます。</p>
         </div>
       </div>
     </section>
@@ -144,7 +144,7 @@
 
 {% schema %}
 {
-  "name": "Blog template",
+  "name": "ブログテンプレート",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -155,7 +155,7 @@
       "max": 12,
       "step": 1,
       "default": 7,
-      "label": "Articles per page"
+      "label": "1ページあたりの記事数"
     }
   ]
 }

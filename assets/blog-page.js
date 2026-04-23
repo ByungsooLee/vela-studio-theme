@@ -12,7 +12,7 @@
       }
 
       var minutes = Math.ceil(wordCount / 200);
-      node.textContent = minutes + " min read";
+      node.textContent = minutes + " 分で読めます";
     });
   }
 
@@ -62,7 +62,7 @@
       return;
     }
 
-    var defaultText = button.childNodes[0] ? button.childNodes[0].textContent.trim() : "Load more articles";
+    var defaultText = button.childNodes[0] ? button.childNodes[0].textContent.trim() : "さらに記事を表示";
 
     button.addEventListener("click", function (event) {
       event.preventDefault();
@@ -74,12 +74,12 @@
 
       button.classList.add("is-loading");
       button.setAttribute("aria-busy", "true");
-      button.childNodes[0].textContent = "Loading...";
+      button.childNodes[0].textContent = "読み込み中...";
 
       fetch(nextUrl, { credentials: "same-origin" })
         .then(function (response) {
           if (!response.ok) {
-            throw new Error("Failed to load blog page");
+            throw new Error("ブログページの読み込みに失敗しました");
           }
           return response.text();
         })
@@ -121,7 +121,7 @@
           if (activeButton) {
             activeButton.classList.remove("is-loading");
             activeButton.removeAttribute("aria-busy");
-            if (activeButton.childNodes[0] && activeButton.childNodes[0].textContent.trim() === "Loading...") {
+            if (activeButton.childNodes[0] && activeButton.childNodes[0].textContent.trim() === "読み込み中...") {
               activeButton.childNodes[0].textContent = defaultText;
             }
           }

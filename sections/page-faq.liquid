@@ -1,4 +1,4 @@
-{% comment %} FAQ Page Section {% endcomment %}
+{% comment %} FAQページセクション {% endcomment %}
 
 <div class="faq-page" id="faq-page-{{ section.id }}">
   <section class="faq-hero">
@@ -9,7 +9,7 @@
 
   <section class="faq-body page-width">
     <div class="faq-category">
-      <h2 class="faq-category__title">🚚 Shipping</h2>
+      <h2 class="faq-category__title">🚚 配送</h2>
       {% for block in section.blocks %}
         {% if block.type == 'faq_item' and block.settings.category == 'Shipping' %}
           <div class="faq-item" {{ block.shopify_attributes }}>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="faq-category">
-      <h2 class="faq-category__title">🔄 Returns & Refunds</h2>
+      <h2 class="faq-category__title">🔄 返品・返金</h2>
       {% for block in section.blocks %}
         {% if block.type == 'faq_item' and block.settings.category == 'Returns' %}
           <div class="faq-item" {{ block.shopify_attributes }}>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="faq-category">
-      <h2 class="faq-category__title">📦 Products</h2>
+      <h2 class="faq-category__title">📦 商品</h2>
       {% for block in section.blocks %}
         {% if block.type == 'faq_item' and block.settings.category == 'Products' %}
           <div class="faq-item" {{ block.shopify_attributes }}>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="faq-category">
-      <h2 class="faq-category__title">💳 Payment & Security</h2>
+      <h2 class="faq-category__title">💳 お支払い・セキュリティ</h2>
       {% for block in section.blocks %}
         {% if block.type == 'faq_item' and block.settings.category == 'Payment' %}
           <div class="faq-item" {{ block.shopify_attributes }}>
@@ -112,13 +112,13 @@
 
 {% schema %}
 {
-  "name": "FAQ Page",
+  "name": "FAQページ",
   "settings": [
     {
       "type": "text",
       "id": "hero_eyebrow",
       "label": "Hero 小見出し",
-      "default": "Support"
+      "default": "サポート"
     },
     {
       "type": "text",
@@ -130,63 +130,63 @@
       "type": "textarea",
       "id": "hero_subtitle",
       "label": "Hero サブタイトル",
-      "default": "Everything you need to know before you buy."
+      "default": "購入前に知っておきたい情報をまとめています。"
     },
     {
       "type": "text",
       "id": "contact_text",
       "label": "Contact テキスト",
-      "default": "Still have questions?"
+      "default": "まだご不明点がありますか？"
     },
     {
       "type": "text",
       "id": "contact_cta",
       "label": "Contact ボタンテキスト",
-      "default": "Contact Us"
+      "default": "お問い合わせ"
     },
     {
       "type": "url",
       "id": "contact_url",
-      "label": "Contact URL"
+      "label": "お問い合わせURL"
     }
   ],
   "blocks": [
     {
       "type": "faq_item",
-      "name": "FAQ Item",
+      "name": "FAQ項目",
       "settings": [
         {
           "type": "text",
           "id": "question",
-          "label": "Question",
-          "default": "How long does shipping take?"
+          "label": "質問",
+          "default": "配送にはどれくらいかかりますか？"
         },
         {
           "type": "textarea",
           "id": "answer",
-          "label": "Answer",
-          "default": "Standard shipping takes 7-15 business days to most countries."
+          "label": "回答",
+          "default": "通常配送は多くの国で7〜15営業日かかります。"
         },
         {
           "type": "select",
           "id": "category",
-          "label": "Category",
+          "label": "カテゴリ",
           "options": [
             {
               "value": "Shipping",
-              "label": "Shipping"
+              "label": "配送"
             },
             {
               "value": "Returns",
-              "label": "Returns"
+              "label": "返品"
             },
             {
               "value": "Products",
-              "label": "Products"
+              "label": "商品"
             },
             {
               "value": "Payment",
-              "label": "Payment"
+              "label": "お支払い"
             }
           ],
           "default": "Shipping"
@@ -196,53 +196,53 @@
   ],
   "presets": [
     {
-      "name": "FAQ Page",
+      "name": "FAQページ",
       "blocks": [
         {
           "type": "faq_item",
           "settings": {
-            "question": "How long does shipping take?",
-            "answer": "Standard shipping takes 7-15 business days to most countries. Express shipping (3-7 days) is available at checkout. You'll receive a tracking number by email once your order ships.",
+            "question": "配送にはどれくらいかかりますか？",
+            "answer": "通常配送は多くの国で7〜15営業日かかります。お急ぎ便（3〜7日）はチェックアウト時に選択できます。発送後、追跡番号をメールでお送りします。",
             "category": "Shipping"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "question": "Do you offer free shipping?",
-            "answer": "Yes! We offer free standard shipping worldwide on all orders. No minimum order required.",
+            "question": "送料無料ですか？",
+            "answer": "はい。すべてのご注文で、世界中どこでも通常配送が無料です。最低購入金額はありません。",
             "category": "Shipping"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "question": "What is your return policy?",
-            "answer": "We offer a 30-day return policy. If you're not completely satisfied with your purchase, contact us within 30 days of receiving your order and we'll make it right.",
+            "question": "返品ポリシーを教えてください。",
+            "answer": "30日間の返品ポリシーをご用意しています。商品到着後30日以内にご連絡いただければ、適切に対応いたします。",
             "category": "Returns"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "question": "My item arrived damaged. What do I do?",
-            "answer": "Please email support@pawlux.com with your order number and a photo of the damage. We'll send a replacement or issue a full refund.",
+            "question": "商品が破損した状態で届きました。どうすればよいですか？",
+            "answer": "注文番号と破損箇所の写真を添えて support@pawlux.com までご連絡ください。交換品の発送または全額返金で対応します。",
             "category": "Returns"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "question": "Are your products safe for pets?",
-            "answer": "Yes. Every product in our collection is carefully selected to meet international safety standards.",
+            "question": "商品はペットにも安全ですか？",
+            "answer": "はい。コレクション内のすべての商品は、国際的な安全基準を満たすよう慎重に選定しています。",
             "category": "Products"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "question": "What payment methods do you accept?",
-            "answer": "We accept major credit cards, PayPal, Apple Pay, and Google Pay.",
+            "question": "利用可能な支払い方法は？",
+            "answer": "主要なクレジットカード、PayPal、Apple Pay、Google Payをご利用いただけます。",
             "category": "Payment"
           }
         }

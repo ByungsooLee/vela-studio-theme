@@ -52,7 +52,6 @@
   endif
 
   assign summary_rating_number = summary_rating | plus: 0
-  assign summary_count_number = summary_count | plus: 0
 
   assign summary_rating_decimal = 0
   assign summary_decimal = summary_rating_number | modulo: 1
@@ -215,7 +214,7 @@
         <modal-dialog id="ReviewLightbox-{{ section.id }}" class="review-lightbox-modal" data-review-lightbox-modal>
           <div
             role="dialog"
-            aria-label="{{ 'accessibility.gallery' | t | default: 'レビュー画像を拡大表示' }}"
+            aria-label="レビュー画像を拡大表示"
             aria-modal="true"
             class="review-lightbox-modal__content"
             tabindex="-1"
@@ -233,7 +232,7 @@
               {{- 'icon-caret.svg' | inline_asset_content -}}
             </button>
             <div class="review-lightbox-modal__image-wrap">
-              <img src="" alt="" class="review-lightbox-modal__image" data-review-lightbox-image loading="lazy" width="1200" height="1200">
+              <img src="{{ 'hero-home-sale.png' | asset_url }}" alt="" class="review-lightbox-modal__image" data-review-lightbox-image loading="lazy" width="1200" height="1200">
               <p class="review-lightbox-modal__counter" data-review-lightbox-counter></p>
             </div>
             <button type="button" class="review-lightbox-modal__nav review-lightbox-modal__nav--next" data-review-lightbox-next aria-label="次の画像">

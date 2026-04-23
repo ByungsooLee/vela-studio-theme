@@ -1,5 +1,5 @@
 /* ============================================
-   PAWLUX — Main JavaScript
+   PAWLUX — メインJavaScript
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {

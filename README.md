@@ -1,32 +1,32 @@
-# VELA STUDIO Theme
+# VELA STUDIO テーマ
 
-Shopify Online Store 2.0 theme for VELA STUDIO.
+VELA STUDIO 向けの Shopify Online Store 2.0 テーマです。
 
-All commands below are intended to be run from the repository root:
+以下のコマンドはすべてリポジトリのルートで実行します。
 
 ```bash
 cd "/Users/byungsoolee/Desktop/vela-studio-theme"
 ```
 
-## Development
+## 開発
 
-Start a local theme preview:
+ローカルのテーマプレビューを起動:
 
 ```bash
 shopify theme dev
 ```
 
-Run a theme check:
+テーマチェックを実行:
 
 ```bash
 shopify theme check --path .
 ```
 
-## Environment Variables
+## 環境変数
 
-This repo expects Shopify credentials in `.env`.
+このリポジトリは `.env` に Shopify 認証情報がある前提です。
 
-Typical variables used by local commands and deploy scripts:
+ローカルコマンドやデプロイスクリプトで一般的に使う変数:
 
 - `SHOPIFY_STORE`
 - `SHOPIFY_CLI_THEME_TOKEN`
@@ -34,7 +34,7 @@ Typical variables used by local commands and deploy scripts:
 - `SHOPIFY_THEME_ID_PRODUCTION`
 - `SHOPIFY_ALLOW_LIVE_PRODUCTION`
 
-Load the variables into your current shell:
+現在のシェルに環境変数を読み込む:
 
 ```bash
 set -a
@@ -42,9 +42,9 @@ source .env
 set +a
 ```
 
-## Push To Staging
+## ステージングへ反映
 
-Push the current theme to the staging theme ID from `.env`:
+`.env` のステージングテーマIDへ現在のテーマを反映:
 
 ```bash
 set -a
@@ -59,9 +59,9 @@ shopify theme push \
   --nodelete
 ```
 
-## Preview Staging
+## ステージングをプレビュー
 
-After a successful push, open the staging preview:
+反映が成功したら、ステージングプレビューを開く:
 
 ```bash
 set -a
@@ -73,9 +73,9 @@ shopify theme open \
   --theme "$SHOPIFY_THEME_ID_STAGING"
 ```
 
-## Deploy To Production
+## 本番デプロイ
 
-Production deploy is handled through GitHub Actions:
+本番デプロイは GitHub Actions で実行:
 
 ```bash
 gh workflow run "Deploy Shopify Theme" \
@@ -83,7 +83,7 @@ gh workflow run "Deploy Shopify Theme" \
   -f confirm_production=true
 ```
 
-Watch the workflow:
+ワークフローを確認:
 
 ```bash
 gh run list --workflow "Deploy Shopify Theme" --limit 3

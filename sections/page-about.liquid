@@ -1,8 +1,8 @@
-{% comment %} About Page Section {% endcomment %}
+{% comment %} Aboutページセクション {% endcomment %}
 
 <div class="about-page">
 
-  <!-- HERO -->
+  <!-- ヒーロー -->
   <section class="about-hero" style="background: {{ section.settings.hero_bg_color }};">
     <div class="about-hero__inner">
       <p class="about-eyebrow">{{ section.settings.hero_eyebrow }}</p>
@@ -11,7 +11,7 @@
     </div>
   </section>
 
-  <!-- MISSION -->
+  <!-- ミッション -->
   <section class="about-mission page-width">
     <div class="about-mission__grid {% if section.settings.mission_reverse %}about-mission__grid--reverse{% endif %}">
       <div class="about-mission__content">
@@ -33,6 +33,8 @@
           <img
             src="{{ section.settings.mission_image | image_url: width: 1200 }}"
             alt="{{ section.settings.mission_image.alt }}"
+            width="{{ section.settings.mission_image.width }}"
+            height="{{ section.settings.mission_image.height }}"
             loading="lazy"
           >
         {%- else -%}
@@ -42,7 +44,7 @@
     </div>
   </section>
 
-  <!-- TRUST PILLARS -->
+  <!-- 信頼の柱 -->
   <section class="about-pillars">
     <div class="page-width">
       <p class="about-eyebrow" style="text-align:center">
@@ -65,7 +67,7 @@
     </div>
   </section>
 
-  <!-- PROMISE -->
+  <!-- プロミス -->
   <section class="about-promise" style="background: {{ section.settings.promise_bg_color }};">
     <div class="about-promise__inner page-width">
       <p class="about-eyebrow">{{ section.settings.promise_eyebrow }}</p>
@@ -83,7 +85,7 @@
 
 {% schema %}
 {
-  "name": "About Page",
+  "name": "Aboutページ",
   "settings": [
     {
       "type": "header",
@@ -99,19 +101,19 @@
       "type": "text",
       "id": "hero_eyebrow",
       "label": "小見出し",
-      "default": "Our Story"
+      "default": "私たちのストーリー"
     },
     {
       "type": "textarea",
       "id": "hero_title",
       "label": "メイン見出し",
-      "default": "We exist for the pets who are family."
+      "default": "家族であるペットのために、私たちは存在します。"
     },
     {
       "type": "textarea",
       "id": "hero_subtitle",
       "label": "サブテキスト",
-      "default": "PAWLUX was born from one simple belief — your pet deserves the same quality of life you do."
+      "default": "PAWLUX は、ただ一つの想いから生まれました。あなたと同じ品質の暮らしを、ペットにも。"
     },
     {
       "type": "header",
@@ -121,19 +123,19 @@
       "type": "text",
       "id": "mission_eyebrow",
       "label": "小見出し",
-      "default": "Our Mission"
+      "default": "私たちの使命"
     },
     {
       "type": "textarea",
       "id": "mission_title",
       "label": "見出し",
-      "default": "Premium gear. Happy pets."
+      "default": "上質なアイテムで、ペットにもっと幸せを。"
     },
     {
       "type": "richtext",
       "id": "mission_body",
       "label": "本文",
-      "default": "<p>We handpick every product with one question in mind: Would we use this for our own pet? If the answer isn't an immediate yes, it doesn't make the cut.</p>"
+      "default": "<p>私たちは常に一つの基準で商品を選びます。「自分のペットにも本当に使いたいか？」その答えが即座に「はい」でなければ採用しません。</p>"
     },
     {
       "type": "video",
@@ -160,13 +162,13 @@
       "type": "text",
       "id": "pillars_eyebrow",
       "label": "小見出し",
-      "default": "Why PAWLUX"
+      "default": "PAWLUXが選ばれる理由"
     },
     {
       "type": "textarea",
       "id": "pillars_title",
       "label": "見出し",
-      "default": "The standard every pet owner deserves"
+      "default": "すべての飼い主にふさわしい基準"
     },
     {
       "type": "header",
@@ -182,25 +184,25 @@
       "type": "text",
       "id": "promise_eyebrow",
       "label": "小見出し",
-      "default": "Our Promise"
+      "default": "私たちの約束"
     },
     {
       "type": "textarea",
       "id": "promise_quote",
       "label": "引用文",
-      "default": "Every product we sell, we'd buy for our own pet."
+      "default": "販売するすべての商品は、自分たちのペットにも選べるものだけ。"
     },
     {
       "type": "textarea",
       "id": "promise_sub",
       "label": "サブテキスト",
-      "default": "That's the PAWLUX standard. Nothing ships unless we believe in it completely."
+      "default": "それがPAWLUXの基準です。心から納得できないものは出荷しません。"
     },
     {
       "type": "text",
       "id": "promise_cta_text",
       "label": "ボタンテキスト",
-      "default": "Shop the Collection"
+      "default": "コレクションを見る"
     },
     {
       "type": "url",
@@ -212,7 +214,7 @@
   "blocks": [
     {
       "type": "pillar",
-      "name": "Trust Pillar",
+      "name": "信頼の柱",
       "settings": [
         {
           "type": "text",
@@ -224,67 +226,67 @@
           "type": "text",
           "id": "title",
           "label": "タイトル",
-          "default": "Carefully Curated"
+          "default": "丁寧にキュレーション"
         },
         {
           "type": "textarea",
           "id": "text",
           "label": "説明文",
-          "default": "Every product is handpicked from trusted global suppliers."
+          "default": "世界中の信頼できるサプライヤーから、ひとつずつ厳選しています。"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "About Page",
+      "name": "Aboutページ",
       "blocks": [
         {
           "type": "pillar",
           "settings": {
             "icon": "🔍",
-            "title": "Carefully Curated",
-            "text": "Every product is handpicked from trusted global suppliers. We test before we sell — no exceptions."
+            "title": "丁寧にキュレーション",
+            "text": "世界中の信頼できるサプライヤーから、ひとつずつ厳選。販売前の確認も妥協しません。"
           }
         },
         {
           "type": "pillar",
           "settings": {
             "icon": "🛡️",
-            "title": "Safe & Certified",
-            "text": "All products meet international safety standards. Your pet's wellbeing is our top priority."
+            "title": "安全性と認証",
+            "text": "すべての商品は国際的な安全基準を満たしています。ペットの健康を最優先にしています。"
           }
         },
         {
           "type": "pillar",
           "settings": {
             "icon": "✈️",
-            "title": "Free Worldwide Shipping",
-            "text": "We ship to 50+ countries with full tracking. No hidden fees at checkout."
+            "title": "世界中どこでも送料無料",
+            "text": "50か国以上へ追跡付きで配送。チェックアウト時に追加料金は発生しません。"
           }
         },
         {
           "type": "pillar",
           "settings": {
             "icon": "🔄",
-            "title": "30-Day Returns",
-            "text": "Not happy? Return it within 30 days, no questions asked."
+            "title": "30日間返品保証",
+            "text": "ご満足いただけない場合は30日以内の返品に対応します。理由は問いません。"
           }
         },
         {
           "type": "pillar",
           "settings": {
             "icon": "⭐",
-            "title": "2,000+ Happy Pets",
-            "text": "Pet owners across the world trust PAWLUX for their daily adventures."
+            "title": "2,000匹以上の満足",
+            "text": "世界中の飼い主が、毎日の暮らしのためにPAWLUXを選んでいます。"
           }
         },
         {
           "type": "pillar",
           "settings": {
             "icon": "💬",
-            "title": "Real Support",
-            "text": "Our team responds within 24 hours. We're here before, during, and after your purchase."
+            "title": "手厚いサポート",
+            "text": "24時間以内の返信を目標に対応。購入前・購入中・購入後までしっかりサポートします。"
           }
         }
       ]
