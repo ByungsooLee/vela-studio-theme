@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_announcement": true,
+        "text": "✈️ Free Worldwide Shipping · 🔄 30-Day Returns · ⭐ 4.9/5 · 2,000+ Happy Pets"
+      }
+    },
+    "main_homepage": {
+      "type": "main-homepage",
+      "settings": {
+        "eyebrow": "Premium Pet Lifestyle",
+        "title_line_1": "Every adventure,",
+        "title_emphasis": "together.",
+        "cta_label": "Shop Collection",
+        "cta_url": "/collections/all"
+      }
+    },
+    "homepage_blocks": {
+      "type": "homepage-blocks",
+      "settings": {}
+    },
+    "video-feature-1": {
+      "type": "video-feature",
+      "settings": {
+        "eyebrow": "Bestseller",
+        "title": "The backpack they'll love.",
+        "body": "360° bubble window. Ventilated mesh. Ergonomic design. Your cat sees everything — in total comfort.",
+        "cta_text": "Shop Now",
+        "cta_url": "/collections/all",
+        "reverse": false,
+        "bg_color": "#F2F0EB"
+      }
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "show_description": true,
+        "title": "Our Collection",
+        "description": "<p>Handpicked for pets who live life to the fullest.</p>"
+      }
+    },
+    "video-feature-2": {
+      "type": "video-feature",
+      "settings": {
+        "eyebrow": "Personalized",
+        "title": "Their name. Their collar.",
+        "body": "Custom engraved with your pet's name. Because every pet deserves to be known.",
+        "cta_text": "Customize Now",
+        "cta_url": "/collections/all",
+        "reverse": true,
+        "bg_color": "#FAFAF8"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "main_homepage",
+    "homepage_blocks",
+    "video-feature-1",
+    "featured-products",
+    "video-feature-2"
+  ]
+}
