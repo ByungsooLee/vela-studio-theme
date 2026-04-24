@@ -2346,6 +2346,26 @@ input[type='checkbox'] {
   background-color: rgb(var(--color-background));
 }
 
+header,
+.header,
+#shopify-section-header,
+.shopify-section-header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+#shopify-section-instagram,
+.instagram-section,
+[data-section-type='instagram'],
+.insta-feed {
+  display: none !important;
+}
+
 .header-wrapper--border-bottom {
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
 }
