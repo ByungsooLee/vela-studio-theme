@@ -57,7 +57,7 @@
 {% capture recommend_1 %}{{ desc | split: 'RECOMMEND_1:' | last | split: 'RECOMMEND_2:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
 {% capture recommend_2 %}{{ desc | split: 'RECOMMEND_2:' | last | split: 'RECOMMEND_3:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
 {% capture recommend_3 %}{{ desc | split: 'RECOMMEND_3:' | last | split: 'CLOSING_MESSAGE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
-{% capture closing_message %}{{ desc | split: 'CLOSING_MESSAGE:' | last | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture closing_message %}{{ desc | split: 'CLOSING_MESSAGE:' | last | split: 'FAQ_1_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
 {%- assign concept = concept | strip -%}
 {%- assign tagline = tagline | strip -%}
 {%- assign hero_image_text = hero_image_text | strip -%}
@@ -549,6 +549,31 @@
 
     .lp-product--{{ section.id }} .lp-mid-copy__body {
       margin-top: 1.8rem;
+    }
+
+    .lp-product--{{ section.id }} .lp-mid-copy__appeal {
+      list-style: none;
+      padding: 0;
+      margin: 2.4rem auto 0;
+      max-width: 52rem;
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .lp-product--{{ section.id }} .lp-mid-copy__appeal li {
+      position: relative;
+      padding-left: 2rem;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: var(--lp-muted);
+    }
+
+    .lp-product--{{ section.id }} .lp-mid-copy__appeal li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--lp-accent);
+      font-weight: 700;
     }
 
     .lp-product--{{ section.id }} .lp-hero-copy {
@@ -1589,11 +1614,15 @@
     <section class="lp-section">
       <div class="page-width">
         <div class="lp-mid-copy">
-          <p class="lp-section__eyebrow">Closing Message</p>
-          <h2 class="lp-mid-copy__heading lp-serif">{{ closing_heading }}</h2>
-          <div class="lp-mid-copy__body lp-info__description">
-            {{ closing_message }}
-          </div>
+          <p class="lp-section__eyebrow">Why Choose</p>
+          <h2 class="lp-mid-copy__heading lp-serif">{{ closing_message }}</h2>
+          {%- if recommend_count > 0 -%}
+            <ul class="lp-mid-copy__appeal">
+              {%- if show_recommend_1 -%}<li>{{ recommend_1 }}</li>{%- endif -%}
+              {%- if show_recommend_2 -%}<li>{{ recommend_2 }}</li>{%- endif -%}
+              {%- if show_recommend_3 -%}<li>{{ recommend_3 }}</li>{%- endif -%}
+            </ul>
+          {%- endif -%}
         </div>
       </div>
     </section>
@@ -1803,33 +1832,40 @@
             </article>
           {%- endfor -%}
         {%- else -%}
-          <article class="lp-faq__item">
-            <button type="button" class="lp-faq__trigger" data-faq-trigger aria-expanded="false">
-              <span>{{ product.title }} の特徴は何ですか？</span>
-              <span class="lp-faq__icon">+</span>
-            </button>
-            <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ key_benefits | default: faq_primary_answer | truncate: 140 }}</div>
-            </div>
-          </article>
-          <article class="lp-faq__item">
-            <button type="button" class="lp-faq__trigger" data-faq-trigger aria-expanded="false">
-              <span>サイズや仕様について教えてください。</span>
-              <span class="lp-faq__icon">+</span>
-            </button>
-            <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ dimensions | default: faq_size_answer }}</div>
-            </div>
-          </article>
-          <article class="lp-faq__item">
-            <button type="button" class="lp-faq__trigger" data-faq-trigger aria-expanded="false">
-              <span>お手入れ方法は？</span>
-              <span class="lp-faq__icon">+</span>
-            </button>
-            <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ care_instructions | default: faq_wash_answer }}</div>
-            </div>
-          </article>
+          {%- capture faq_1_q %}{{ desc | split: 'FAQ_1_Q:' | last | split: 'FAQ_1_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_1_a %}{{ desc | split: 'FAQ_1_A:' | last | split: 'FAQ_2_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_2_q %}{{ desc | split: 'FAQ_2_Q:' | last | split: 'FAQ_2_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_2_a %}{{ desc | split: 'FAQ_2_A:' | last | split: 'FAQ_3_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_3_q %}{{ desc | split: 'FAQ_3_Q:' | last | split: 'FAQ_3_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_3_a %}{{ desc | split: 'FAQ_3_A:' | last | split: 'FAQ_4_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_4_q %}{{ desc | split: 'FAQ_4_Q:' | last | split: 'FAQ_4_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_4_a %}{{ desc | split: 'FAQ_4_A:' | last | split: 'FAQ_5_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_5_q %}{{ desc | split: 'FAQ_5_Q:' | last | split: 'FAQ_5_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_5_a %}{{ desc | split: 'FAQ_5_A:' | last | split: 'FAQ_6_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_6_q %}{{ desc | split: 'FAQ_6_Q:' | last | split: 'FAQ_6_A:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- capture faq_6_a %}{{ desc | split: 'FAQ_6_A:' | last | split: 'FAQ_7_Q:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture -%}
+          {%- assign faq_pairs = 'faq_1,faq_2,faq_3,faq_4,faq_5,faq_6' | split: ',' -%}
+          {%- for pair in faq_pairs -%}
+            {%- case pair -%}
+              {%- when 'faq_1' -%}{%- assign _q = faq_1_q -%}{%- assign _a = faq_1_a -%}
+              {%- when 'faq_2' -%}{%- assign _q = faq_2_q -%}{%- assign _a = faq_2_a -%}
+              {%- when 'faq_3' -%}{%- assign _q = faq_3_q -%}{%- assign _a = faq_3_a -%}
+              {%- when 'faq_4' -%}{%- assign _q = faq_4_q -%}{%- assign _a = faq_4_a -%}
+              {%- when 'faq_5' -%}{%- assign _q = faq_5_q -%}{%- assign _a = faq_5_a -%}
+              {%- when 'faq_6' -%}{%- assign _q = faq_6_q -%}{%- assign _a = faq_6_a -%}
+            {%- endcase -%}
+            {%- unless _q == blank or _q == 'NONE' or _a == blank or _a == 'NONE' -%}
+              <article class="lp-faq__item">
+                <button type="button" class="lp-faq__trigger" data-faq-trigger aria-expanded="false">
+                  <span>{{ _q }}</span>
+                  <span class="lp-faq__icon">+</span>
+                </button>
+                <div class="lp-faq__panel" data-faq-panel>
+                  <div class="lp-faq__panel-inner">{{ _a }}</div>
+                </div>
+              </article>
+            {%- endunless -%}
+          {%- endfor -%}
         {%- endif -%}
       </div>
     </div>
