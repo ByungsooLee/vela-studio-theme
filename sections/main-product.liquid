@@ -16,9 +16,265 @@
 {%- assign product_form_id = 'lp-product-form-' | append: section.id -%}
 {%- assign buy_now_form_id = 'lp-buy-now-form-' | append: section.id -%}
 {%- assign active_media_id = selected_variant.featured_media.id | default: product.featured_image.id | default: product.images.first.id -%}
+{%- assign desc = product.description | replace: '</p><p>', '<br />' | replace: '<p>', '' | replace: '</p>', '<br />' -%}
+{%- assign lines = desc | newline_to_br | split: '<br />' -%}
+{%- assign product_data = '' -%}
+{% comment %}各行をキー・バリューに分解{% endcomment %}
+{%- for line in lines -%}
+  {%- assign clean_line = line | strip_html | strip -%}
+  {%- assign parts = clean_line | split: ': ' -%}
+  {%- if parts.size >= 2 -%}
+    {%- assign key = parts[0] | strip -%}
+    {%- assign value = clean_line | remove_first: key | remove_first: ': ' | strip -%}
+    {%- assign product_data = product_data | append: key | append: '::' | append: value | append: '||' -%}
+  {%- endif -%}
+{%- endfor -%}
+{% comment %}値取得用のキャプチャ{% endcomment %}
+{% capture concept %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CONCEPT: ' %}{{ clean_line | remove: 'CONCEPT: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture tagline %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'TAGLINE: ' %}{{ clean_line | remove: 'TAGLINE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture hero_image_text %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'HERO_IMAGE_TEXT: ' %}{{ clean_line | remove: 'HERO_IMAGE_TEXT: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_1_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_1_TITLE: ' %}{{ clean_line | remove: 'FEATURE_1_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_1_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_1_DESC: ' %}{{ clean_line | remove: 'FEATURE_1_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_2_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_2_TITLE: ' %}{{ clean_line | remove: 'FEATURE_2_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_2_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_2_DESC: ' %}{{ clean_line | remove: 'FEATURE_2_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_3_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_3_TITLE: ' %}{{ clean_line | remove: 'FEATURE_3_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_3_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_3_DESC: ' %}{{ clean_line | remove: 'FEATURE_3_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_4_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_4_TITLE: ' %}{{ clean_line | remove: 'FEATURE_4_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_4_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_4_DESC: ' %}{{ clean_line | remove: 'FEATURE_4_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_5_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_5_TITLE: ' %}{{ clean_line | remove: 'FEATURE_5_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture feature_5_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_5_DESC: ' %}{{ clean_line | remove: 'FEATURE_5_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_s_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_S_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_S_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_s_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_S_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_S_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_m_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_M_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_M_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_m_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_M_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_M_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_l_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_L_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_L_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture size_l_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_L_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_L_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture material %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'MATERIAL: ' %}{{ clean_line | remove: 'MATERIAL: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture weight_s %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WEIGHT_S: ' %}{{ clean_line | remove: 'WEIGHT_S: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture weight_m %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WEIGHT_M: ' %}{{ clean_line | remove: 'WEIGHT_M: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture wash_method %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WASH_METHOD: ' %}{{ clean_line | remove: 'WASH_METHOD: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture caution %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CAUTION: ' %}{{ clean_line | remove: 'CAUTION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture shipping_time %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SHIPPING_TIME: ' %}{{ clean_line | remove: 'SHIPPING_TIME: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture return_policy %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RETURN_POLICY: ' %}{{ clean_line | remove: 'RETURN_POLICY: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture recommend_1 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_1: ' %}{{ clean_line | remove: 'RECOMMEND_1: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture recommend_2 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_2: ' %}{{ clean_line | remove: 'RECOMMEND_2: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture recommend_3 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_3: ' %}{{ clean_line | remove: 'RECOMMEND_3: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{% capture closing_message %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CLOSING_MESSAGE: ' %}{{ clean_line | remove: 'CLOSING_MESSAGE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{%- assign concept = concept | strip -%}
+{%- assign tagline = tagline | strip -%}
+{%- assign hero_image_text = hero_image_text | strip -%}
+{%- assign feature_1_title = feature_1_title | strip -%}
+{%- assign feature_1_desc = feature_1_desc | strip -%}
+{%- assign feature_2_title = feature_2_title | strip -%}
+{%- assign feature_2_desc = feature_2_desc | strip -%}
+{%- assign feature_3_title = feature_3_title | strip -%}
+{%- assign feature_3_desc = feature_3_desc | strip -%}
+{%- assign feature_4_title = feature_4_title | strip -%}
+{%- assign feature_4_desc = feature_4_desc | strip -%}
+{%- assign feature_5_title = feature_5_title | strip -%}
+{%- assign feature_5_desc = feature_5_desc | strip -%}
+{%- assign size_s_dimension = size_s_dimension | strip -%}
+{%- assign size_s_weight_max = size_s_weight_max | strip -%}
+{%- assign size_m_dimension = size_m_dimension | strip -%}
+{%- assign size_m_weight_max = size_m_weight_max | strip -%}
+{%- assign size_l_dimension = size_l_dimension | strip -%}
+{%- assign size_l_weight_max = size_l_weight_max | strip -%}
+{%- assign material = material | strip -%}
+{%- assign weight_s = weight_s | strip -%}
+{%- assign weight_m = weight_m | strip -%}
+{%- assign wash_method = wash_method | strip -%}
+{%- assign caution = caution | strip -%}
+{%- assign shipping_time = shipping_time | strip -%}
+{%- assign return_policy = return_policy | strip -%}
+{%- assign recommend_1 = recommend_1 | strip -%}
+{%- assign recommend_2 = recommend_2 | strip -%}
+{%- assign recommend_3 = recommend_3 | strip -%}
+{%- assign closing_message = closing_message | strip -%}
+{%- assign concept_key = concept | upcase -%}
+{%- assign tagline_key = tagline | upcase -%}
+{%- assign hero_image_text_key = hero_image_text | upcase -%}
+{%- assign feature_1_title_key = feature_1_title | upcase -%}
+{%- assign feature_1_desc_key = feature_1_desc | upcase -%}
+{%- assign feature_2_title_key = feature_2_title | upcase -%}
+{%- assign feature_2_desc_key = feature_2_desc | upcase -%}
+{%- assign feature_3_title_key = feature_3_title | upcase -%}
+{%- assign feature_3_desc_key = feature_3_desc | upcase -%}
+{%- assign feature_4_title_key = feature_4_title | upcase -%}
+{%- assign feature_4_desc_key = feature_4_desc | upcase -%}
+{%- assign feature_5_title_key = feature_5_title | upcase -%}
+{%- assign feature_5_desc_key = feature_5_desc | upcase -%}
+{%- assign size_s_dimension_key = size_s_dimension | upcase -%}
+{%- assign size_s_weight_max_key = size_s_weight_max | upcase -%}
+{%- assign size_m_dimension_key = size_m_dimension | upcase -%}
+{%- assign size_m_weight_max_key = size_m_weight_max | upcase -%}
+{%- assign size_l_dimension_key = size_l_dimension | upcase -%}
+{%- assign size_l_weight_max_key = size_l_weight_max | upcase -%}
+{%- assign material_key = material | upcase -%}
+{%- assign weight_s_key = weight_s | upcase -%}
+{%- assign weight_m_key = weight_m | upcase -%}
+{%- assign wash_method_key = wash_method | upcase -%}
+{%- assign caution_key = caution | upcase -%}
+{%- assign shipping_time_key = shipping_time | upcase -%}
+{%- assign return_policy_key = return_policy | upcase -%}
+{%- assign recommend_1_key = recommend_1 | upcase -%}
+{%- assign recommend_2_key = recommend_2 | upcase -%}
+{%- assign recommend_3_key = recommend_3 | upcase -%}
+{%- assign closing_message_key = closing_message | upcase -%}
 {%- assign description_plain = product.description | strip_html | strip_newlines -%}
-{%- assign story_heading_text = short_value_prop | default: section.settings.story_heading -%}
-{%- assign story_body_text = benefit_details | default: description_plain | truncate: 150 -%}
+{%- assign show_concept = false -%}
+{%- if concept != blank and concept_key != 'NONE' -%}
+  {%- assign show_concept = true -%}
+{%- endif -%}
+{%- assign show_tagline = false -%}
+{%- if tagline != blank and tagline_key != 'NONE' -%}
+  {%- assign show_tagline = true -%}
+{%- endif -%}
+{%- assign show_hero_overlay = false -%}
+{%- if hero_image_text != blank and hero_image_text_key != 'NONE' -%}
+  {%- assign show_hero_overlay = true -%}
+{%- endif -%}
+{%- assign feature_count = 0 -%}
+{%- assign show_feature_1 = false -%}
+{%- if feature_1_title != blank and feature_1_title_key != 'NONE' and feature_1_desc != blank and feature_1_desc_key != 'NONE' -%}
+  {%- assign show_feature_1 = true -%}
+  {%- assign feature_count = feature_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_feature_2 = false -%}
+{%- if feature_2_title != blank and feature_2_title_key != 'NONE' and feature_2_desc != blank and feature_2_desc_key != 'NONE' -%}
+  {%- assign show_feature_2 = true -%}
+  {%- assign feature_count = feature_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_feature_3 = false -%}
+{%- if feature_3_title != blank and feature_3_title_key != 'NONE' and feature_3_desc != blank and feature_3_desc_key != 'NONE' -%}
+  {%- assign show_feature_3 = true -%}
+  {%- assign feature_count = feature_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_feature_4 = false -%}
+{%- if feature_4_title != blank and feature_4_title_key != 'NONE' and feature_4_desc != blank and feature_4_desc_key != 'NONE' -%}
+  {%- assign show_feature_4 = true -%}
+  {%- assign feature_count = feature_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_feature_5 = false -%}
+{%- if feature_5_title != blank and feature_5_title_key != 'NONE' and feature_5_desc != blank and feature_5_desc_key != 'NONE' -%}
+  {%- assign show_feature_5 = true -%}
+  {%- assign feature_count = feature_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_size_s = false -%}
+{%- if size_s_dimension != blank and size_s_dimension_key != 'NONE' -%}
+  {%- assign show_size_s = true -%}
+{%- elsif size_s_weight_max != blank and size_s_weight_max_key != 'NONE' -%}
+  {%- assign show_size_s = true -%}
+{%- elsif weight_s != blank and weight_s_key != 'NONE' -%}
+  {%- assign show_size_s = true -%}
+{%- endif -%}
+{%- assign show_size_m = false -%}
+{%- if size_m_dimension != blank and size_m_dimension_key != 'NONE' -%}
+  {%- assign show_size_m = true -%}
+{%- elsif size_m_weight_max != blank and size_m_weight_max_key != 'NONE' -%}
+  {%- assign show_size_m = true -%}
+{%- elsif weight_m != blank and weight_m_key != 'NONE' -%}
+  {%- assign show_size_m = true -%}
+{%- endif -%}
+{%- assign show_size_l = false -%}
+{%- if size_l_dimension != blank and size_l_dimension_key != 'NONE' -%}
+  {%- assign show_size_l = true -%}
+{%- elsif size_l_weight_max != blank and size_l_weight_max_key != 'NONE' -%}
+  {%- assign show_size_l = true -%}
+{%- endif -%}
+{%- assign show_material = false -%}
+{%- if material != blank and material_key != 'NONE' -%}
+  {%- assign show_material = true -%}
+{%- endif -%}
+{%- assign show_wash_method = false -%}
+{%- if wash_method != blank and wash_method_key != 'NONE' -%}
+  {%- assign show_wash_method = true -%}
+{%- endif -%}
+{%- assign recommend_count = 0 -%}
+{%- assign show_recommend_1 = false -%}
+{%- if recommend_1 != blank and recommend_1_key != 'NONE' -%}
+  {%- assign show_recommend_1 = true -%}
+  {%- assign recommend_count = recommend_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_recommend_2 = false -%}
+{%- if recommend_2 != blank and recommend_2_key != 'NONE' -%}
+  {%- assign show_recommend_2 = true -%}
+  {%- assign recommend_count = recommend_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_recommend_3 = false -%}
+{%- if recommend_3 != blank and recommend_3_key != 'NONE' -%}
+  {%- assign show_recommend_3 = true -%}
+  {%- assign recommend_count = recommend_count | plus: 1 -%}
+{%- endif -%}
+{%- assign show_shipping_time = false -%}
+{%- if shipping_time != blank and shipping_time_key != 'NONE' -%}
+  {%- assign show_shipping_time = true -%}
+{%- endif -%}
+{%- assign show_return_policy = false -%}
+{%- if return_policy != blank and return_policy_key != 'NONE' -%}
+  {%- assign show_return_policy = true -%}
+{%- endif -%}
+{%- assign show_trust = false -%}
+{%- if show_shipping_time or show_return_policy -%}
+  {%- assign show_trust = true -%}
+{%- endif -%}
+{%- assign show_caution = false -%}
+{%- if caution != blank and caution_key != 'NONE' -%}
+  {%- assign show_caution = true -%}
+{%- endif -%}
+{%- assign show_closing_message = false -%}
+{%- if closing_message != blank and closing_message_key != 'NONE' -%}
+  {%- assign show_closing_message = true -%}
+{%- endif -%}
+{%- assign feature_section_heading = product.title -%}
+{%- if show_tagline -%}
+  {%- assign feature_section_heading = tagline -%}
+{%- elsif show_concept -%}
+  {%- assign feature_section_heading = concept -%}
+{%- elsif short_value_prop != blank -%}
+  {%- assign feature_section_heading = short_value_prop -%}
+{%- endif -%}
+{%- assign closing_heading = '商品について' -%}
+{%- if show_tagline -%}
+  {%- assign closing_heading = tagline -%}
+{%- elsif short_value_prop != blank -%}
+  {%- assign closing_heading = short_value_prop -%}
+{%- elsif show_concept -%}
+  {%- assign closing_heading = concept -%}
+{%- endif -%}
+{%- assign story_heading_text = section.settings.story_heading -%}
+{%- if show_concept -%}
+  {%- assign story_heading_text = concept -%}
+{%- elsif short_value_prop != blank -%}
+  {%- assign story_heading_text = short_value_prop -%}
+{%- endif -%}
+{%- assign story_body_text = section.settings.story_text -%}
+{%- if show_tagline -%}
+  {%- assign story_body_text = tagline -%}
+{%- elsif benefit_details != blank -%}
+  {%- assign story_body_text = benefit_details | truncate: 150 -%}
+{%- endif -%}
+{%- assign faq_primary_answer = product.title -%}
+{%- if show_concept -%}
+  {%- assign faq_primary_answer = concept -%}
+{%- elsif show_tagline -%}
+  {%- assign faq_primary_answer = tagline -%}
+{%- elsif show_feature_1 and feature_1_desc != blank -%}
+  {%- assign faq_primary_answer = feature_1_desc -%}
+{%- endif -%}
+{%- assign faq_size_answer = '' -%}
+{%- if show_size_s -%}
+  {%- capture faq_size_answer -%}S: {{ size_s_dimension }} / {{ size_s_weight_max }}{%- endcapture -%}
+{%- elsif show_size_m -%}
+  {%- capture faq_size_answer -%}M: {{ size_m_dimension }} / {{ size_m_weight_max }}{%- endcapture -%}
+{%- elsif show_material -%}
+  {%- assign faq_size_answer = material -%}
+{%- endif -%}
+{%- assign faq_wash_answer = '' -%}
+{%- if show_wash_method -%}
+  {%- assign faq_wash_answer = wash_method -%}
+{%- elsif show_caution -%}
+  {%- assign faq_wash_answer = caution -%}
+{%- endif -%}
 
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -297,6 +553,33 @@
       margin-top: 1.8rem;
     }
 
+    .lp-product--{{ section.id }} .lp-hero-copy {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .lp-product--{{ section.id }} .lp-hero-copy__concept {
+      margin: 0;
+      font-size: 1.7rem;
+      line-height: 1.75;
+      color: var(--lp-text);
+    }
+
+    .lp-product--{{ section.id }} .lp-hero-copy__tagline {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.8;
+      color: var(--lp-muted);
+    }
+
+    .lp-product--{{ section.id }} .lp-story__hero-text {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 1.15;
+      color: #fff;
+    }
+
     .lp-product--{{ section.id }} .variant-option[data-option-name="Ships From"],
     .lp-product--{{ section.id }} .variant-option[data-option-name="ships from"],
     .lp-product--{{ section.id }} label[for*="ships"],
@@ -573,10 +856,10 @@
 
     .lp-product--{{ section.id }} .lp-highlights {
       display: grid;
-      grid-template-columns: repeat(2, minmax(28rem, 36rem));
+      grid-template-columns: repeat(var(--lp-highlight-columns, 3), minmax(0, 1fr));
       gap: 1.6rem;
       justify-content: center;
-      max-width: 76rem;
+      max-width: 118rem;
       margin: 0 auto;
     }
 
@@ -686,6 +969,47 @@
       text-align: center;
       color: var(--lp-muted);
       font-size: 1.35rem;
+    }
+
+    .lp-product--{{ section.id }} .lp-recommend-card {
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: 3rem;
+      border-radius: 2.4rem;
+      background: #fff;
+      box-shadow: 0 10px 35px rgba(26, 26, 26, 0.05);
+    }
+
+    .lp-product--{{ section.id }} .lp-recommend-list {
+      margin: 0;
+      padding-left: 2rem;
+      display: grid;
+      gap: 1.2rem;
+      font-size: 1.55rem;
+      line-height: 1.8;
+      color: var(--lp-text);
+    }
+
+    .lp-product--{{ section.id }} .lp-note-box {
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: 2.8rem 3rem;
+      border-radius: 2.4rem;
+      background: var(--lp-alt);
+      box-shadow: 0 10px 35px rgba(26, 26, 26, 0.05);
+    }
+
+    .lp-product--{{ section.id }} .lp-note-box__title {
+      margin: 0 0 1.2rem;
+      font-size: 2rem;
+      line-height: 1.4;
+    }
+
+    .lp-product--{{ section.id }} .lp-note-box__text {
+      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      color: var(--lp-muted);
     }
 
     .lp-product--{{ section.id }} .lp-moments {
@@ -902,6 +1226,10 @@
     }
   </style>
 
+  <div id="product-raw-desc" style="display:none;">
+    {{ product.description }}
+  </div>
+
   <div class="page-width lp-hero">
     <div class="lp-hero__grid">
       <div class="lp-gallery" data-lp-gallery>
@@ -989,6 +1317,17 @@
           {%- endif -%}
           <span class="lp-info__price-current" data-current-price>{{ selected_variant.price | money }}</span>
         </div>
+
+        {%- if show_concept or show_tagline -%}
+          <div class="lp-hero-copy">
+            {%- if show_concept -%}
+              <p class="lp-hero-copy__concept">{{ concept }}</p>
+            {%- endif -%}
+            {%- if show_tagline -%}
+              <p class="lp-hero-copy__tagline">{{ tagline }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
 
         {%- unless product.has_only_default_variant -%}
           {%- for option in product.options_with_values -%}
@@ -1177,58 +1516,85 @@
           </div>
         </div>
 
-        <div
-          class="lp-trust"
-          style="display:flex !important; flex-wrap:nowrap !important; justify-content:center; align-items:center; gap:6px; font-size:11px; white-space:nowrap; overflow:hidden;"
-        >
-          <div class="lp-trust__item" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; white-space:nowrap; flex:0 0 auto;">
-            <span class="lp-trust__icon" aria-hidden="true" style="font-size:11px; line-height:1;">⌁</span>
-            <span class="lp-trust__text" style="font-size:11px; white-space:nowrap;">送料無料</span>
+        {%- if show_trust -%}
+          <div class="lp-trust">
+            {%- if show_shipping_time -%}
+              <div class="lp-trust__item">
+                <span class="lp-trust__icon" aria-hidden="true">⌁</span>
+                <span class="lp-trust__text">{{ shipping_time }}</span>
+              </div>
+            {%- endif -%}
+            {%- if show_shipping_time and show_return_policy -%}
+              <span class="lp-trust__divider" aria-hidden="true">|</span>
+            {%- endif -%}
+            {%- if show_return_policy -%}
+              <div class="lp-trust__item">
+                <span class="lp-trust__icon" aria-hidden="true">↺</span>
+                <span class="lp-trust__text">{{ return_policy }}</span>
+              </div>
+            {%- endif -%}
           </div>
-          <span class="lp-trust__divider" aria-hidden="true" style="color:#cccccc; margin:0 4px; font-size:11px;">|</span>
-          <div class="lp-trust__item" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; white-space:nowrap; flex:0 0 auto;">
-            <span class="lp-trust__icon" aria-hidden="true" style="font-size:11px; line-height:1;">↺</span>
-            <span class="lp-trust__text" style="font-size:11px; white-space:nowrap;">30日返品保証</span>
-          </div>
-          <span class="lp-trust__divider" aria-hidden="true" style="color:#cccccc; margin:0 4px; font-size:11px;">|</span>
-          <div class="lp-trust__item" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; white-space:nowrap; flex:0 0 auto;">
-            <span class="lp-trust__icon" aria-hidden="true" style="font-size:11px; line-height:1;">⌂</span>
-            <span class="lp-trust__text" style="font-size:11px; white-space:nowrap;">安全決済</span>
-          </div>
-        </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
 
-  <section class="lp-section lp-section--alt">
-    <div class="page-width">
-      <div class="lp-section__intro">
-        <p class="lp-section__eyebrow">Feature Highlights</p>
-        <h2 class="lp-section__heading lp-serif">{{ short_value_prop | default: product.title }}</h2>
+  {%- if feature_count > 0 -%}
+    <section class="lp-section lp-section--alt">
+      <div class="page-width">
+        <div class="lp-section__intro">
+          <p class="lp-section__eyebrow">Feature Highlights</p>
+          <h2 class="lp-section__heading lp-serif">{{ feature_section_heading }}</h2>
+        </div>
+        <div class="lp-highlights" style="--lp-highlight-columns: {{ feature_count }};">
+          {%- if show_feature_1 -%}
+            <article class="lp-highlight">
+              <div class="lp-highlight__icon">01</div>
+              <h3 class="lp-highlight__title">{{ feature_1_title }}</h3>
+              <p class="lp-highlight__text">{{ feature_1_desc }}</p>
+            </article>
+          {%- endif -%}
+          {%- if show_feature_2 -%}
+            <article class="lp-highlight">
+              <div class="lp-highlight__icon">02</div>
+              <h3 class="lp-highlight__title">{{ feature_2_title }}</h3>
+              <p class="lp-highlight__text">{{ feature_2_desc }}</p>
+            </article>
+          {%- endif -%}
+          {%- if show_feature_3 -%}
+            <article class="lp-highlight">
+              <div class="lp-highlight__icon">03</div>
+              <h3 class="lp-highlight__title">{{ feature_3_title }}</h3>
+              <p class="lp-highlight__text">{{ feature_3_desc }}</p>
+            </article>
+          {%- endif -%}
+          {%- if show_feature_4 -%}
+            <article class="lp-highlight">
+              <div class="lp-highlight__icon">04</div>
+              <h3 class="lp-highlight__title">{{ feature_4_title }}</h3>
+              <p class="lp-highlight__text">{{ feature_4_desc }}</p>
+            </article>
+          {%- endif -%}
+          {%- if show_feature_5 -%}
+            <article class="lp-highlight">
+              <div class="lp-highlight__icon">05</div>
+              <h3 class="lp-highlight__title">{{ feature_5_title }}</h3>
+              <p class="lp-highlight__text">{{ feature_5_desc }}</p>
+            </article>
+          {%- endif -%}
+        </div>
       </div>
-      <div class="lp-highlights">
-        <article class="lp-highlight">
-          <div class="lp-highlight__icon">01</div>
-          <h3 class="lp-highlight__title">商品コンセプト</h3>
-          <p class="lp-highlight__text">{{ short_value_prop | default: description_plain | truncate: 90 }}</p>
-        </article>
-        <article class="lp-highlight">
-          <div class="lp-highlight__icon">02</div>
-          <h3 class="lp-highlight__title">主な魅力</h3>
-          <p class="lp-highlight__text">{{ key_benefits | default: benefit_details | default: description_plain | truncate: 90 }}</p>
-        </article>
-      </div>
-    </div>
-  </section>
+    </section>
+  {%- endif -%}
 
-  {%- if product.description != blank -%}
+  {%- if show_closing_message -%}
     <section class="lp-section">
       <div class="page-width">
         <div class="lp-mid-copy">
           <p class="lp-section__eyebrow">Closing Message</p>
-          <h2 class="lp-mid-copy__heading lp-serif">{{ short_value_prop | default: '商品について' }}</h2>
-          <div class="lp-mid-copy__body lp-info__description rte">
-            {{ product.description }}
+          <h2 class="lp-mid-copy__heading lp-serif">{{ closing_heading }}</h2>
+          <div class="lp-mid-copy__body lp-info__description">
+            {{ closing_message }}
           </div>
         </div>
       </div>
@@ -1252,12 +1618,13 @@
         {%- else -%}
           {{ 'lifestyle-1' | placeholder_svg_tag: 'lp-story__image placeholder-svg' }}
         {%- endif -%}
-        <div class="lp-story__overlay">
-          <div>
-            <h2 class="lp-story__heading lp-serif">{{ story_heading_text }}</h2>
-            <p class="lp-story__copy">{{ story_body_text | default: section.settings.story_text }}</p>
+        {%- if show_hero_overlay -%}
+          <div class="lp-story__overlay">
+            <div>
+              <p class="lp-story__hero-text lp-serif">{{ hero_image_text }}</p>
+            </div>
           </div>
-        </div>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -1266,37 +1633,87 @@
     <div class="page-width lp-size-guide">
       <div class="lp-section__intro">
         <p class="lp-section__eyebrow">Size Guide</p>
-        <h2 class="lp-section__heading lp-serif">{{ dimensions | default: '商品のサイズ・仕様' }}</h2>
+        <h2 class="lp-section__heading lp-serif">商品のサイズ・仕様</h2>
       </div>
       <table class="lp-size-guide__table">
         <thead>
           <tr>
-            <th>項目</th>
-            <th>内容</th>
+            <th>サイズ</th>
+            <th>寸法</th>
+            <th>耐荷重</th>
+            <th>本体重量</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>サイズ・寸法</td>
-            <td>{{ dimensions | default: '商品サイズを登録するとここに表示されます。' }}</td>
-          </tr>
-          <tr>
-            <td>素材</td>
-            <td>{{ materials | default: '商品素材を登録するとここに表示されます。' }}</td>
-          </tr>
-          <tr>
-            <td>お手入れ方法</td>
-            <td>{{ care_instructions | default: 'お手入れ方法を登録するとここに表示されます。' }}</td>
-          </tr>
-          <tr>
-            <td>補足情報</td>
-            <td>{{ certifications | default: benefit_details | default: '補足情報を商品ごとに表示できます。' }}</td>
-          </tr>
+          {%- if show_size_s -%}
+            <tr>
+              <td>S</td>
+              <td>{% if size_s_dimension != blank and size_s_dimension_key != 'NONE' %}{{ size_s_dimension }}{% endif %}</td>
+              <td>{% if size_s_weight_max != blank and size_s_weight_max_key != 'NONE' %}{{ size_s_weight_max }}{% endif %}</td>
+              <td>{% if weight_s != blank and weight_s_key != 'NONE' %}{{ weight_s }}{% endif %}</td>
+            </tr>
+          {%- endif -%}
+          {%- if show_size_m -%}
+            <tr>
+              <td>M</td>
+              <td>{% if size_m_dimension != blank and size_m_dimension_key != 'NONE' %}{{ size_m_dimension }}{% endif %}</td>
+              <td>{% if size_m_weight_max != blank and size_m_weight_max_key != 'NONE' %}{{ size_m_weight_max }}{% endif %}</td>
+              <td>{% if weight_m != blank and weight_m_key != 'NONE' %}{{ weight_m }}{% endif %}</td>
+            </tr>
+          {%- endif -%}
+          {%- if show_size_l -%}
+            <tr>
+              <td>L</td>
+              <td>{% if size_l_dimension != blank and size_l_dimension_key != 'NONE' %}{{ size_l_dimension }}{% endif %}</td>
+              <td>{% if size_l_weight_max != blank and size_l_weight_max_key != 'NONE' %}{{ size_l_weight_max }}{% endif %}</td>
+              <td></td>
+            </tr>
+          {%- endif -%}
+          {%- if show_material -%}
+            <tr>
+              <td>素材</td>
+              <td colspan="3">{{ material }}</td>
+            </tr>
+          {%- endif -%}
+          {%- if show_wash_method -%}
+            <tr>
+              <td>洗濯方法</td>
+              <td colspan="3">{{ wash_method }}</td>
+            </tr>
+          {%- endif -%}
         </tbody>
       </table>
-      <p class="lp-size-guide__note">{{ key_benefits | default: '商品ごとの詳細情報はメタフィールドから差し込みます。' }}</p>
     </div>
   </section>
+
+  {%- if recommend_count > 0 -%}
+    <section class="lp-section lp-section--alt">
+      <div class="page-width">
+        <div class="lp-section__intro">
+          <p class="lp-section__eyebrow">Recommended For</p>
+          <h2 class="lp-section__heading lp-serif">こんな方におすすめ</h2>
+        </div>
+        <div class="lp-recommend-card">
+          <ul class="lp-recommend-list">
+            {%- if show_recommend_1 -%}<li>{{ recommend_1 }}</li>{%- endif -%}
+            {%- if show_recommend_2 -%}<li>{{ recommend_2 }}</li>{%- endif -%}
+            {%- if show_recommend_3 -%}<li>{{ recommend_3 }}</li>{%- endif -%}
+          </ul>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if show_caution -%}
+    <section class="lp-section">
+      <div class="page-width">
+        <div class="lp-note-box">
+          <h2 class="lp-note-box__title lp-serif">ご注意ください</h2>
+          <p class="lp-note-box__text">{{ caution }}</p>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
 
   <section class="lp-section lp-section--alt">
     <div class="page-width">
@@ -1394,7 +1811,7 @@
               <span class="lp-faq__icon">+</span>
             </button>
             <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ key_benefits | default: description_plain | truncate: 140 }}</div>
+              <div class="lp-faq__panel-inner">{{ key_benefits | default: faq_primary_answer | truncate: 140 }}</div>
             </div>
           </article>
           <article class="lp-faq__item">
@@ -1403,7 +1820,7 @@
               <span class="lp-faq__icon">+</span>
             </button>
             <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ dimensions | default: materials | default: '商品メタフィールドを登録すると、ここに仕様が表示されます。' }}</div>
+              <div class="lp-faq__panel-inner">{{ dimensions | default: faq_size_answer }}</div>
             </div>
           </article>
           <article class="lp-faq__item">
@@ -1412,7 +1829,7 @@
               <span class="lp-faq__icon">+</span>
             </button>
             <div class="lp-faq__panel" data-faq-panel>
-              <div class="lp-faq__panel-inner">{{ care_instructions | default: 'お手入れ方法を登録するとここに表示されます。' }}</div>
+              <div class="lp-faq__panel-inner">{{ care_instructions | default: faq_wash_answer }}</div>
             </div>
           </article>
         {%- endif -%}
