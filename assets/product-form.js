@@ -42,7 +42,9 @@ if (!customElements.get('product-form')) {
         }
         config.body = formData;
 
-        fetch(`${routes.cart_add_url}`, config)
+        const cartAddUrl = routes.cart_add_url.endsWith('.js') ? routes.cart_add_url : `${routes.cart_add_url}.js`;
+
+        fetch(cartAddUrl, config)
           .then((response) => response.json())
           .then((response) => {
             if (response.status) {

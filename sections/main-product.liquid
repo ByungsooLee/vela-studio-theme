@@ -614,6 +614,10 @@
       margin-top: 2.8rem;
     }
 
+    .lp-product--{{ section.id }} .lp-option-group--color {
+      position: relative;
+    }
+
     .lp-product--{{ section.id }} .lp-option-group__label-row {
       display: flex;
       justify-content: space-between;
@@ -688,19 +692,88 @@
     }
 
     .lp-product--{{ section.id }} .lp-swatch {
-      width: 4.4rem;
-      height: 4.4rem;
-      border-radius: 50%;
-      padding: 0.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      min-height: 4.4rem;
+      padding: 0.4rem 1.2rem 0.4rem 0.4rem;
+      border-radius: 999px;
     }
 
     .lp-product--{{ section.id }} .lp-swatch__fill {
       display: block;
-      width: 100%;
-      height: 100%;
+      width: 3.2rem;
+      height: 3.2rem;
+      flex: 0 0 3.2rem;
       border-radius: 50%;
       background: var(--swatch-color, #d8d8d8);
       border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .lp-product--{{ section.id }} .lp-swatch__label {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--lp-text);
+      line-height: 1.2;
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      width: min(19rem, calc(100vw - 4rem));
+      padding: 1rem;
+      border: 1px solid rgba(26, 26, 26, 0.08);
+      border-radius: 1.8rem;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--lp-shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 0.4rem, 0);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+      pointer-events: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview__image-wrap {
+      overflow: hidden;
+      border-radius: 1.2rem;
+      background: #f8f7f4;
+      aspect-ratio: 1 / 1;
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview__meta {
+      margin-top: 0.8rem;
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview__eyebrow {
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--lp-muted);
+    }
+
+    .lp-product--{{ section.id }} .lp-color-preview__label {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--lp-text);
+      line-height: 1.35;
     }
 
     .lp-product--{{ section.id }} .lp-quantity {
@@ -1246,6 +1319,10 @@
       .lp-product--{{ section.id }} .lp-button {
         min-height: 4.8rem;
       }
+
+      .lp-product--{{ section.id }} .lp-color-preview {
+        display: none;
+      }
     }
   </style>
 
@@ -1356,6 +1433,7 @@
           {%- for option in product.options_with_values -%}
             {%- assign option_name_downcase = option.name | downcase -%}
             {%- assign is_color_option = false -%}
+            {%- assign is_size_option = false -%}
             {%- assign is_ships_from_option = false -%}
             {%- if option_name_downcase contains 'color'
               or option_name_downcase contains 'colour'
@@ -1363,6 +1441,12 @@
               or option_name_downcase contains '色'
             -%}
               {%- assign is_color_option = true -%}
+            {%- endif -%}
+            {%- if option_name_downcase contains 'size'
+              or option_name_downcase contains '容量'
+              or option_name_downcase contains 'volume'
+            -%}
+              {%- assign is_size_option = true -%}
             {%- endif -%}
             {%- if option.name == 'Ships From'
               or option.name == 'ships from'
@@ -1374,19 +1458,18 @@
             {% unless option.name == 'Ships From'
               or option.name == 'ships from'
               or option.name == 'SHIPS FROM' %}
-              <div class="lp-option-group{% if is_ships_from_option %} ships-from-option{% endif %}" data-option-group data-option-index="{{ forloop.index0 }}">
+              <div class="lp-option-group{% if is_ships_from_option %} ships-from-option{% endif %}{% if is_color_option %} lp-option-group--color{% endif %}" data-option-group data-option-index="{{ forloop.index0 }}" data-option-group-kind="{% if is_color_option %}color{% elsif is_size_option %}size{% else %}default{% endif %}">
                 <div class="lp-option-group__label-row">
-                  <span class="lp-option-group__label">{{ option.name }}</span>
+                  <span class="lp-option-group__label">
+                    {% if is_color_option %}
+                      {{ option.name | upcase }}:
+                    {% else %}
+                      {{ option.name }}
+                    {% endif %}
+                  </span>
                   <span class="lp-option-group__value{% if is_color_option %} is-color-label{% endif %}" data-option-value-label>
                     {% if is_color_option %}
-                      {%- assign selected_color_label = option.selected_value -%}
-                      {%- assign selected_color_key = option.selected_value | downcase -%}
-                      {%- if selected_color_key contains 'beige' or selected_color_key contains 'ベージュ' -%}
-                        {%- assign selected_color_label = 'ベージュ' -%}
-                      {%- elsif selected_color_key contains 'gray' or selected_color_key contains 'grey' or selected_color_key contains 'グレー' -%}
-                        {%- assign selected_color_label = 'グレー' -%}
-                      {%- endif -%}
-                      {{ selected_color_label }}
+                      {{ option.selected_value }}
                     {% else %}
                       {{ option.selected_value }}
                     {% endif %}
@@ -1395,47 +1478,70 @@
 
                 {%- if is_color_option -%}
                   <div class="lp-swatch-wrap">
-                    {% assign selected_color_value_lower = option.selected_value | downcase %}
-                    {% assign displayed_colors = "" %}
                     {% for value in option.values %}
-                      {% assign color_key = "" %}
-                      {% assign swatch_color = "" %}
-                      {% assign color_label = "" %}
                       {% assign swatch_key = value | downcase %}
+                      {% assign swatch_color = '#d8d8d8' %}
+                      {% assign color_label = value %}
                       {% if swatch_key contains "beige" or swatch_key contains "ベージュ" %}
-                        {% assign color_key = "beige" %}
                         {% assign swatch_color = "#E8DCC8" %}
-                        {% assign color_label = "ベージュ" %}
                       {% elsif swatch_key contains "gray" or swatch_key contains "grey" or swatch_key contains "グレー" %}
-                        {% assign color_key = "gray" %}
                         {% assign swatch_color = "#9E9E9E" %}
-                        {% assign color_label = "グレー" %}
+                      {% elsif swatch_key contains "green" or swatch_key contains "グリーン" or swatch_key contains "緑" %}
+                        {% assign swatch_color = "#5B8C51" %}
+                      {% elsif swatch_key contains "blue" or swatch_key contains "navy" or swatch_key contains "ブルー" or swatch_key contains "青" or swatch_key contains "ネイビー" %}
+                        {% assign swatch_color = "#4B6EA9" %}
+                      {% elsif swatch_key contains "pink" or swatch_key contains "ピンク" %}
+                        {% assign swatch_color = "#E8A5B8" %}
+                      {% elsif swatch_key contains "red" or swatch_key contains "レッド" or swatch_key contains "赤" %}
+                        {% assign swatch_color = "#C95A5A" %}
+                      {% elsif swatch_key contains "black" or swatch_key contains "ブラック" or swatch_key contains "黒" %}
+                        {% assign swatch_color = "#2F2F2F" %}
+                      {% elsif swatch_key contains "white" or swatch_key contains "ホワイト" or swatch_key contains "白" %}
+                        {% assign swatch_color = "#F5F5F5" %}
+                      {% elsif swatch_key contains "brown" or swatch_key contains "ブラウン" or swatch_key contains "茶" %}
+                        {% assign swatch_color = "#8A624A" %}
+                      {% elsif swatch_key contains "yellow" or swatch_key contains "イエロー" or swatch_key contains "黄" %}
+                        {% assign swatch_color = "#E5C24A" %}
+                      {% elsif swatch_key contains "orange" or swatch_key contains "オレンジ" %}
+                        {% assign swatch_color = "#D88742" %}
+                      {% elsif swatch_key contains "purple" or swatch_key contains "パープル" or swatch_key contains "紫" %}
+                        {% assign swatch_color = "#8A69C8" %}
+                      {% elsif swatch_key contains "cream" or swatch_key contains "ivory" or swatch_key contains "クリーム" or swatch_key contains "アイボリー" %}
+                        {% assign swatch_color = "#F3E8CF" %}
                       {% endif %}
-
-                      {% unless displayed_colors contains color_key or color_key == "" %}
-                        {% assign displayed_colors = displayed_colors | append: color_key | append: "," %}
-                        {% assign is_active_color = false %}
-                        {% if selected_color_value_lower contains color_key %}
-                          {% assign is_active_color = true %}
-                        {% endif %}
-                        <button
-                          type="button"
-                          class="lp-swatch variant-option{% if is_active_color %} is-active{% endif %}"
-                          data-option-button
-                          data-option-kind="color"
-                          data-color-key="{{ color_key }}"
-                          data-option-index="{{ forloop.parentloop.index0 }}"
-                          data-option-value="{{ value | escape }}"
-                          data-option-label="{{ color_label }}"
-                          data-option-name="{{ option.name }}"
-                          aria-label="{{ option.name }} {{ color_label }}"
-                          aria-pressed="{% if is_active_color %}true{% else %}false{% endif %}"
-                        >
-                          <span class="lp-swatch__fill" style="--swatch-color: {{ swatch_color }};"></span>
-                          <span class="visually-hidden">{{ color_label }}</span>
-                        </button>
-                      {% endunless %}
+                      <button
+                        type="button"
+                        class="lp-swatch variant-option{% if option.selected_value == value %} is-active{% endif %}"
+                        data-option-button
+                        data-option-kind="color"
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        data-option-value="{{ value | escape }}"
+                        data-option-label="{{ color_label | escape }}"
+                        data-preview-image=""
+                        data-preview-label="{{ color_label | escape }}"
+                        data-option-name="{{ option.name }}"
+                        aria-label="{{ option.name }} {{ color_label }}"
+                        aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                      >
+                        <span class="lp-swatch__fill" style="--swatch-color: {{ swatch_color }};"></span>
+                        <span class="lp-swatch__label">{{ color_label }}</span>
+                      </button>
                     {% endfor %}
+                  </div>
+                  <div class="lp-color-preview" data-color-preview aria-hidden="true">
+                    <div class="lp-color-preview__image-wrap">
+                      <img
+                        class="lp-color-preview__image"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                        alt=""
+                        loading="lazy"
+                        data-color-preview-image
+                      >
+                    </div>
+                    <div class="lp-color-preview__meta">
+                      <span class="lp-color-preview__eyebrow">Color preview</span>
+                      <span class="lp-color-preview__label" data-color-preview-label></span>
+                    </div>
                   </div>
                 {%- else -%}
                   <div class="lp-option-group__buttons">
@@ -1914,6 +2020,7 @@
           "compare_at_price": {{ variant.compare_at_price | default: 0 | json }},
           "compare_at_price_text": {% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money | json }}{% else %}""{% endif %},
           "featured_media_id": {{ variant.featured_media.id | default: nil | json }},
+          "featured_image_id": {{ variant.featured_image.id | default: nil | json }},
           "featured_image": {% if variant.featured_image != blank %}{{ variant.featured_image | image_url: width: 1800 | json }}{% else %}null{% endif %},
           "url": {{ product.url | append: '?variant=' | append: variant.id | json }}
         }{% unless forloop.last %},{% endunless %}
@@ -1922,11 +2029,40 @@
   </script>
 
   <script>
+    window.productData = {
+      variants: {{ product.variants | json }},
+      options: {{ product.options_with_values | json }}
+    };
+  </script>
+
+  <script>
     (() => {
       const section = document.getElementById('LPMainProduct-{{ section.id }}');
       if (!section) return;
 
+      const parseNumericOptionValue = (value = '') => {
+        const match = String(value).replace(/,/g, '').match(/-?\d+(?:\.\d+)?/);
+        return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
+      };
+
+      section.querySelectorAll('[data-option-group-kind="size"] .lp-option-group__buttons').forEach((container) => {
+        const buttons = Array.from(container.querySelectorAll('[data-option-button]'));
+        buttons
+          .map((button, index) => ({
+            button,
+            index,
+            numericValue: parseNumericOptionValue(button.dataset.optionValue || button.textContent || ''),
+          }))
+          .sort((a, b) => {
+            if (a.numericValue === b.numericValue) return a.index - b.index;
+            return a.numericValue - b.numericValue;
+          })
+          .forEach(({ button }) => container.appendChild(button));
+      });
+
       const variantData = JSON.parse(section.querySelector('[data-variant-json]').textContent);
+      const productOptions =
+        window.productData && Array.isArray(window.productData.options) ? window.productData.options : [];
       const productHasVariants = variantData.length > 0;
       const track = section.querySelector('[data-gallery-track]');
       const viewport = section.querySelector('[data-gallery-viewport]');
@@ -1944,6 +2080,11 @@
       const qtyInput = section.querySelector('[data-qty-input]');
       const qtyHiddenInputs = Array.from(section.querySelectorAll('[data-qty-hidden-input], [data-buy-now-qty-input]'));
       const optionButtons = Array.from(section.querySelectorAll('[data-option-button]'));
+      const colorButtons = optionButtons.filter((button) => button.dataset.optionKind === 'color');
+      const colorPreview = section.querySelector('[data-color-preview]');
+      const colorPreviewImage = colorPreview?.querySelector('[data-color-preview-image]');
+      const colorPreviewLabel = colorPreview?.querySelector('[data-color-preview-label]');
+      const colorPreviewGroup = colorPreview?.closest('[data-option-group]');
       const reviewWidget = section.querySelector('#judgeme_product_reviews');
       const reviewFallback = section.querySelector('[data-review-fallback]');
       let currentIndex = Math.max(
@@ -1954,16 +2095,18 @@
       const visibleThumbCount = 4;
 
       const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
-      const normalizeColorKey = (value = '') => {
-        const normalized = String(value).toLowerCase();
-        if (normalized.includes('beige') || normalized.includes('ベージュ')) return 'beige';
-        if (normalized.includes('gray') || normalized.includes('grey') || normalized.includes('グレー')) return 'gray';
-        return '';
+      const isShipsFromOptionName = (value = '') => {
+        const normalized = String(value).trim().toLowerCase();
+        return normalized === 'ships from';
       };
-      const colorLabelMap = {
-        beige: 'ベージュ',
-        gray: 'グレー',
-      };
+      const hiddenOptionIndexes = productOptions.reduce((indexes, option, index) => {
+        if (isShipsFromOptionName(option?.name)) indexes.push(index);
+        return indexes;
+      }, []);
+      const visibleOptionIndexes = productOptions.reduce((indexes, _option, index) => {
+        if (!hiddenOptionIndexes.includes(index)) indexes.push(index);
+        return indexes;
+      }, []);
 
       const setQuantity = (value) => {
         const nextValue = Math.max(1, Number(value) || 1);
@@ -2013,45 +2156,161 @@
         }
       };
 
+      const findSlideIndexForVariant = (variant) => {
+        if (!variant || !slides.length) return -1;
+
+        const candidateIds = [variant.featured_image_id, variant.featured_media_id].filter(Boolean);
+        for (const candidateId of candidateIds) {
+          const slideIndex = slides.findIndex((slide) => String(slide.dataset.mediaId) === String(candidateId));
+          if (slideIndex >= 0) return slideIndex;
+        }
+
+        if (variant.featured_image) {
+          const slideIndex = slides.findIndex((slide) => {
+            const image = slide.querySelector('img');
+            return image && [image.currentSrc, image.src].includes(variant.featured_image);
+          });
+          if (slideIndex >= 0) return slideIndex;
+        }
+
+        return -1;
+      };
+
       const selectedOptions = productHasVariants
         ? (variantData.find((variant) => variant.id === {{ selected_variant.id | json }}) || variantData[0]).options.slice()
         : [];
 
-      const findVariant = () =>
-        variantData.find((variant) =>
-          variant.options.every((optionValue, optionIndex) => optionValue === selectedOptions[optionIndex])
+      const getComparableOptionIndexes = (buttonIndex = null) => {
+        const indexes = visibleOptionIndexes.length
+          ? visibleOptionIndexes
+          : selectedOptions.map((_value, index) => index);
+        return buttonIndex === null ? indexes : indexes.filter((index) => index !== buttonIndex);
+      };
+
+      const getMatchingVariants = () => {
+        const indexes = getComparableOptionIndexes();
+        return variantData.filter((variant) =>
+          indexes.every((optionIndex) => variant.options[optionIndex] === selectedOptions[optionIndex])
         );
+      };
+
+      const findVariant = () => {
+        const matches = getMatchingVariants();
+        return matches.find((variant) => variant.available) || matches[0] || null;
+      };
+
+      const getPreviewVariantForColor = (buttonValue, optionIndex) => {
+        const comparableIndexes = getComparableOptionIndexes(optionIndex);
+        const exactMatches = variantData.filter((variant) => {
+          if (variant.options[optionIndex] !== buttonValue) return false;
+          return comparableIndexes.every((index) => variant.options[index] === selectedOptions[index]);
+        });
+        const exactWithImage = exactMatches.filter((variant) => variant.featured_image);
+        const sameColorWithImage = variantData.filter(
+          (variant) => variant.options[optionIndex] === buttonValue && variant.featured_image
+        );
+
+        return (
+          exactWithImage.find((variant) => variant.available) ||
+          exactWithImage[0] ||
+          sameColorWithImage.find((variant) => variant.available) ||
+          sameColorWithImage[0] ||
+          null
+        );
+      };
+
+      const getPreviewMediaVariantForColor = (buttonValue, optionIndex) => {
+        const comparableIndexes = getComparableOptionIndexes(optionIndex);
+        const exactWithMedia = variantData.filter((variant) => {
+          if (variant.options[optionIndex] !== buttonValue) return false;
+          if (!variant.featured_image_id && !variant.featured_media_id) return false;
+          return comparableIndexes.every((index) => variant.options[index] === selectedOptions[index]);
+        });
+        const sameColorWithMedia = variantData.filter(
+          (variant) => variant.options[optionIndex] === buttonValue && (variant.featured_image_id || variant.featured_media_id)
+        );
+
+        return (
+          exactWithMedia.find((variant) => variant.available) ||
+          exactWithMedia[0] ||
+          sameColorWithMedia.find((variant) => variant.available) ||
+          sameColorWithMedia[0] ||
+          null
+        );
+      };
+
+      const syncColorButtonPreviews = () => {
+        colorButtons.forEach((button) => {
+          const optionIndex = Number(button.dataset.optionIndex);
+          const previewVariant = getPreviewVariantForColor(button.dataset.optionValue, optionIndex);
+          button.dataset.previewImage = previewVariant?.featured_image || '';
+          if (!button.dataset.previewLabel) {
+            button.dataset.previewLabel = button.dataset.optionValue;
+          }
+        });
+      };
+
+      const hideColorPreview = () => {
+        if (!colorPreview || !colorPreviewImage || !colorPreviewLabel) return;
+        colorPreview.classList.remove('is-visible');
+        colorPreview.setAttribute('aria-hidden', 'true');
+      };
+
+      const showColorPreview = (button, pointerEvent = null) => {
+        if (isMobile() || !colorPreview || !colorPreviewImage || !colorPreviewLabel || !colorPreviewGroup) return;
+        const previewImage = button.dataset.previewImage;
+        if (!previewImage) {
+          hideColorPreview();
+          return;
+        }
+
+        colorPreviewImage.src = previewImage;
+        colorPreviewImage.alt = `${button.dataset.previewLabel || button.dataset.optionValue} preview`;
+        colorPreviewLabel.textContent = button.dataset.previewLabel || button.dataset.optionValue || '';
+
+        const groupRect = colorPreviewGroup.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+        const previewWidth = colorPreview.offsetWidth || 190;
+        const previewHeight = colorPreview.offsetHeight || 240;
+        const anchorX = pointerEvent?.clientX ?? buttonRect.left + buttonRect.width / 2;
+        const anchorY = pointerEvent?.clientY ?? buttonRect.top;
+        const desiredLeft = anchorX - groupRect.left - previewWidth / 2;
+        const desiredTop = anchorY - groupRect.top - previewHeight - 12;
+        const maxLeft = Math.max(groupRect.width - previewWidth, 0);
+        const clampedLeft = Math.min(Math.max(desiredLeft, 0), maxLeft);
+        const minTop = -previewHeight + 24;
+        const maxTop = Math.max(groupRect.height - 12, minTop);
+        const clampedTop = Math.min(Math.max(desiredTop, minTop), maxTop);
+
+        colorPreview.style.left = `${clampedLeft}px`;
+        colorPreview.style.top = `${clampedTop}px`;
+        colorPreview.classList.add('is-visible');
+        colorPreview.setAttribute('aria-hidden', 'false');
+      };
 
       const updateOptionAvailability = () => {
         optionButtons.forEach((button) => {
           const buttonIndex = Number(button.dataset.optionIndex);
           const buttonValue = button.dataset.optionValue;
-          const isColorButton = button.dataset.optionKind === 'color';
-          const colorKey = button.dataset.colorKey;
           const matches = variantData.some((variant) => {
             if (!variant.available) return false;
-            if (isColorButton) {
-              if (normalizeColorKey(variant.options[buttonIndex]) !== colorKey) return false;
-            } else if (variant.options[buttonIndex] !== buttonValue) {
+            if (variant.options[buttonIndex] !== buttonValue) {
               return false;
             }
-            return variant.options.every((optionValue, optionIndex) => {
-              if (optionIndex === buttonIndex) return true;
-              return optionValue === selectedOptions[optionIndex];
-            });
+            return getComparableOptionIndexes(buttonIndex).every(
+              (optionIndex) => variant.options[optionIndex] === selectedOptions[optionIndex]
+            );
           });
           button.disabled = !matches;
           button.classList.toggle('is-unavailable', !matches);
+          button.setAttribute('aria-disabled', matches ? 'false' : 'true');
         });
       };
 
       const updateOptionUi = () => {
         optionButtons.forEach((button) => {
           const buttonIndex = Number(button.dataset.optionIndex);
-          const active =
-            button.dataset.optionKind === 'color'
-              ? normalizeColorKey(selectedOptions[buttonIndex]) === button.dataset.colorKey
-              : selectedOptions[buttonIndex] === button.dataset.optionValue;
+          const active = selectedOptions[buttonIndex] === button.dataset.optionValue;
           button.classList.toggle('is-active', active);
           button.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
@@ -2060,14 +2319,16 @@
           const label = group.querySelector('[data-option-value-label]');
           const index = Number(group.dataset.optionIndex);
           if (label) {
-            const activeColorKey = normalizeColorKey(selectedOptions[index]);
-            label.textContent = activeColorKey && colorLabelMap[activeColorKey] ? colorLabelMap[activeColorKey] : selectedOptions[index] || '';
+            label.textContent = selectedOptions[index] || '';
           }
         });
+
+        syncColorButtonPreviews();
       };
 
       const updateForVariant = (variant) => {
         if (!variant) return;
+        selectedOptions.splice(0, selectedOptions.length, ...variant.options);
         variantInputs.forEach((input) => {
           input.value = variant.id;
         });
@@ -2088,10 +2349,8 @@
         if (buyNowButton) buyNowButton.disabled = !isAvailable;
         if (atcLabel) atcLabel.textContent = isAvailable ? 'カートに追加' : '売り切れ';
 
-        if (variant.featured_media_id) {
-          const variantIndex = slides.findIndex((slide) => String(slide.dataset.mediaId) === String(variant.featured_media_id));
-          if (variantIndex >= 0) setActiveSlide(variantIndex, true);
-        }
+        const variantIndex = findSlideIndexForVariant(variant);
+        if (variantIndex >= 0) setActiveSlide(variantIndex, true);
 
         if (variant.url && window.history.replaceState) {
           window.history.replaceState({}, '', variant.url);
@@ -2103,23 +2362,29 @@
 
       optionButtons.forEach((button) => {
         button.addEventListener('click', () => {
-          if (button.disabled) return;
           const optionIndex = Number(button.dataset.optionIndex);
-          let variant = null;
-          if (button.dataset.optionKind === 'color') {
-            const colorKey = button.dataset.colorKey;
-            variant =
-              variantData.find((item) => normalizeColorKey(item.options[optionIndex]) === colorKey && item.available) ||
-              variantData.find((item) => normalizeColorKey(item.options[optionIndex]) === colorKey);
-            if (variant) {
-              selectedOptions.splice(0, selectedOptions.length, ...variant.options);
-            }
-          } else {
-            selectedOptions[optionIndex] = button.dataset.optionValue;
-            variant = findVariant();
+          const isColorButton = button.dataset.optionKind === 'color';
+
+          if (isMobile() && isColorButton) {
+            const mobilePreviewVariant = getPreviewMediaVariantForColor(button.dataset.optionValue, optionIndex);
+            const previewSlideIndex = findSlideIndexForVariant(mobilePreviewVariant);
+            if (previewSlideIndex >= 0) setActiveSlide(previewSlideIndex, true);
           }
+
+          if (button.disabled) return;
+          hideColorPreview();
+          selectedOptions[optionIndex] = button.dataset.optionValue;
+          const variant = findVariant();
           if (variant) updateForVariant(variant);
         });
+      });
+
+      colorButtons.forEach((button) => {
+        button.addEventListener('mouseenter', (event) => showColorPreview(button, event));
+        button.addEventListener('mousemove', (event) => showColorPreview(button, event));
+        button.addEventListener('mouseleave', hideColorPreview);
+        button.addEventListener('focus', () => showColorPreview(button));
+        button.addEventListener('blur', hideColorPreview);
       });
 
       thumbs.forEach((thumb) => {
@@ -2202,6 +2467,7 @@
       }
 
       window.addEventListener('resize', () => {
+        hideColorPreview();
         setActiveSlide(currentIndex, false);
         syncThumbCarousel();
       });
