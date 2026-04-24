@@ -2359,6 +2359,18 @@ body {
   margin-top: 0 !important;
 }
 
+.section-header,
+.shopify-section-group-header-group,
+.header-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  top: 0 !important;
+}
+
+.section-header .header {
+  padding-top: 0 !important;
+}
+
 #shopify-section-instagram,
 .instagram-section,
 [data-section-type='instagram'],
