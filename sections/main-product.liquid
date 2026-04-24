@@ -16,50 +16,48 @@
 {%- assign product_form_id = 'lp-product-form-' | append: section.id -%}
 {%- assign buy_now_form_id = 'lp-buy-now-form-' | append: section.id -%}
 {%- assign active_media_id = selected_variant.featured_media.id | default: product.featured_image.id | default: product.images.first.id -%}
-{%- assign desc = product.description | replace: '</p><p>', '<br />' | replace: '<p>', '' | replace: '</p>', '<br />' -%}
-{%- assign lines = desc | newline_to_br | split: '<br />' -%}
-{%- assign product_data = '' -%}
-{% comment %}各行をキー・バリューに分解{% endcomment %}
-{%- for line in lines -%}
-  {%- assign clean_line = line | strip_html | strip -%}
-  {%- assign parts = clean_line | split: ': ' -%}
-  {%- if parts.size >= 2 -%}
-    {%- assign key = parts[0] | strip -%}
-    {%- assign value = clean_line | remove_first: key | remove_first: ': ' | strip -%}
-    {%- assign product_data = product_data | append: key | append: '::' | append: value | append: '||' -%}
-  {%- endif -%}
-{%- endfor -%}
-{% comment %}値取得用のキャプチャ{% endcomment %}
-{% capture concept %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CONCEPT: ' %}{{ clean_line | remove: 'CONCEPT: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture tagline %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'TAGLINE: ' %}{{ clean_line | remove: 'TAGLINE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture hero_image_text %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'HERO_IMAGE_TEXT: ' %}{{ clean_line | remove: 'HERO_IMAGE_TEXT: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_1_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_1_TITLE: ' %}{{ clean_line | remove: 'FEATURE_1_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_1_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_1_DESC: ' %}{{ clean_line | remove: 'FEATURE_1_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_2_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_2_TITLE: ' %}{{ clean_line | remove: 'FEATURE_2_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_2_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_2_DESC: ' %}{{ clean_line | remove: 'FEATURE_2_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_3_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_3_TITLE: ' %}{{ clean_line | remove: 'FEATURE_3_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_3_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_3_DESC: ' %}{{ clean_line | remove: 'FEATURE_3_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_4_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_4_TITLE: ' %}{{ clean_line | remove: 'FEATURE_4_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_4_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_4_DESC: ' %}{{ clean_line | remove: 'FEATURE_4_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_5_title %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_5_TITLE: ' %}{{ clean_line | remove: 'FEATURE_5_TITLE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture feature_5_desc %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'FEATURE_5_DESC: ' %}{{ clean_line | remove: 'FEATURE_5_DESC: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_s_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_S_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_S_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_s_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_S_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_S_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_m_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_M_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_M_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_m_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_M_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_M_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_l_dimension %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_L_DIMENSION: ' %}{{ clean_line | remove: 'SIZE_L_DIMENSION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture size_l_weight_max %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SIZE_L_WEIGHT_MAX: ' %}{{ clean_line | remove: 'SIZE_L_WEIGHT_MAX: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture material %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'MATERIAL: ' %}{{ clean_line | remove: 'MATERIAL: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture weight_s %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WEIGHT_S: ' %}{{ clean_line | remove: 'WEIGHT_S: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture weight_m %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WEIGHT_M: ' %}{{ clean_line | remove: 'WEIGHT_M: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture wash_method %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'WASH_METHOD: ' %}{{ clean_line | remove: 'WASH_METHOD: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture caution %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CAUTION: ' %}{{ clean_line | remove: 'CAUTION: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture shipping_time %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'SHIPPING_TIME: ' %}{{ clean_line | remove: 'SHIPPING_TIME: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture return_policy %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RETURN_POLICY: ' %}{{ clean_line | remove: 'RETURN_POLICY: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture recommend_1 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_1: ' %}{{ clean_line | remove: 'RECOMMEND_1: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture recommend_2 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_2: ' %}{{ clean_line | remove: 'RECOMMEND_2: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture recommend_3 %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'RECOMMEND_3: ' %}{{ clean_line | remove: 'RECOMMEND_3: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
-{% capture closing_message %}{% for line in lines %}{% assign clean_line = line | strip_html | strip %}{% if clean_line contains 'CLOSING_MESSAGE: ' %}{{ clean_line | remove: 'CLOSING_MESSAGE: ' | strip }}{% endif %}{% endfor %}{% endcapture %}
+{%- assign desc = product.description
+  | replace: '<br />', '[[BR]]'
+  | replace: '<br/>', '[[BR]]'
+  | replace: '<br>', '[[BR]]'
+  | replace: '</p><p>', '[[BR]]'
+  | replace: '</p>
+<p>', '[[BR]]'
+  | replace: '<p>', ''
+  | replace: '</p>', '[[BR]]'
+  | strip_html
+-%}
+{% comment %}固定キーの前後で切り出して、改行やHTMLの揺れに強くする{% endcomment %}
+{% capture concept %}{{ desc | split: 'CONCEPT:' | last | split: 'TAGLINE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture tagline %}{{ desc | split: 'TAGLINE:' | last | split: 'HERO_IMAGE_TEXT:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture hero_image_text %}{{ desc | split: 'HERO_IMAGE_TEXT:' | last | split: 'FEATURE_1_TITLE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_1_title %}{{ desc | split: 'FEATURE_1_TITLE:' | last | split: 'FEATURE_1_DESC:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_1_desc %}{{ desc | split: 'FEATURE_1_DESC:' | last | split: 'FEATURE_2_TITLE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_2_title %}{{ desc | split: 'FEATURE_2_TITLE:' | last | split: 'FEATURE_2_DESC:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_2_desc %}{{ desc | split: 'FEATURE_2_DESC:' | last | split: 'FEATURE_3_TITLE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_3_title %}{{ desc | split: 'FEATURE_3_TITLE:' | last | split: 'FEATURE_3_DESC:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_3_desc %}{{ desc | split: 'FEATURE_3_DESC:' | last | split: 'FEATURE_4_TITLE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_4_title %}{{ desc | split: 'FEATURE_4_TITLE:' | last | split: 'FEATURE_4_DESC:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_4_desc %}{{ desc | split: 'FEATURE_4_DESC:' | last | split: 'FEATURE_5_TITLE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_5_title %}{{ desc | split: 'FEATURE_5_TITLE:' | last | split: 'FEATURE_5_DESC:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture feature_5_desc %}{{ desc | split: 'FEATURE_5_DESC:' | last | split: 'COLOR_1:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_s_dimension %}{{ desc | split: 'SIZE_S_DIMENSION:' | last | split: 'SIZE_S_WEIGHT_MAX:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_s_weight_max %}{{ desc | split: 'SIZE_S_WEIGHT_MAX:' | last | split: 'SIZE_M_DIMENSION:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_m_dimension %}{{ desc | split: 'SIZE_M_DIMENSION:' | last | split: 'SIZE_M_WEIGHT_MAX:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_m_weight_max %}{{ desc | split: 'SIZE_M_WEIGHT_MAX:' | last | split: 'SIZE_L_DIMENSION:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_l_dimension %}{{ desc | split: 'SIZE_L_DIMENSION:' | last | split: 'SIZE_L_WEIGHT_MAX:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture size_l_weight_max %}{{ desc | split: 'SIZE_L_WEIGHT_MAX:' | last | split: 'MATERIAL:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture material %}{{ desc | split: 'MATERIAL:' | last | split: 'WEIGHT_S:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture weight_s %}{{ desc | split: 'WEIGHT_S:' | last | split: 'WEIGHT_M:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture weight_m %}{{ desc | split: 'WEIGHT_M:' | last | split: 'WASH_METHOD:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture wash_method %}{{ desc | split: 'WASH_METHOD:' | last | split: 'CAUTION:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture caution %}{{ desc | split: 'CAUTION:' | last | split: 'SHIPPING_TIME:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture shipping_time %}{{ desc | split: 'SHIPPING_TIME:' | last | split: 'RETURN_POLICY:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture return_policy %}{{ desc | split: 'RETURN_POLICY:' | last | split: 'RECOMMEND_1:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture recommend_1 %}{{ desc | split: 'RECOMMEND_1:' | last | split: 'RECOMMEND_2:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture recommend_2 %}{{ desc | split: 'RECOMMEND_2:' | last | split: 'RECOMMEND_3:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture recommend_3 %}{{ desc | split: 'RECOMMEND_3:' | last | split: 'CLOSING_MESSAGE:' | first | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
+{% capture closing_message %}{{ desc | split: 'CLOSING_MESSAGE:' | last | replace: '[[BR]]', ' ' | strip }}{% endcapture %}
 {%- assign concept = concept | strip -%}
 {%- assign tagline = tagline | strip -%}
 {%- assign hero_image_text = hero_image_text | strip -%}
@@ -120,7 +118,7 @@
 {%- assign recommend_2_key = recommend_2 | upcase -%}
 {%- assign recommend_3_key = recommend_3 | upcase -%}
 {%- assign closing_message_key = closing_message | upcase -%}
-{%- assign description_plain = product.description | strip_html | strip_newlines -%}
+{%- assign description_plain = desc | replace: '[[BR]]', ' ' | strip_newlines -%}
 {%- assign show_concept = false -%}
 {%- if concept != blank and concept_key != 'NONE' -%}
   {%- assign show_concept = true -%}
