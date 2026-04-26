@@ -1,0 +1,92 @@
+---
+description: CSS writing conventions — tokens, specificity, !important policy
+globs: ["assets/*.css", "sections/*.liquid", "snippets/*.liquid", "layout/*.liquid"]
+alwaysApply: false
+---
+
+# CSS記述規則
+
+## デザイントークン（必ず変数を使う）
+
+```css
+/* ── Colors ── */
+--color-bg: #fafaf8          /* ページ背景 */
+--color-bg-secondary: #f2f0eb /* セクション背景（クリーム） */
+--color-surface: #ffffff      /* カード・モーダル */
+--color-ink: #1a1814          /* メインテキスト */
+--color-ink-muted: #6b6560    /* サブテキスト */
+--color-ink-subtle: #b8b3ae   /* プレースホルダー */
+--color-accent: #c8956c       /* CTA・アクセント（テラコッタ） */
+--color-accent-light: #e8c9b0
+--color-accent-dark: #a0714a
+
+/* ── Fonts ── */
+--font-display: 'Cormorant Garamond', Georgia, serif  /* 見出し */
+--font-body:    'DM Sans', system-ui, sans-serif       /* 本文 */
+--font-mono:    'DM Mono', monospace                   /* 価格・ラベル */
+
+/* ── Radius ── */
+--radius-sm: 4px  --radius-md: 8px  --radius-lg: 16px
+--radius-xl: 24px  --radius-full: 9999px
+
+/* ── Shadows ── */
+--shadow-sm  --shadow-md  --shadow-lg  --shadow-xl
+
+/* ── Easing ── */
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
+--transition-fast: 150ms  --transition-base: 300ms
+```
+
+## !important ポリシー
+
+### 追加してよいケース
+- `pawlux-components.css` 内で Dawn の `base.css` のスタイルを上書きするとき
+- セクション固有CSS内でDawnのコンポーネントスタイルを上書きするとき
+
+### 追加してはいけないケース
+- CSS カスタムプロパティ（`--var: value !important` は無効・混乱のもと）
+- `theme.css` の基本スタイル（後から読み込まれるファイルが優先するので不要）
+- 同じファイル内の別のルールと !important で戦わせる
+
+### !importantより先に確認すること
+「なぜ通常のCascadeでは効かないのか」を考える。読み込み順序で解決できる場合は !important を使わない。
+
+## セレクター特異度のガイド
+
+```css
+/* ❌ グローバルすぎる */
+.card { ... }
+
+/* ✅ スコープを絞る（テンプレート固有） */
+.template-product .card { ... }
+
+/* ✅ セクションスコープ */
+.homepage-blocks .card { ... }
+```
+
+## ハードコード禁止値
+
+以下は変数で書く：
+```css
+/* ❌ */
+color: #1a1814;
+font-family: 'Cormorant Garamond', serif;
+border-radius: 9999px;
+
+/* ✅ */
+color: var(--color-ink);
+font-family: var(--font-display);
+border-radius: var(--radius-full);
+```
+
+## 100vw + 負マージン ハック禁止
+
+```css
+/* ❌ スクロールバー幅分はみ出す */
+width: 100vw;
+margin-left: calc(50% - 50vw);
+
+/* ✅ 親コンテナを正しく設定する */
+width: 100%;
+max-width: 100%;
+```

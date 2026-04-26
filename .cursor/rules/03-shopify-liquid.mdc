@@ -1,0 +1,90 @@
+---
+description: Shopify Liquid / Dawn patterns — how sections, SVGs, and snippets work
+globs: ["sections/*.liquid", "snippets/*.liquid", "layout/*.liquid", "templates/*.json"]
+alwaysApply: false
+---
+
+# Shopify / Dawn パターン
+
+## セクションにCSSを追加する方法
+
+```liquid
+{{- 'section-my-section.css' | asset_url | stylesheet_tag -}}
+```
+- Shopifyがページごとに重複排除してくれる（同一ページに複数回現れても1回だけ読み込まれる）
+- セクションのLiquidファイル先頭に書く
+- `pawlux-components.css` や `theme.css` には追加しない
+
+## SVGアイコン
+
+### 使い方（Dawnの標準パターン）
+```liquid
+{{ 'icon-cart.svg' | inline_asset_content }}
+```
+- SVGは `assets/icon-*.svg` に個別ファイルとして存在する
+- `inline_asset_content` でインラインSVGとして展開される（クラス・CSS制御可能）
+
+### アイコン一覧（コードで使用中のもの）
+| ファイル名 | 用途 |
+|-----------|------|
+| icon-account.svg | アカウントアイコン |
+| icon-cart.svg / icon-cart-empty.svg | カートアイコン |
+| icon-hamburger.svg / icon-close.svg | モバイルメニュー |
+| icon-arrow.svg / icon-caret.svg | ナビゲーション矢印 |
+| icon-search.svg | 検索 |
+| icon-minus.svg / icon-plus.svg | 数量変更 |
+| icon-remove.svg | カートアイテム削除 |
+| icon-error.svg / icon-success.svg / icon-info.svg | 通知 |
+| icon-discount.svg | 割引コード |
+| icon-share.svg / icon-zoom.svg | 商品詳細 |
+| icon-tick.svg / icon-checkmark.svg | チェック |
+| icon-pause.svg / icon-play.svg | 動画 |
+| icon-instagram.svg 〜 icon-youtube.svg | SNSアイコン |
+| icon-paw-print.svg | ブランドアイコン |
+
+### アイコンを新たに追加しないこと
+既存アイコンで代替できる場合はそうする。新規追加が必要な場合は先に確認する。
+
+### アイコンセレクター経由で動的に使われるもの（削除禁止）
+`icon-accordion.liquid` / `icon-with-text.liquid` スニペット経由でTheme Editorから選択可能。
+`assets/icon-*.svg` の全ファイルは削除しない。
+
+## セクション / スニペットのパターン
+
+### セクション構造
+```liquid
+{{- 'section-name.css' | asset_url | stylesheet_tag -}}  ← CSSは先頭に
+
+<div class="section-name">
+  ...コンテンツ...
+</div>
+
+{% schema %}
+{
+  "name": "セクション名",
+  "settings": [...],
+  "blocks": [...],
+  "presets": [{"name": "セクション名"}]
+}
+{% endschema %}
+```
+
+### スニペット呼び出し
+```liquid
+{% render 'snippet-name', param: value %}
+```
+
+## テンプレートとセクションの対応
+
+| テンプレート | 主なセクション |
+|------------|--------------|
+| `templates/index.json` | sections/main-homepage.liquid, sections/homepage-blocks.liquid |
+| `templates/product.json` | sections/main-product.liquid |
+| `templates/product.pawlux-lp.json` | sections/main-product.liquid（LPモード） |
+| `templates/collection.json` | sections/main-collection-product-grid.liquid |
+| `templates/page.about.json` | sections/page-about.liquid |
+| `templates/page.faq.json` | sections/page-faq.liquid |
+
+## layout/theme.liquid を編集するとき
+CSS読み込み順が変わる重要ファイル。変更前に必ず確認を求めること。
+追加するときは末尾（pawlux-hero.cssの後）ではなく、適切な順序に挿入する。

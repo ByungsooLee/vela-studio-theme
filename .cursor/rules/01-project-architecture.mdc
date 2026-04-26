@@ -1,0 +1,57 @@
+---
+description: Project file ownership map — which file owns which styles/logic
+alwaysApply: true
+---
+
+# プロジェクトアーキテクチャ
+
+## このプロジェクトとは
+Shopify Dawn ベースのカスタムテーマ。ブランド: **PawLux**（ペット用プレミアム商品）。
+日本語サイト。Shopify OS 2.0アーキテクチャ（JSON templates + セクション単位）。
+
+## CSS 読み込み順（layout/theme.liquid）
+
+```
+base.css                ← Dawn本体。原則編集禁止
+design-system.css       ← デザインシステム基盤
+[component-*.css]       ← Dawnコンポーネント群
+─────────────────────── ← カスタムレイヤー開始
+pawlux-tokens.css       ← :root {} のデザイントークンのみ
+pawly-base.css          ← pawlyサブブランドの基本スタイル
+theme.css               ← ベース要素（body/見出し/リンク/ボタン/カード）
+pawlux-base.css         ← レイアウト構造（ヘッダー位置・フッター・マージン）
+pawlux-global.css       ← グローバルユーティリティのみ（overflow guards, reveal等）
+pawlux-components.css   ← Dawnコンポーネントの全体的な上書き
+pawlux-hero.css         ← ヒーロー・LPセクション
+─────────────────────── ← セクション個別レイヤー
+section-homepage-blocks.css   ← sections/homepage-blocks.liquid が読み込む
+section-page-about.css        ← sections/page-about.liquid が読み込む
+section-page-faq.css          ← sections/page-faq.liquid が読み込む
+section-footer.css            ← sections/footer.liquid が読み込む
+[その他 section-*.css]        ← セクションが自己読み込み
+```
+
+## ファイル別責任範囲
+
+| ファイル | 追加してよいもの | 追加してはいけないもの |
+|---------|----------------|----------------------|
+| `pawlux-tokens.css` | `:root {}` のCSS変数のみ | セレクターを使うルール一切 |
+| `theme.css` | body・見出し・リンク・ボタン・カード・inputの基本スタイル | セクション固有スタイル |
+| `pawlux-base.css` | ヘッダー位置・フッター・アナウンスバーの構造 | ページ固有スタイル |
+| `pawlux-global.css` | box-sizing reset・overflow guards・.reveal | body/h1-h4フォント（theme.cssに書く） |
+| `pawlux-components.css` | Dawnコンポーネントへのブランド上書き（カード・カート等） | About/FAQ/Homepageのセクション固有スタイル |
+| `section-*.css` | そのセクション専用のスタイル | 他セクションに影響するグローバルスタイル |
+
+## 新しいセクションにCSSを追加するとき
+1. `assets/section-[セクション名].css` を新規作成
+2. 対応するLiquidファイルの先頭に `{{ 'section-[セクション名].css' | asset_url | stylesheet_tag }}` を追加
+3. `pawlux-components.css` には追加しない
+
+## `src/` ディレクトリについて
+`src/components/` はReact/TSXのプロトタイプファイル（Shopifyテーマには組み込まれていない）。
+**編集・参照しなくてよい。** デザインリファレンスとしてのみ存在する。
+
+## Breakpoint ルール
+- モバイル: `max-width: 749px`
+- タブレット: `max-width: 989px`
+- **`767px`, `768px`, `480px` は使用禁止**（Dawn標準外）
