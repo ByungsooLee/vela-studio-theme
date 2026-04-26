@@ -5,9 +5,22 @@
   color: rgb(var(--color-foreground));
 }
 
+.card-information .price,
+.card__information .price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+  min-width: 0;
+}
+
 .price > * {
   display: inline-block;
   vertical-align: top;
+}
+
+.card-information .price > *,
+.card__information .price > * {
+  max-width: 100%;
 }
 
 .price.price--unavailable {
@@ -21,6 +34,11 @@
 .price .price-item {
   display: inline-block;
   margin: 0 1rem 0 0;
+}
+
+.card-information .price .price-item,
+.card__information .price .price-item {
+  margin-right: 0;
 }
 
 .price__regular .price-item--regular {

@@ -1,0 +1,303 @@
+/* ============================================
+   Homepage Blocks — Section styles
+   Loaded only when homepage-blocks section is present.
+   All rules scoped to .homepage-blocks to avoid leaking.
+   ============================================ */
+
+/* ── Brand Values ── */
+.homepage-blocks .brand-values {
+  padding: 80px 0;
+  background: #fafaf8;
+}
+
+.homepage-blocks .brand-values__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+/* Force correct aspect-ratio / cover on all media variants Shopify may render */
+.homepage-blocks .brand-values__media,
+.homepage-blocks .brand-values .media,
+.homepage-blocks .brand-values figure,
+.homepage-blocks .brand-values__item > div:first-child {
+  aspect-ratio: 4 / 3 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  margin-bottom: 24px;
+}
+
+.homepage-blocks .brand-values__media img,
+.homepage-blocks .brand-values__video,
+.homepage-blocks .brand-values figure img,
+.homepage-blocks .brand-values__item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: block;
+}
+
+.homepage-blocks .brand-values__item:hover img {
+  transform: scale(1.04) !important;
+}
+
+.homepage-blocks .brand-values__item h3,
+.homepage-blocks .brand-values [class*="heading"] {
+  margin-top: 20px !important;
+  margin-bottom: 8px !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 1.5rem !important;
+  font-weight: 400 !important;
+}
+
+.homepage-blocks .brand-values__item p,
+.homepage-blocks .brand-values [class*="body"] {
+  font-size: 0.9rem !important;
+  line-height: 1.7 !important;
+  color: #6b6560 !important;
+  margin-bottom: 0 !important;
+}
+
+.homepage-blocks .brand-values__item,
+.homepage-blocks .brand-values .column {
+  padding-bottom: 0 !important;
+}
+
+/* ── Link Banners ── */
+.homepage-blocks .link-banners {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.homepage-blocks .link-banner {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+}
+
+.homepage-blocks .link-banner__media {
+  position: absolute;
+  inset: 0;
+}
+
+.homepage-blocks .link-banner__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.homepage-blocks .link-banner:hover .link-banner__media img {
+  transform: scale(1.05);
+}
+
+.homepage-blocks .link-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 60%);
+}
+
+.homepage-blocks .link-banner__label {
+  position: relative;
+  z-index: 2;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  color: #fff;
+  padding: 0 24px 28px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Featured Products ── */
+.homepage-blocks .featured-products {
+  padding: 80px 0;
+}
+
+.homepage-blocks .featured-products__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.homepage-blocks .featured-products__title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #1a1814;
+}
+
+.homepage-blocks .featured-products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Reset card styles inside featured-products for editorial look */
+.homepage-blocks .featured-products .card-wrapper:hover {
+  transform: none !important;
+}
+
+.homepage-blocks .featured-products .card {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.homepage-blocks .featured-products .card__media {
+  aspect-ratio: 1 / 1;
+}
+
+.homepage-blocks .featured-products .card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.homepage-blocks .featured-products .card-wrapper:hover .card__media img {
+  transform: scale(1.04);
+}
+
+.homepage-blocks .featured-products .card__heading {
+  margin: 12px 0 0;
+  font-family: "DM Sans", sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  color: #1a1814 !important;
+  line-height: 1.5;
+}
+
+.homepage-blocks .featured-products .card__heading a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.homepage-blocks .featured-products .price__regular {
+  margin: 6px 0 0;
+  font-family: "DM Mono", monospace !important;
+  font-size: 0.875rem !important;
+  color: #6b6560 !important;
+}
+
+/* ── Insta Feed ── */
+.homepage-blocks .insta-feed {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.homepage-blocks .insta-feed__handle {
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #6b6560;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+.homepage-blocks .insta-feed__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.homepage-blocks .insta-feed__item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.homepage-blocks .insta-feed__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.homepage-blocks .insta-feed__item:hover img {
+  transform: scale(1.08);
+}
+
+.homepage-blocks .insta-feed__hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 24, 20, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.homepage-blocks .insta-feed__hover svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.homepage-blocks .insta-feed__item:hover .insta-feed__hover {
+  opacity: 1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 989px) {
+  .homepage-blocks {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .homepage-blocks .brand-values__inner,
+  .homepage-blocks .link-banners {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+    gap: 32px;
+  }
+
+  .homepage-blocks .featured-products__grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 28px;
+  }
+
+  .homepage-blocks .insta-feed__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 749px) {
+  .homepage-blocks {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .homepage-blocks .brand-values__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .homepage-blocks .link-banners {
+    grid-template-columns: 1fr;
+  }
+
+  .homepage-blocks .link-banner {
+    aspect-ratio: 16 / 9;
+  }
+
+  .homepage-blocks .insta-feed__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .homepage-blocks .featured-products__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

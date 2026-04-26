@@ -47,20 +47,7 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Rise theme override tokens */
-  --font-body-family: 'DM Sans', system-ui, sans-serif !important;
-  --font-heading-family: 'Cormorant Garamond', Georgia, serif !important;
-}
-
-html,
-body {
-  font-family: 'DM Sans', system-ui, sans-serif !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  /* Shopify theme settings override tokens */
+  --font-body-family: 'DM Sans', system-ui, sans-serif;
+  --font-heading-family: 'Cormorant Garamond', Georgia, serif;
 }

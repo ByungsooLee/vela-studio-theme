@@ -29,6 +29,15 @@
     grid-template-columns: auto minmax(0, max-content);
     column-gap: 2rem;
   }
+
+  .facet-filters {
+    padding-left: 1.2rem;
+  }
+
+  .facet-filters__summary {
+    min-width: clamp(16rem, 42vw, 20rem);
+    margin-top: 1.6rem;
+  }
 }
 
 .facet-filters {

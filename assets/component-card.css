@@ -137,6 +137,7 @@
 .card__information {
   grid-row-start: 2;
   padding: 1.3rem 1rem;
+  min-width: 0;
 }
 
 .card:not(.ratio) > .card__content {
@@ -467,6 +468,7 @@
 
 .card-information {
   width: 100%;
+  min-width: 0;
 }
 
 .card-information > * {

@@ -119,11 +119,10 @@
   }
 }
 
-@media (max-width: 749px) {
-  body {
-    overflow-x: hidden;
-  }
-
+@media (max-width: 989px) {
+  /* Keep top-level Shopify sections spanning the mobile viewport width.
+     This avoids sections collapsing to content width after removing the old
+     `100vw` breakout approach. */
   #MainContent.content-for-layout,
   #MainContent .shopify-section,
   #MainContent .shopify-section.section {
@@ -131,11 +130,14 @@
     max-width: 100% !important;
   }
 
+  /* Full-bleed hero: rely on 100% width of `#MainContent` (see `base.css` / grid),
+     not `100vw` + negative margins, which can cause scrollbar overflow. */
   .hero-full {
-    width: 100vw !important;
-    max-width: 100vw !important;
-    margin-left: calc(50% - 50vw) !important;
-    margin-right: calc(50% - 50vw) !important;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    min-height: clamp(420px, 72vh, 720px);
   }
 
   .hero-full__title {
@@ -143,6 +145,7 @@
   }
 
   .hero-full__content {
+    width: 100%;
     padding: 0 20px 48px;
   }
 
@@ -154,12 +157,18 @@
 
 .video-feature {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 36rem), 1fr));
   min-height: 80vh;
+  width: 100%;
+  max-width: 100%;
 }
 
 .video-feature--reverse {
   direction: rtl;
+}
+
+.video-feature > * {
+  min-width: 0;
 }
 
 .video-feature--reverse > * {
@@ -170,6 +179,7 @@
   position: relative;
   overflow: hidden;
   min-height: 500px;
+  width: 100%;
 }
 
 .video-feature__video,
@@ -188,6 +198,8 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(40px, 6vw, 96px);
+  width: 100%;
+  min-width: 0;
 }
 
 .video-feature__eyebrow {
@@ -240,16 +252,31 @@
   gap: 16px;
 }
 
-@media (max-width: 749px) {
+@media (max-width: 989px) {
   .video-feature,
   .video-feature--reverse {
-    grid-template-columns: 1fr;
     direction: ltr;
+    min-height: auto;
   }
 
   .video-feature__media {
-    min-height: 300px;
-    aspect-ratio: 16 / 9;
+    min-height: clamp(320px, 52vw, 420px);
+    aspect-ratio: 5 / 4;
+  }
+
+  .video-feature__content {
+    padding: clamp(32px, 5vw, 56px);
+  }
+}
+
+@media (max-width: 749px) {
+  .video-feature__media {
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+  }
+
+  .video-feature__content {
+    padding: 28px 20px 32px;
   }
 }
 

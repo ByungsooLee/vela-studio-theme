@@ -1027,7 +1027,7 @@
     }
 
     .lp-product--{{ section.id }} .lp-size-guide {
-      overflow-x: auto;
+      overflow-x: visible;
     }
 
     .lp-product--{{ section.id }} .lp-size-guide__table {
@@ -1046,6 +1046,7 @@
       border-bottom: 1px solid rgba(26, 26, 26, 0.08);
       text-align: center;
       font-size: 1.4rem;
+      overflow-wrap: anywhere;
     }
 
     .lp-product--{{ section.id }} .lp-size-guide__table th {
@@ -1211,9 +1212,20 @@
       align-items: start;
     }
 
+    .lp-product--{{ section.id }} .lp-related__grid > .grid__item {
+      width: auto;
+      max-width: none;
+      min-width: 0;
+    }
+
     .lp-product--{{ section.id }} .lp-related__grid .card-wrapper,
     .lp-product--{{ section.id }} .lp-related__grid .card {
       height: 100%;
+    }
+
+    .lp-product--{{ section.id }} .lp-related__grid .card__information,
+    .lp-product--{{ section.id }} .lp-related__grid .card-information {
+      min-width: 0;
     }
 
     .lp-product--{{ section.id }} .hidden {
@@ -1223,6 +1235,7 @@
     @media screen and (max-width: 989px) {
       .lp-product--{{ section.id }} .lp-hero__grid {
         grid-template-columns: 1fr;
+        gap: 3rem;
       }
 
       .lp-product--{{ section.id }} .lp-info {
@@ -1239,9 +1252,14 @@
       }
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 749px) {
+      .lp-product--{{ section.id }} .page-width {
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+      }
+
       .lp-product--{{ section.id }} .lp-section {
-        padding: 5.6rem 0;
+        padding: 4.8rem 0;
       }
 
       .lp-product--{{ section.id }} .lp-section__intro {
@@ -1258,13 +1276,108 @@
       }
 
       .lp-product--{{ section.id }} .lp-hero {
-        padding: 2.4rem 0 5.6rem;
+        padding: 1.6rem 0 4.8rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-gallery {
+        gap: 1.2rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-gallery__viewport {
+        border-radius: 2rem;
+        box-shadow: 0 14px 34px rgba(26, 26, 26, 0.08);
+      }
+
+      .lp-product--{{ section.id }} .lp-info {
+        padding: 2.4rem 2rem;
+        border-radius: 2rem;
+        background: var(--lp-alt);
+        box-shadow: 0 12px 30px rgba(26, 26, 26, 0.05);
+      }
+
+      .lp-product--{{ section.id }} .lp-info__brand {
+        margin-bottom: 0.8rem;
       }
 
       .lp-product--{{ section.id }} .lp-info__title {
         max-width: 100%;
-        font-size: 1.4rem;
-        line-height: 1.4;
+        font-size: clamp(3rem, 9vw, 4rem);
+        line-height: 1.08;
+        letter-spacing: -0.01em;
+      }
+
+      .lp-product--{{ section.id }} .lp-info__rating {
+        margin-top: 1.4rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-info__price {
+        margin-top: 1.4rem;
+        gap: 0.6rem 1.2rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-info__price-current {
+        font-size: clamp(3rem, 9vw, 3.8rem);
+      }
+
+      .lp-product--{{ section.id }} .lp-info__price-compare {
+        font-size: 1.5rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-hero-copy {
+        margin-top: 1.6rem;
+        gap: 1rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-hero-copy__concept {
+        font-size: 1.55rem;
+        line-height: 1.75;
+      }
+
+      .lp-product--{{ section.id }} .lp-hero-copy__tagline,
+      .lp-product--{{ section.id }} .lp-info__description {
+        font-size: 1.35rem;
+        line-height: 1.85;
+      }
+
+      .lp-product--{{ section.id }} .lp-option-group,
+      .lp-product--{{ section.id }} .lp-quantity {
+        margin-top: 2rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-option-group__label-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-option-group__buttons,
+      .lp-product--{{ section.id }} .lp-swatch-wrap {
+        gap: 0.8rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-option-button {
+        min-height: 4.2rem;
+        padding: 0.8rem 1.4rem;
+        font-size: 1.35rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-swatch {
+        min-height: 4.2rem;
+        padding: 0.4rem 1rem 0.4rem 0.4rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-swatch__label {
+        font-size: 1.25rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-quantity__control {
+        width: 100%;
+        grid-template-columns: 4.4rem minmax(0, 1fr) 4.4rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-cta {
+        margin-top: 2.4rem;
+        gap: 0.8rem;
       }
 
       .lp-product--{{ section.id }} .lp-gallery__thumbs {
@@ -1286,13 +1399,39 @@
 
       .lp-product--{{ section.id }} .lp-highlights,
       .lp-product--{{ section.id }} .lp-related__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-related__heading {
+        margin-bottom: 2.2rem;
+        font-size: clamp(2.4rem, 7.5vw, 3.2rem);
+        line-height: 1.15;
+      }
+
+      .lp-product--{{ section.id }} .lp-related__grid .card__information {
+        padding: 1.2rem 0.8rem 0;
+      }
+
+      .lp-product--{{ section.id }} .lp-related__grid .card__heading {
+        font-size: 1.3rem;
+        line-height: 1.45;
+      }
+
+      .lp-product--{{ section.id }} .lp-related__grid .price {
+        font-size: 1.3rem;
+        gap: 0.2rem 0.8rem;
       }
 
       .lp-product--{{ section.id }} .lp-trust {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 0.8rem;
+        gap: 0.8rem 1rem;
+        margin-top: 2rem;
+        padding: 1.2rem 1.4rem;
+        border-radius: 1.6rem;
+        background: rgba(255, 255, 255, 0.78);
+        white-space: normal;
       }
 
       .lp-product--{{ section.id }} .lp-trust__divider {
@@ -1302,10 +1441,104 @@
       .lp-product--{{ section.id }} .lp-trust__item {
         flex: 0 1 calc(50% - 0.8rem);
         justify-content: center;
+        text-align: center;
+        white-space: normal;
+      }
+
+      .lp-product--{{ section.id }} .lp-trust__text {
+        white-space: normal;
+      }
+
+      .lp-product--{{ section.id }} .payment-icons-wrapper {
+        padding: 1.2rem 1.4rem;
+      }
+
+      .lp-product--{{ section.id }} .payment-icons-label {
+        line-height: 1.5;
+      }
+
+      .lp-product--{{ section.id }} .lp-button {
+        min-height: 5rem;
+        padding: 1.3rem 1.8rem;
+        font-size: 1.3rem;
+        letter-spacing: 0.06em;
+      }
+
+      .lp-product--{{ section.id }} .lp-highlight {
+        padding: 2rem 1.6rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide {
+        overflow-x: visible;
       }
 
       .lp-product--{{ section.id }} .lp-size-guide__table {
-        min-width: 68rem;
+        width: 100%;
+        min-width: 0;
+        margin-top: 2.4rem;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table thead {
+        display: none;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table tbody {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table tr {
+        display: block;
+        overflow: hidden;
+        border-radius: 1.8rem;
+        background: #fff;
+        box-shadow: 0 10px 24px rgba(26, 26, 26, 0.05);
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1.6rem;
+        width: 100%;
+        padding: 1.4rem 1.6rem;
+        text-align: left;
+        font-size: 1.35rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td::before {
+        content: attr(data-label);
+        flex: 0 0 7.2rem;
+        color: var(--lp-muted);
+        font-size: 1.15rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td:first-child {
+        background: var(--lp-alt);
+        font-weight: 600;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td:first-child::before {
+        color: var(--lp-text);
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td[colspan] {
+        display: block;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table td[colspan]::before {
+        display: block;
+        margin-bottom: 0.8rem;
+      }
+
+      .lp-product--{{ section.id }} .lp-size-guide__table tr:last-child td:last-child {
+        border-bottom: 0;
       }
 
       .lp-product--{{ section.id }} .lp-moments {
@@ -1780,38 +2013,38 @@
         <tbody>
           {%- if show_size_s -%}
             <tr>
-              <td>S</td>
-              <td>{% if size_s_dimension != blank and size_s_dimension_key != 'NONE' %}{{ size_s_dimension }}{% endif %}</td>
-              <td>{% if size_s_weight_max != blank and size_s_weight_max_key != 'NONE' %}{{ size_s_weight_max }}{% endif %}</td>
-              <td>{% if weight_s != blank and weight_s_key != 'NONE' %}{{ weight_s }}{% endif %}</td>
+              <td data-label="サイズ">S</td>
+              <td data-label="寸法">{% if size_s_dimension != blank and size_s_dimension_key != 'NONE' %}{{ size_s_dimension }}{% endif %}</td>
+              <td data-label="耐荷重">{% if size_s_weight_max != blank and size_s_weight_max_key != 'NONE' %}{{ size_s_weight_max }}{% endif %}</td>
+              <td data-label="本体重量">{% if weight_s != blank and weight_s_key != 'NONE' %}{{ weight_s }}{% endif %}</td>
             </tr>
           {%- endif -%}
           {%- if show_size_m -%}
             <tr>
-              <td>M</td>
-              <td>{% if size_m_dimension != blank and size_m_dimension_key != 'NONE' %}{{ size_m_dimension }}{% endif %}</td>
-              <td>{% if size_m_weight_max != blank and size_m_weight_max_key != 'NONE' %}{{ size_m_weight_max }}{% endif %}</td>
-              <td>{% if weight_m != blank and weight_m_key != 'NONE' %}{{ weight_m }}{% endif %}</td>
+              <td data-label="サイズ">M</td>
+              <td data-label="寸法">{% if size_m_dimension != blank and size_m_dimension_key != 'NONE' %}{{ size_m_dimension }}{% endif %}</td>
+              <td data-label="耐荷重">{% if size_m_weight_max != blank and size_m_weight_max_key != 'NONE' %}{{ size_m_weight_max }}{% endif %}</td>
+              <td data-label="本体重量">{% if weight_m != blank and weight_m_key != 'NONE' %}{{ weight_m }}{% endif %}</td>
             </tr>
           {%- endif -%}
           {%- if show_size_l -%}
             <tr>
-              <td>L</td>
-              <td>{% if size_l_dimension != blank and size_l_dimension_key != 'NONE' %}{{ size_l_dimension }}{% endif %}</td>
-              <td>{% if size_l_weight_max != blank and size_l_weight_max_key != 'NONE' %}{{ size_l_weight_max }}{% endif %}</td>
-              <td></td>
+              <td data-label="サイズ">L</td>
+              <td data-label="寸法">{% if size_l_dimension != blank and size_l_dimension_key != 'NONE' %}{{ size_l_dimension }}{% endif %}</td>
+              <td data-label="耐荷重">{% if size_l_weight_max != blank and size_l_weight_max_key != 'NONE' %}{{ size_l_weight_max }}{% endif %}</td>
+              <td data-label="本体重量"></td>
             </tr>
           {%- endif -%}
           {%- if show_material -%}
             <tr>
-              <td>素材</td>
-              <td colspan="3">{{ material }}</td>
+              <td data-label="項目">素材</td>
+              <td data-label="内容" colspan="3">{{ material }}</td>
             </tr>
           {%- endif -%}
           {%- if show_wash_method -%}
             <tr>
-              <td>洗濯方法</td>
-              <td colspan="3">{{ wash_method }}</td>
+              <td data-label="項目">洗濯方法</td>
+              <td data-label="内容" colspan="3">{{ wash_method }}</td>
             </tr>
           {%- endif -%}
         </tbody>
@@ -2094,7 +2327,7 @@
       let thumbStartIndex = 0;
       const visibleThumbCount = 4;
 
-      const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
+      const isMobile = () => window.matchMedia('(max-width: 749px)').matches;
       const isShipsFromOptionName = (value = '') => {
         const normalized = String(value).trim().toLowerCase();
         return normalized === 'ships from';
